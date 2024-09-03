@@ -9,7 +9,7 @@
 					<div class="container-fluid">
 						<div class="row mb-2">
 							<div class="col-sm-6">
-								<h1 class="m-0">Dashboard - Gender And Development</h1>
+								<h1 class="m-0">Dashboard - Gender and Development</h1>
 							</div>
 							<!-- /.col -->
 							<div class="col-sm-6">
@@ -33,7 +33,7 @@
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-header custom-bg-gad-header">
-                                        OVERALL GAD POPULATION in USeP
+                                       USeP Population by Sex-Disaggregated Data as of 2024
                                     </div>
                                     <div class="card-body">
                                         <canvas id="total-pop" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
@@ -76,61 +76,6 @@
                                
                             </div>
                             <div class="col-6">
-                                <!-- <div class="row">
-                                     <div class="col-3">
-                                        <div class="small-box custom-bg-gad-header ">
-                                          <div class="inner">
-                                            <h3 class="overall-obrero"></h3>
-                                            <br>
-                                          </div>
-                                          <div class="icon">
-                                            <i class="ion ion-person-stalker"></i>
-                                          </div>
-                                          <a href="#" class="small-box-footer"
-                                            >Obrero</a>
-                                        </div>
-                                      </div>
-                                      <div class="col-3">
-                                        <div class="small-box custom-bg-gad-header ">
-                                          <div class="inner">
-                                            <h3 class="overall-tagum"></h3>
-                                            <br>
-                                          </div>
-                                          <div class="icon">
-                                            <i class="ion ion-person-stalker"></i>
-                                          </div>
-                                          <a href="#" class="small-box-footer"
-                                            >Tagum</a>
-                                        </div>
-                                      </div>
-                                      <div class="col-3">
-                                        <div class="small-box custom-bg-gad-header ">
-                                          <div class="inner">
-                                            <h3 class="overall-mintal"></h3>
-                                            <br>
-                                          </div>
-                                          <div class="icon">
-                                            <i class="ion ion-person-stalker"></i>
-                                          </div>
-                                          <a href="#" class="small-box-footer"
-                                            >Mintal</a>
-                                        </div>
-                                      </div>
-                                      <div class="col-3">
-                                        <div class="small-box custom-bg-gad-header ">
-                                          <div class="inner">
-                                            <h3 class="overall-mal"></h3>
-                                            <br>
-                                          </div>
-                                          <div class="icon">
-                                            <i class="ion ion-person-stalker"></i>
-                                          </div>
-                                          <a href="#" class="small-box-footer"
-                                            >Malabog</a>
-                                        </div>
-                                      </div>
-                                </div>  -->
-                               
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
@@ -208,7 +153,7 @@
 								
 								<div class="card">
 									<div class="card-header bg-gad-header">
-										<h5 class="mb-0">GAD Details per DIVISION</h5>
+										<h5 class="mb-0">Sex-Disaggregated Data by Category</h5>
 									</div>
 									<div class="card-body">
 										<div class="row"id="cards-container">
@@ -414,14 +359,32 @@
 
                              // display details per campus
                             let cardIndex = 0;
+                            var tempDiv = ""
+                            var tempCamp = ""
                             Object.keys(detGroupData).forEach(function(campus){
                                 if (campus!="All") {
                                     Object.keys(detGroupData[campus]).forEach(function(division){
+                                        if (campus == "Obrero" ){
+                                            tempCamp = "University Wide"
+                                        }
+                                        else {
+                                            tempCamp = campus
+                                        }
+
+                                        if(division.includes("HR DATA") || division.includes("Officials")) {
+                                            tempDiv = "Personal Profile by SSD as of 2024 - " + tempCamp 
+                                        }
+                                        else {
+                                             tempDiv = "Enrollment data school yr. 2023-2024 - " + tempCamp 
+                                        }
+                                        
+
+
                                         const cardHtml = `
                                         <div class="col-12"> 
                                             <div class="card ">
                                                 <div class="card-header custom-bg-gad-header">
-                                                    <h3 class="card-title">${division} (${campus})</h3>
+                                                    <h3 class="card-title">${tempDiv} </h3>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class ="row">

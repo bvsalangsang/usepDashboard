@@ -159,6 +159,7 @@ def fetchGad():
             LEFT JOIN man_component comp ON comp.compId = gad.compId
             LEFT JOIN man_division divis ON comp.divId = divis.divId
             WHERE gad.isActive = 'Y'
+            ORDER BY divis.name
         """)
     
     return sql

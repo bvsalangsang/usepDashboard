@@ -56,3 +56,11 @@ stratTempParams = {
     "createdDate":"",
     "isActive":""
 }
+
+stratTempDetParams = {
+    "tempId":"",
+    "indId":"",
+    "reference":"",
+    "target":"",
+    "isActive":""
+}

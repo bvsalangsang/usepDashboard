@@ -118,50 +118,59 @@
                                                             <button onclick="stepper.next()" id="copy-to-update" class="btn bg-gradient-primary" >Next</button>
                                                         </div>
                                                         <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger"> 
-                                                          <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="card">
-                                                                    <div class="card-header bg-gad-header">
-                                                                        Template Details
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <div class="form-group validate">
-                                                                            <label for="code">Template ID</label>
-                                                                            <input
-                                                                                type="text"
-                                                                                name="tempId"
-                                                                                id="id_tempId"
-                                                                                class="form-control"
-                                                                                disabled
-                                                                            />
-                                                                            <small class="text-red text-muted mySpan"></small>
+                                                            <form id="template-form">
+                                                                <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header bg-gad-header">
+                                                                                    Template Details
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <div class="form-group validate">
+                                                                                        <label for="code">Template ID</label>
+                                                                                        <input
+                                                                                            type="text"
+                                                                                            name="tempId"
+                                                                                            id="id_tempId"
+                                                                                            class="form-control"
+                                                                                            
+                                                                                        />
+                                                                                       <small class="text-red text-muted mySpan"></small>
+                                                                                    </div>
+                                                                                    <div class="form-group validate">
+                                                                                        <label for="code">Template Name</label>
+                                                                                        {{ form.tempName }}
+                                                                                        <small class="text-red text-muted mySpan"></small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="form-group validate">
-                                                                            <label for="code">Template Name</label>
-                                                                            {{ form.tempName }}
-                                                                            <small class="text-red text-muted mySpan"></small>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
 
-                                                            <div class="col-12">
-                                                                <div class="card">
-                                                                    <div class="card-header bg-gad-header">
-                                                                        Update Reference and Target
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                         <table id="ind-update" class="table table-bordered table-striped  dtr-inline" style="width:100%">
-                                                                        </table>
-                                                                    </div>
+                                                                        <div class="col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header bg-gad-header">
+                                                                                    Update Reference and Target
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <table id="ind-update" class="table table-bordered table-striped  dtr-inline" style="width:100%">
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                 </div>
-                                                            </div>
-                                                          </div>
-                                                          
-                                                        <button onclick="prev()" class="btn bg-gradient-primary">Previous</button>
-                                                        </div>
+                                                            
+                                                                <button onclick="prev()" class="btn bg-gradient-primary">Previous</button>
+                                                                <button
+                                                                        type="submit"
+                                                                        class="btn btn-success btn-save"
+                                                                        data-url="{% url 'saveTemplateParams' %}"
+                                                                    >
+                                                                    Save
+                                                                </button>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                              </div>
+                                            </div>
                                               <hr />
                                               <div>current step: <span id="current-step"></span></div>
                                         </div>
@@ -209,10 +218,10 @@
                 });
 
                 $(document).ready(function() {
-                var area;
-                $(".select2add").select2({
-                    theme: "bootstrap4",
-                });
+                    var area;
+                    $(".select2add").select2({
+                        theme: "bootstrap4",
+                    });
 
                 // Initialize DataTable
                     var compTable = $("#ind-table").DataTable({
@@ -242,6 +251,7 @@
                         order: [[1, 'desc']],
                         columns: [
                             { title: "ID", data: "indId", width: "5%" },
+                            { title: "Code", data: "code",  autoWidth: false},
                             { title: "Indicator", data: "description" },
                             { title: "Object", data: "obj" },
                             { title: "Area", data: "area" },
@@ -261,6 +271,7 @@
                         columns: [
                            
                             { title: "ID", data: "indId",  autoWidth: false},
+                            { title: "Code", data: "code",  autoWidth: false},
                             { title: "Indicator", data: "description"},
                             { title: "Object", data: "obj",width:  '20px' },
                             { title: "Area", data: "area",width:  '20px' },
@@ -410,7 +421,6 @@
 
                         // Add selected data to the selectedTable
                         selectedTable.rows.add(selectedData).draw();
-                        console.log(selectedData)
 
                         // Remove selected rows from the compTable
                         $(rowsToRemove).each(function() {
@@ -434,6 +444,7 @@
                             var data = this.data();
                             selectedData.push({
                                 indId: data.indId,
+                                code:data.code,
                                 description: data.description,
                                 obj: data.obj,
                                 area: data.area
@@ -442,6 +453,86 @@
                         updateTable.clear();
                         updateTable.rows.add(selectedData).draw();
                     });
+
+                    // //please review
+                    // $('#template-form').on('submit', function(e){
+                    //     e.preventDefault();
+				    //     e.stopPropagation();
+                        
+                    //     var tableData = updateTable.rows().data().toArray();
+                    //     var tempId = $('#tempId').val();
+                    //     var tempName = $('#tempName').val();
+
+                    //     var dataToSend = {
+                    //         tableData: tableData,
+                    //         tempId: tempId,
+                    //         tempName: tempName
+                    //     };
+                    //     console.log(dataToSend)
+
+                    //     $.ajax({
+                    //         url: '/saveData/', // Update to match your URL
+                    //         method: 'POST',
+                    //         contentType: 'application/json',
+                    //         data: JSON.stringify(dataToSend),
+                    //         success: function(response) {
+                    //             alert('Data saved successfully!');
+                    //         },
+                    //         error: function(xhr, status, error) {
+                    //             console.error('AJAX Error:', status, error);
+                    //         }
+                    //     });
+
+                    // })
+
+
+                    $('#template-form').on('submit', function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var tableData = [];
+                        updateTable.rows().every(function() {
+                            var data = this.data();
+                            
+                            // Extract values from the reference and target inputs
+                            var reference = $(this.node()).find('.reference-input').val();
+                            var target = $(this.node()).find('.target-input').val();
+
+                            tableData.push({
+                                indId: data.indId,
+                                description: data.description,
+                                obj: data.obj,
+                                area: data.area,
+                                reference: reference,
+                                target: target
+                            });
+                        });
+
+                        var tempId = $('#id_tempId').val();
+                        var tempName = $('#id_tempName').val();
+
+                        var dataToSend = {
+                            tableData: tableData,
+                            tempId: tempId,
+                            tempName: tempName
+                        };
+                        console.log(dataToSend);
+
+                        $.ajax({
+                            url: $(".btn-save").data("url"),
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(dataToSend),
+                            success: function(response) {
+                                alert('Data saved successfully!');
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('AJAX Error:', status, error);
+                            }
+                        });
+                    });
+
+
                 });
 
 

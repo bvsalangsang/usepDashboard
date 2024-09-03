@@ -454,6 +454,29 @@ def indDeleteParams(request,id):
 
 
 #template 
+def stratTemplateListView(request):
+    return render(request, 'themes/strat-template-list.html')
+
+def tempJsonList(request):
+    with connection.cursor() as cursor:
+            cursor.execute(fetchTemplate())
+            rows = cursor.fetchall()
+            
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            'tempId': row[0],
+            'tempName': row[1],
+            'createdBy':row[2],
+            'createdDate': row[3],
+            'isActive': row[4]
+        }
+        jsonResultData.append(tempRes)
+    return JsonResponse({"data":list(jsonResultData)}, safe=False)
+
+
 def stratTemplateView(request):
     form = stratTempForm()
     areaList = stratArea.objects.raw(fetchArea())
@@ -511,3 +534,105 @@ def stratRawJsonList(request):
     data = list(areas.values())
     return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
 
+def stratTempJsonList(request,id):
+    with connection.cursor() as cursor:
+        stratTempDetParams['tempId'] = id
+        stratTempDetParams['isActive']= 'Y'
+        cursor.execute(tempStratItems(**stratTempDetParams))
+        rows = cursor.fetchall()
+
+    areas = {}
+    objects_map = {}
+    indicators_map = {}
+
+    for row in rows:
+        area_id = row[0]
+        if area_id not in areas:
+            areas[area_id] = {
+                "areaId": row[0],
+                "code": row[1],
+                "area": row[2],
+                "isActive": row[3],
+                "objects": []
+            }
+
+        obj_id = row[4]
+        if obj_id:
+            if obj_id not in objects_map:
+                obj = {
+                    "sAreaId": row[0],
+                    "objId": row[4],
+                    "objCode": row[5],
+                    "ObjName": row[6],
+                    "isActive": row[7],
+                    "indicator": []
+                }
+                areas[area_id]["objects"].append(obj)
+                objects_map[obj_id] = obj
+            else:
+                obj = objects_map[obj_id]
+
+            ind_id = row[8]
+            if ind_id and ind_id not in indicators_map:
+                ind = {
+                    "objId": row[4],
+                    "indId": row[8],
+                    "refType": row[9],
+                    "indCode": row[10],
+                    "indDesc": row[11],
+                    "reference": row[12],
+                    "target": row[13],
+                    "isActive": row[14],
+                    "ctrlNo":row[15]
+                }
+                obj["indicator"].append(ind)
+                indicators_map[ind_id] = ind
+
+    data = list(areas.values())
+    return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
+
+
+
+@csrf_exempt    
+def saveTemplateParams(request):
+    cursor = connection.cursor()
+    if request.method == 'POST':
+        try:
+            # Parse JSON data from the request body
+            data = json.loads(request.body)
+            tableData = data.get('tableData', [])
+            tempId = data.get('tempId', '')
+
+            stratTempParams['tempId'] = tempId
+            stratTempParams['createdBy'] = 'admin'
+            stratTempParams['tempName']= data.get('tempName', '')
+            stratTempParams['isActive'] = 'Y'
+
+            cursor.execute(insertStratTemp(**stratTempParams))
+            
+            # saving it items from table
+            for row in tableData:
+                stratTempDetParams['tempId'] = tempId
+                stratTempDetParams['indId'] = row.get('indId')
+                stratTempDetParams['reference']  = row.get('reference')
+                stratTempDetParams['target']  = row.get('target')
+                stratTempDetParams['isActive']  = 'Y'
+                
+                cursor.execute(insertStratTempDet(**stratTempDetParams))
+                # Replace with your actual query
+                # insert_query = """
+                # INSERT INTO your_table_name (indId, description, obj, area, tempId, tempName)
+                # VALUES (%s, %s, %s, %s, %s, %s)
+                # """
+                # cursor.execute(insert_query, [ind_id, description, obj, area, temp_id, temp_name])
+            
+            connection.commit()
+            return JsonResponse({"Status": "Saved"})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"Status": "Error", "Message": "Invalid JSON"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse({"Status": "Error", "Message": str(err)})
+    else:
+        return JsonResponse({"Status": "Error", "Message": "Wrong Request Method"})

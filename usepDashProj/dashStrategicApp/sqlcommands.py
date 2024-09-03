@@ -290,6 +290,17 @@ def insertNewScorecards(**scorecardParams):
     return sql
 
 #strat template
+def fetchTemplate():
+  
+    sql = ("""
+            SELECT tempId, tempName, createdBy, createdDate, isActive
+            FROM  strat_template 
+            WHERE isActive = 'Y' 
+        """)
+    
+    return sql
+
+
 def rawStratItems():
     sql = ("""SELECT 
     area.areaId AS AreaId, 
@@ -312,6 +323,33 @@ def rawStratItems():
      """)
     return sql 
 
+def tempStratItems(**stratTempDetParams):
+    sql = ("""SELECT 
+    area.areaId AS AreaId, 
+    area.code AS areaCode, 
+    area.name AS areaName, 
+    area.isActive AS areaIsActive, 
+    obj.objId AS objId, 
+    obj.code AS objCode, 
+    obj.description AS objDesc, 
+    obj.isActive AS objIsActive, 
+    ind.indId AS indId, 
+    rtype.description AS typeDesc, 
+    ind.code AS indCode, 
+    ind.description AS indDesc, 
+    temp.reference AS reference,
+    temp.target AS target,
+    temp.isActive AS tempIsActive,
+    temp.ctrlNo as ctrlNo
+    FROM man_strat_area area 
+    LEFT JOIN man_strat_objective obj ON area.areaId = obj.areaId 
+    LEFT JOIN man_strat_indicator ind ON obj.objId = ind.objId 
+    LEFT JOIN strat_template_det temp ON ind.indId = temp.indId
+    LEFT JOIN ref_type rtype ON rtype.typeNo = ind.typeNo 
+    WHERE temp.tempId = '{0}' AND temp.isActive = '{1}'
+     """).format(stratTempDetParams['tempId'],
+                 stratTempDetParams['isActive'])
+    return sql 
 
 def insertStratTemp(**stratTempParams):
     sql = ("""
@@ -332,3 +370,19 @@ def insertStratTemp(**stratTempParams):
                      stratTempParams['createdDate'],
                      stratTempParams['isActive'])
     return sql 
+
+def insertStratTempDet(**stratTempDetParams):
+    sql = ("""
+            INSERT INTO strat_template_det 
+            set tempId = '{0}',
+            indId = '{1}', 
+            reference = '{2}',
+            target = '{3}',
+            isActive = '{4}'
+          """).format(stratTempDetParams['tempId'],
+                      stratTempDetParams['indId'],
+                      stratTempDetParams['reference'],
+                      stratTempDetParams['target'],
+                      stratTempDetParams['isActive'])
+    return sql
+

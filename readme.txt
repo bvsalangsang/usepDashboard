@@ -10,8 +10,14 @@
 3. Download xampp
    - https://www.apachefriends.org/index.html
 
-4. Install django
+4. Install django (v5.0.6)
   - pip install django
+
+5. install django-cors-headers(v4.3.1)
+  - pip install django-cors-headers
+
+6. install django-extensions(v3.2.3)
+  - pip install django-extensions
 
 
 '-------------------------------------------------------------------------------

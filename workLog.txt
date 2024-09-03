@@ -1392,3 +1392,36 @@ Added file 'kraEdit.html'
 '-------------------------------------------------------------------------------
 =-models.py (dashStrategicApp)
   * remove 'year' in 'stratTemplateDet' model
+
+'-------------------------------------------------------------------------------
+=-240827 0093 - Version 0.0.93 - * BOB * 
+'-------------------------------------------------------------------------------
+=-sqlparams.py (dashStrategicApp)
+  * added param 'stratTempDetParams'
+
+=-sqlcommands.py (dashStrategicApp)
+  * added query 'insertStratTempDet'
+
+=-views.py (dashStrategicApp)
+  * added function 'saveTemplateParams'
+  * added function 'tempJsonList'
+
+=- urls.py (dashStrategicApp)
+  * added path 'saveTemplateParams'
+  * added path 'tempJsonList'
+
+'-------------------------------------------------------------------------------
+=-240828 0094 - Version 0.0.94 - * BOB * 
+'-------------------------------------------------------------------------------
+=-themes (dashStrategicApp)
+  * added html 'strat-template-view.html'
+
+=-sqlcommands.py (dashAnalyticApp)
+  * added query 'tempStratItems'
+
+'-------------------------------------------------------------------------------
+=-240829 0095 - Version 0.0.95 - * BOB * 
+'-------------------------------------------------------------------------------
+*** task ***
+check all CRUD for auto number 
+
