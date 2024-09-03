@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Board Passers</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Board Passers</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<!-- Small boxes (Stat box) -->
+						<div class="row">
+							<div class="col-12">
+								
+                                <div class="card">
+                                    <div class="card-header">
+										Strategic
+                                    </div>
+                                    <div class="card-body">
+										<table id="example" class="table table-bordered dataTable dtr-inline" style="width:100%">
+                                            <thead>
+                                                <tr>  
+                                                    <th></th>
+                                                    <th>ID</th>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                 </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>ID</th>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                 </tr>
+                                            </tfoot>
+                                        </table>
+								    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <!-- <div class="col-2">
+                                                <a href="/key-result-area-add-form/" class="btn btn-block bg-gradient-success "> Add New</a>
+                                            </div> -->
+											<button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-ind-bp-lg">
+												Add New
+											</button>
+										</div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						<!-- /.row -->
+				
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			
+				{% include 'themes/modal-board-passer/indBpAdd.html' %}
+				{% include 'themes/modal-board-passer/indBpEdit.html' %}
+				{% include 'themes/modal-board-passer/indBpDelete.html' %}
+				
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+<script>
+		$(document).ready(function() {
+			var tempData; // Variable to hold temporary data
+			var lvl2Data = {}; // Variable to hold level 2 data
+			
+			$.ajax({
+					url: "/dashAnnTargetJsonList/",
+					method: "GET",
+					success: function(response) {
+						tempData = response.data
+						initializeDataTable(response.data); // Assuming response.data is the array of objects to display
+					},
+					error: function(xhr, status, error) {
+						console.error('Error fetching data:', error);
+					}
+   			 });
+
+			
+			// Function to find nested object by key and value
+			function findNestedObj(entireObj, keyToFind, valToFind) {
+				let foundObjs;
+				JSON.stringify(entireObj, (_, nestedValue) => {
+					if (nestedValue && nestedValue[keyToFind] === valToFind) {
+						foundObjs = nestedValue;
+					}
+					return nestedValue;
+				});
+				return foundObjs;
+			}
+	
+			// Function to create child DataTable
+		    function createChild(row, rowData,keyName, rowId, level) {
+					
+					var numLevels = 2;  // Number of child levels with .details-control
+					var trData;
+					
+					// This is the table we'll convert into a DataTable
+					var table = $('<table class="display" width="100%"/>');
+
+					// Display it the child row
+					row.child(table).show();
+				
+				
+
+					if(keyName=="areaId") {
+						// rawParams = findNestedObj(tempData, keyName, rowId)
+						// trData = rawParams.objects.map(doc => Object(doc));
+						trData  = rowData.objects.map(doc => Object(doc));
+						console.log(rowData)
+						lvl2Data = rowData
+
+						var usersTable = table.DataTable ({
+						dom: 'rt',
+						data : trData,
+						columns : [
+							{
+							className: "dt-control",
+							orderable: false,
+							data: null,
+							defaultContent: "",
+							width: "1%"
+							},
+							// { data: 'sAreaId', width:"5%" },
+							{ title:"CODE", data: 'objCode' },
+							{ title:"OBJECTS",data: 'ObjName' },
+							{ 
+								data: null,
+								defaultContent: '<button class="btn btn-default "> <i class="fas fa-edit"></i></button> ' +
+													'<button class="btn  btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+								targets: -1,
+									width: "15%"
+								},
+						]
+						
+							});
+					}
+					else{
+
+						// console.log(lvl2Data)
+						// rawParams = findNestedObj(lvl2Data, keyName, rowId)
+						// tempdata = rawParams.indicator.map(doc => Object(doc));
+						// console.log(rawParams)
+						
+						console.log(lvl2Data)
+						var index = lvl2Data.objects.findIndex(obj => obj.objId==rowId);
+
+					    rawParams  = lvl2Data.objects[index].indicator
+
+						
+						var groupColumn = 0;
+						var usersTable = table.DataTable ({
+						dom: 'rt',
+						data : rawParams,
+						columns: [
+									{ data: 'refType', visible: false	 }, // Hidden refType column used for grouping
+									{ title: "Code", data: 'indCode' },
+									{ title: "Indicator", data: 'indDef' },
+									{ 
+										title: "Action",
+										data: null,
+										render: function(data, type, row) {
+											return '<button class="btn btn-default edit-btn">Edit</button> ' +
+												'<button class="btn btn-default delete-btn">Delete</button>';
+										}
+									}
+								],
+								columnDefs: [{ visible: false, targets: groupColumn }],
+								order: [[groupColumn, 'asc']],
+								displayLength: 25,
+								drawCallback: function (settings) {
+									var api = this.api();
+									var rows = api.rows({ page: 'current' }).nodes();
+									var last = null;
+							
+									api.column(groupColumn, { page: 'current' })
+										.data()
+										.each(function (group, i) {
+											if (last !== group) {
+												$(rows)
+													.eq(i)
+													.before(
+														'<tr class="group"><td colspan="5"> <h5>' +
+															group +
+															'</h5></td></tr>'
+													);
+							
+												last = group;
+											}
+										});
+								}
+
+					});
+					}
+						// Add event listener for opening and closing details
+					table.on("click", "td.dt-control", function(e) {
+						e.stopPropagation();  // Don't bubble up to parent event
+					
+						var tr = $(this).closest("tr");
+						var row = usersTable.row(tr);
+
+						if (row.child.isShown()) {
+							// This row is already open - close it
+							destroyChild(row);
+							tr.removeClass("shown");
+						} else {
+							// Open this row
+						
+							// Simulate fetching data for child table
+							var data = row.data();
+							var rowData = {
+							code: data.code,
+							};
+						
+							if ( level === 1 ) {
+							rowData.level2 = 'Level 2';
+							} else if ( level === 2 ) {
+							rowData.level3 = 'Level3';
+							} else {
+							rowData.other = 'Other stuff'
+							}
+						
+							keyName = Object.keys(data)[1];
+							console.log(keyName)
+							createChild(row, rowData,keyName,data.objId, level + 1);
+							// createChild(row, rowData, keyName, level + 1);
+							tr.addClass("shown");
+						}
+					});
+
+
+				}
+
+			// Function to destroy child DataTable
+			function destroyChild(row) {
+				// Remove and destroy the DataTable in the child row
+				var table = $("table", row.child());
+				table.detach();
+				table.DataTable().destroy();
+
+				// And then hide the row
+				row.child.hide();
+			}
+
+	
+			// Initialize DataTable for main table
+			function initializeDataTable(data) {
+				var siteTable = $("#example").DataTable({
+					data: data,
+					rowId: 'areaId',
+					order: [1, "asc"],
+					columns: [
+						{
+							className: "dt-control",
+							orderable: false,
+							data: null,
+							defaultContent: "",
+							width: "1px"
+						},
+						{ data: 'areaId', width: "5%" },
+						{ title: "CODE", data: 'code' },
+						{ title: "AREA", data: 'area' },
+						{ 
+							data: null,
+							defaultContent: '<button class="btn edit-area btn-default "><i class="fas fa-edit"></i></button>' +
+											'<button class="btn delete-area btn-default "><i class="fa fa-trash" aria-hidden="true"></i></button>',
+							targets: -1,
+							width: "15%"
+						}
+					],
+					
+					select: {
+						style: "os",
+						selector: "td:not(:first-child)"
+					}
+				});
+				
+				// Event listener for opening and closing details in main table
+				$("#example tbody").on("click", "td.dt-control", function() {
+					var tr = $(this).closest("tr");
+					var row = siteTable.row(tr);
+		
+					if (row.child.isShown()) {
+						destroyChild(row);
+					} else {
+						var data = row.data();
+						var rowData = { 
+							code: data.code, 
+							area: data.area,  
+							objects: data.objects,
+							indicator: data.indicator 
+						 };
+						var keyName = Object.keys(data)[0];
+						console.log(data)
+						createChild(row, rowData, keyName, data.areaId, 1);
+					}
+				});
+		
+			}
+		});
+		
+	</script>
+	{% endblock %}

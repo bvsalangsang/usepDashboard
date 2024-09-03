@@ -1,0 +1,65 @@
+<div class="modal fade" id="modal-div-lg">
+	<form id="div-add-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-success">
+					<h4 class="modal-title">Add New Entry</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="div-id"> ID</label>
+								<input
+									type="text"
+									name="divId"
+									id="id_divId"
+									class="form-control"
+									disabled
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="area">Campus</label>
+								<select id="area" name="campId" class="form-control select2add">
+									{% for campus in campusList %}
+									<option value="{{ campus.campId }}">{{ campus.name }}</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="name"> Name</label>
+								{{ form.name }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close
+					</button>
+					<button
+						type="submit"
+						class="btn btn-success btn-save"
+						data-url="{% url 'saveUpdateDivParams' %}"
+					>
+						Save
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

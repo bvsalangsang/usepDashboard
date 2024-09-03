@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Dashboard - GAD</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">GAD</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						  <div class="row">
+							<div class="col-12">
+								
+								<div class="card">
+									<div class="card-header bg-maroon">
+										<h5 class="mb-0">Per Campus</h5>
+									</div>
+									<div class="card-body">
+										<div class="row"id="cards-container">
+											<!-- Dynamic cards will be appended here -->
+										  </div>
+									</div>
+								</div>
+							</div>
+						  </div>
+                       
+
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+
+$(document).ready(function() {
+    $.ajax({
+        url: "/gadJsonList/",
+        method: 'GET',
+        success: function (data) {
+            const dataArray = data.data;
+            console.log(dataArray);
+
+            if (Array.isArray(dataArray)) {
+                // Group data by campus and division
+                const groupedData = {};
+                dataArray.forEach(function(item) {
+                    if (!groupedData[item.campus]) {
+                        groupedData[item.campus] = {};
+                    }
+                    if (!groupedData[item.campus][item.division]) {
+                        groupedData[item.campus][item.division] = [];
+                    }
+                    groupedData[item.campus][item.division].push(item);
+                });
+
+                let cardIndex = 0;
+                Object.keys(groupedData).forEach(function(campus) {
+                    Object.keys(groupedData[campus]).forEach(function(division) {
+                        const cardHtml = `
+                            <div class="col-6"> 
+                                <div class="card ">
+                                    <div class="card-header bg-navy color-palette">
+                                        <h3 class="card-title">${division} (${campus})</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class ="row">
+                                            <div class ="col">
+                                                <canvas id="chart-${cardIndex}" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        $('#cards-container').append(cardHtml);
+
+                        const ctx = document.getElementById(`chart-${cardIndex}`).getContext('2d');
+
+                        const labels = [];
+                        const maleData = [];
+                        const femaleData = [];
+
+                        // Fill the data arrays
+                        groupedData[campus][division].forEach(function(item) {
+                            labels.push(item.component);
+                            maleData.push(parseInt(item.male, 10));
+                            femaleData.push(parseInt(item.female, 10));
+                        });
+
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Male',
+                                        data: maleData,
+                                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Female',
+                                        data: femaleData,
+                                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    }
+                                ]
+                            },
+                            options: {
+                                indexAxis: 'y',
+                                scales: {
+                                    x: {
+                                        beginAtZero: true
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        stacked: false
+                                    }
+                                },
+                                plugins: {
+                                    datalabels: {
+                                        anchor: 'end',
+                                        align: 'right',
+                                        formatter: function(value) {
+                                            return value;
+                                        },
+                                        color: 'black'
+                                    }
+                                }
+                            },
+                            plugins: [ChartDataLabels]
+                        });
+
+                        cardIndex++;
+                    });
+                });
+            }
+        }
+    });
+});
+
+
+         
+	</script>
+		
+	{% endblock %}

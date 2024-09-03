@@ -1,0 +1,517 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Dashboard - Gender And Development</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">GAD</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						  <div class="row">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header custom-bg-gad-header">
+                                        OVERALL GAD POPULATION in USeP
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="total-pop" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                                                    
+                                    </div>
+                                    
+                              
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <!-- small box -->
+                                        <div class="small-box gad-bg-male">
+                                          <div class="inner">
+                                            <h3 class="overall-male"></h3>
+                                            <br>
+                                          </div>
+                                          <div class="icon">
+                                              <i class="ion ion-male"></i>
+                                          </div>
+                                          <a href="#" class="small-box-footer"
+                                            >OVERALL Male Count</a>
+                                        </div>
+                                      </div>
+                                      <!-- ./col -->
+                                      <div class="col-6">
+                                        <!-- small box -->
+                                        <div class="small-box gad-bg-female">
+                                          <div class="inner">
+                                            <h3 class="overall-female"></h3>
+                                            <br>
+                                          </div>
+                                          <div class="icon">
+                                              <i class="ion ion-female"></i>
+                                          </div>
+                                          <a href="#" class="small-box-footer"
+                                            >OVERALL Female Count</a>
+                                        </div>
+                                      </div>
+                                </div> 
+                               
+                            </div>
+                            <div class="col-6">
+                                <!-- <div class="row">
+                                     <div class="col-3">
+                                        <div class="small-box custom-bg-gad-header ">
+                                          <div class="inner">
+                                            <h3 class="overall-obrero"></h3>
+                                            <br>
+                                          </div>
+                                          <div class="icon">
+                                            <i class="ion ion-person-stalker"></i>
+                                          </div>
+                                          <a href="#" class="small-box-footer"
+                                            >Obrero</a>
+                                        </div>
+                                      </div>
+                                      <div class="col-3">
+                                        <div class="small-box custom-bg-gad-header ">
+                                          <div class="inner">
+                                            <h3 class="overall-tagum"></h3>
+                                            <br>
+                                          </div>
+                                          <div class="icon">
+                                            <i class="ion ion-person-stalker"></i>
+                                          </div>
+                                          <a href="#" class="small-box-footer"
+                                            >Tagum</a>
+                                        </div>
+                                      </div>
+                                      <div class="col-3">
+                                        <div class="small-box custom-bg-gad-header ">
+                                          <div class="inner">
+                                            <h3 class="overall-mintal"></h3>
+                                            <br>
+                                          </div>
+                                          <div class="icon">
+                                            <i class="ion ion-person-stalker"></i>
+                                          </div>
+                                          <a href="#" class="small-box-footer"
+                                            >Mintal</a>
+                                        </div>
+                                      </div>
+                                      <div class="col-3">
+                                        <div class="small-box custom-bg-gad-header ">
+                                          <div class="inner">
+                                            <h3 class="overall-mal"></h3>
+                                            <br>
+                                          </div>
+                                          <div class="icon">
+                                            <i class="ion ion-person-stalker"></i>
+                                          </div>
+                                          <a href="#" class="small-box-footer"
+                                            >Malabog</a>
+                                        </div>
+                                      </div>
+                                </div>  -->
+                               
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                        <div class="card-header custom-bg-gad-header">
+                                            Per Campus population
+                                        </div>
+                                         <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                   <div class="small-box custom-bg-gad-header ">
+                                                     <div class="inner">
+                                                       <h3 class="overall-obrero"></h3>
+                                                       <br>
+                                                     </div>
+                                                     <div class="icon">
+                                                       <i class="ion ion-person-stalker"></i>
+                                                     </div>
+                                                     <a href="#" class="small-box-footer"
+                                                       >Obrero</a>
+                                                   </div>
+                                                 </div>
+                                                 <div class="col-3">
+                                                   <div class="small-box custom-bg-gad-header ">
+                                                     <div class="inner">
+                                                       <h3 class="overall-tagum"></h3>
+                                                       <br>
+                                                     </div>
+                                                     <div class="icon">
+                                                       <i class="ion ion-person-stalker"></i>
+                                                     </div>
+                                                     <a href="#" class="small-box-footer"
+                                                       >Tagum</a>
+                                                   </div>
+                                                 </div>
+                                                 <div class="col-3">
+                                                   <div class="small-box custom-bg-gad-header ">
+                                                     <div class="inner">
+                                                       <h3 class="overall-mintal"></h3>
+                                                       <br>
+                                                     </div>
+                                                     <div class="icon">
+                                                       <i class="ion ion-person-stalker"></i>
+                                                     </div>
+                                                     <a href="#" class="small-box-footer"
+                                                       >Mintal</a>
+                                                   </div>
+                                                 </div>
+                                                 <div class="col-3">
+                                                   <div class="small-box custom-bg-gad-header ">
+                                                     <div class="inner">
+                                                       <h3 class="overall-mal"></h3>
+                                                       <br>
+                                                     </div>
+                                                     <div class="icon">
+                                                       <i class="ion ion-person-stalker"></i>
+                                                     </div>
+                                                     <a href="#" class="small-box-footer"
+                                                       >Malabog</a>
+                                                   </div>
+                                                 </div>
+                                           </div> 
+                                            <canvas id="total-per-camp" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                         </div>   
+                                        </div>
+                      
+                                    </div>
+                                </div>
+                           
+                            </div>
+						
+                            
+						  </div>
+						  <div class="row">
+							<div class="col-12">
+								
+								<div class="card">
+									<div class="card-header bg-gad-header">
+										<h5 class="mb-0">GAD Details per DIVISION</h5>
+									</div>
+									<div class="card-body">
+										<div class="row"id="cards-container">
+											<!-- Dynamic cards will be appended here -->
+										  </div>
+									</div>
+								</div>
+								
+							</div>
+						  </div>
+                       
+
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+					url: "/gadJsonList/",
+					method: 'GET',
+					success: function (data) {
+						const dataArray = data.data;
+						let totalMale = 0;
+						let TotalFemale = 0;
+
+                        const groupedData = []
+                        const detGroupData = {}
+
+						dataArray.forEach(function(item, index) { 
+                            if (item.campus!="All"){
+                                totalMale += parseFloat(item.male);
+                                TotalFemale += parseFloat(item.female);
+                            }
+						
+                            //getting group per campus
+                            if (!groupedData[item.campus]) {
+                                  groupedData[item.campus] = [];
+                                  detGroupData[item.campus] = {}
+                             }
+                              groupedData[item.campus].push(item)
+                             
+
+                              if (!detGroupData[item.campus]) {
+                                 detGroupData[item.campus] = {};
+                                }
+                             if (!detGroupData[item.campus][item.division]){
+                                detGroupData[item.campus][item.division]=[]
+                             }
+                                detGroupData[item.campus][item.division].push(item)
+                            });
+
+                            console.log(groupedData)
+                            console.log(detGroupData)
+
+                        $(".overall-male").html(totalMale);
+                        $(".overall-female").html(TotalFemale);
+
+                        if (Array.isArray(dataArray)) {
+                            //for total population (pie chart)
+                            const totCtx = document.getElementById(`total-pop`).getContext('2d');
+                            new Chart(totCtx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['Male' , 'Female'],
+                                        datasets: [{
+                                            data: [totalMale,TotalFemale],
+                                            backgroundColor: ['#b437ad', '#e838bf ']
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                    maintainAspectRatio: false,
+                                        plugins: {
+                                            datalabels: {
+                                                formatter: (value, context) => {
+                                                    let sum = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                                    let percentage = (value * 100 / sum).toFixed(2) + "%";
+                                                    return percentage;
+                                                },
+                                                color: '#fff',
+                                            }
+                                        }
+                                    },
+                                    plugins: [ChartDataLabels]
+                                });
+                                
+                            // per campus display
+                            console.log(groupedData)
+                            const perCampCtx = document.getElementById(`total-per-camp`).getContext('2d');
+                            const labels = [];
+                            const maleData = [];
+                            const femaleData = [];   
+                         
+                            
+                            Object.keys(groupedData).forEach(function(campus){
+                                
+                                let tempTotFemale = 0;
+                                let tempTotMale = 0;
+                                let tempTotalPop = 0
+                                let tempCampus = "";
+                                
+                                groupedData[campus].forEach(function(item){
+                                    if (item.campus != "All") {
+                                        tempCampus = item.campus
+                                        tempTotMale = tempTotMale + parseInt(item.male)
+                                        tempTotFemale = tempTotFemale + parseInt(item.female)
+                                        
+                                    }
+                                });
+
+                                if(tempCampus!="All" && tempCampus != "") {
+                                    labels.push(tempCampus);
+                                    maleData.push(tempTotMale)
+                                    femaleData.push(tempTotFemale)
+                                }
+                                tempTotalPop = tempTotMale + tempTotFemale
+                                switch (tempCampus) {
+                                    case "Obrero":
+                                        $(".overall-obrero").html(tempTotalPop);
+                                        break;
+                                    case "Tagum":
+                                        $(".overall-tagum").html(tempTotalPop);
+                                        break;
+                                    case "Mintal":
+                                        $(".overall-mintal").html(tempTotalPop);
+                                        break;
+                                    case "Malabog":
+                                        $(".overall-mal").html(tempTotalPop);
+                                        break;
+                                    default:
+                                        break;
+                                }  
+
+                                tempTotalPop = 0;
+                               
+                             });
+                              
+                             
+                            //display over all population per campus (bar chart)
+                            new Chart(perCampCtx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [
+                                            {
+                                                label: 'Male',
+                                                data: maleData,
+                                                backgroundColor: '#b437ad',
+                                                borderColor: '#b437ad',
+                                                borderWidth: 1
+                                            },
+                                            {
+                                                label: 'Female',
+                                                data: femaleData,
+                                                backgroundColor: '#e838bf',
+                                                borderColor: '#e838bf',
+                                                borderWidth: 1
+                                            }
+                                        ]
+                                    },
+                                    options: {
+                                        scales: {
+                                            x: {
+                                                beginAtZero: true
+                                            },
+                                            y: {
+                                                beginAtZero: true,
+                                                stacked: false
+                                            },
+                                        },
+                                        
+                                        plugins: {
+                                            datalabels: {
+                                                anchor: 'end',
+                                                align: 'top',
+                                                formatter: function(value) {
+                                                    return value;
+                                                },
+                                                color: 'maroon'
+                                    }
+                                }
+
+                                    },
+                                    plugins: [ChartDataLabels]
+                                });
+
+
+                             // display details per campus
+                            let cardIndex = 0;
+                            Object.keys(detGroupData).forEach(function(campus){
+                                if (campus!="All") {
+                                    Object.keys(detGroupData[campus]).forEach(function(division){
+                                        const cardHtml = `
+                                        <div class="col-12"> 
+                                            <div class="card ">
+                                                <div class="card-header custom-bg-gad-header">
+                                                    <h3 class="card-title">${division} (${campus})</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class ="row">
+                                                        <div class ="col">
+                                                            <canvas id="chart-${cardIndex}" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+
+                                        $('#cards-container').append(cardHtml);
+                                        const detCtx = document.getElementById(`chart-${cardIndex}`).getContext('2d');
+                                        const grpLabels = []
+                                        const grpMaleData = []
+                                        const grpFemaleData = []
+
+                                        detGroupData[campus][division].forEach(function(item){
+                                            grpLabels.push(item.component)
+                                            grpMaleData.push(item.male)
+                                            grpFemaleData.push(item.female)
+
+                                        });
+
+                                        new Chart(detCtx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: grpLabels,
+                                                datasets: [
+                                                    {
+                                                        label: 'Male',
+                                                        data: grpMaleData,
+                                                        backgroundColor: '#b437ad',
+                                                        borderColor: '#b437ad',
+                                                        borderWidth: 1
+                                                    },
+                                                    {
+                                                        label: 'Female',
+                                                        data: grpFemaleData,
+                                                        backgroundColor: '#e838bf',
+                                                        borderColor: '#e838bf',
+                                                        borderWidth: 1
+                                                    }
+                                                ]
+                                            },
+                                            options: {
+                                                indexAxis: 'y',
+                                                scales: {
+                                                    x: {
+                                                        beginAtZero: true
+                                                    },
+                                                    y: {
+                                                        beginAtZero: true,
+                                                        stacked: false
+                                                    }
+                                                },
+                                                
+                                                plugins: {
+                                                    datalabels: {
+                                                        anchor: 'end',
+                                                        align: 'right',
+                                                        formatter: function(value) {
+                                                            return value;
+                                                        },
+                                                        color: 'maroon'
+                                                    }
+                                                }
+                                            },
+                                            plugins: [ChartDataLabels]
+                                        });
+                                        cardIndex++;
+                
+                                    });
+
+                                }
+                   
+                            });
+
+
+
+						}
+                         else {
+							console.error('Error: Expected data to be an array.');
+						}
+
+						}
+                     
+					});
+		});
+	</script>
+		
+	{% endblock %}

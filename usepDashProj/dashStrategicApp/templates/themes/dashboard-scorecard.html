@@ -1,0 +1,512 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Strategic Dashboard Scorecard</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Strategic Dashboard Scorecard</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card ">
+                                    <div class="card-header bg-gradient-navy">
+                                        Yearly Report
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <div class="small-box bg-gradient-success">
+                                                    <div class="inner">
+                                                      <p>Year</p>
+                                                      <h3 class="year">2022</h3>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <a href="#" id="change-year" class="small-box-footer">
+                                                      More info <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                              
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="small-box bg-gradient-secondary">
+                                                    <div class="inner">
+                                                      <p>Year</p>
+                                                      <h3 class="year">2023</h3>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">
+                                                      More info <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                  </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="small-box bg-gradient-secondary">
+                                                    <div class="inner">
+                                                      <p>Year</p>
+                                                      <h3 class="year">2024</h3>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">
+                                                      More info <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                  </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="small-box bg-gradient-secondary">
+                                                    <div class="inner">
+                                                      <p>Year</p>
+                                                      <h3 class="year">2025</h3>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">
+                                                      More info <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                  </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="small-box bg-gradient-secondary">
+                                                    <div class="inner">
+                                                      <p>Year</p>
+                                                      <h3 class="year">2026</h3>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">
+                                                      More info <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                  </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="small-box bg-gradient-secondary">
+                                                    <div class="inner">
+                                                      <p>Year</p>
+                                                      <h3 class="year">2027</h3>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">
+                                                      More info <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="info-box">
+									<span class="info-box-icon bg-info"><i class="fas fa-edit"></i></span>
+									<div class="info-box-content">
+										<span class="info-box-text"><h5 class="cur-year">2022</h5></span>
+										<h4>PHYSICAL ACCOMPLISHMENT SCORECARD</h4>
+									</div>
+								</div>
+                            </div>
+                        </div>
+						<div class="row">
+							<div class="col-12">
+                                <div class="card">
+                                    <div class="card-header bg-gradient-navy">
+										Report List 
+                                    </div>
+                                    <div class="card-body">
+										<table id="example" class="table table-bordered dataTable dtr-inline" style="width:100%">
+                                            <thead>
+                                                <tr>  
+                                                    <th></th>
+                                                    <th>Area ID</th>
+                                                    <th>Code</th>
+                                                    <th>Area</th>
+                                                    <th>Actions</th>
+                                                 </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Area ID</th>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                 </tr>
+                                            </tfoot>
+                                        </table>
+								    </div>
+                            
+                                </div>
+                            </div>
+						</div>
+						<!-- /.row -->
+				
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			
+				{% include 'themes/modal-board-passer/indBpAdd.html' %}
+				{% include 'themes/modal-board-passer/indBpEdit.html' %}
+				{% include 'themes/modal-board-passer/indBpDelete.html' %}
+				
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+
+    $(document).ready(function() {
+    var tempData; // Variable to hold temporary data
+    var lvl2Data = {}; // Variable to hold level 2 data
+    var getCurYr ="";
+
+     
+      var url = `/dashScorecardJsonList/2022/`;
+      console.log(url)
+      $.ajax({
+            
+            url: url,
+            method: "GET",
+            success: function(response) {
+                tempData = response.data;
+                initializeDataTable(response.data); // Assuming response.data is the array of objects to display
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+
+    $('.small-box-footer').click(function(event) {
+      event.preventDefault(); // Prevent the default action of the link
+
+      var yearValue = $(this).siblings('.inner').find('.year').text();
+       $('.info-box .cur-year').text(yearValue);
+      
+      // Remove bg-gradient-warning from all divs
+      $('.small-box').removeClass('bg-gradient-success').addClass('bg-gradient-secondary');
+      
+      // Add bg-gradient-warning to the parent div of the clicked link
+      $(this).closest('.small-box').removeClass('bg-gradient-secondary').addClass('bg-gradient-success');
+      
+    });
+  
+
+    function createChild(row, rowData, keyName, rowId, level) {
+        var numLevels = 2;  // Number of child levels with .details-control
+        var trData;
+
+        var table = $('<table class="display" width="100%"/>');
+        row.child(table).show();
+
+        if (keyName == "areaId") {
+            trData = rowData.objects.map(doc => Object(doc));
+            lvl2Data = rowData;
+
+            var usersTable = table.DataTable({
+                dom: 'rt',
+                data: trData,
+                columns: [
+                    {
+                        className: "dt-control",
+                        orderable: false,
+                        data: null,
+                        defaultContent: "",
+                        width: "1%"
+                    },
+                    { title: "CODE", data: 'objCode' },
+                    { title: "OBJECTS", data: 'ObjName' },
+                    { 
+                        data: null,
+                        defaultContent: '<button class="btn btn-default"> <i class="fas fa-edit"></i></button> ' +
+                                        '<button class="btn btn-default"> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+                        targets: -1,
+                        width: "15%",
+                        visible:false
+                    },
+                ]
+            });
+        } else {
+            var groupColumn = 2;
+            var index = lvl2Data.objects.findIndex(obj => obj.objId == rowId);
+            var rawParams = lvl2Data.objects[index].indicator;
+
+            var usersTable = table.DataTable({
+                dom: 'rt',
+                data: rawParams,
+                columns: [
+                    {title: "ctrlNo", data: 'ctrlNo',visible:false},
+                    { title: "ID", data: 'indId', visible:false },
+                    { title: "Type", data: 'refType', visible: false },
+                    { title: "CODE", data: 'indCode' },
+                    { title: "INDICATORS", data: 'indDesc' },
+                    { title: "REFERENCE", data: 'sRef' },
+                    { title: "TARGET", data: 'target' },
+                    { title: "ACTUAL", data: 'actual' },
+                    { title: "VARIANCE", data: 'variance' },
+                    { title: "PERCENTAGE", data: 'percentage' },
+                    { title:"ACTION",
+                        data: null,
+                        defaultContent: '<button class="btn btn-default edit-btn"><i class="fas fa-edit"></i></button>' +
+                                        '<button class="btn btn-default save-btn" style="display:none;"><i class="fas fa-save"></i></button>',
+                        targets: -1,
+                        width: "15%"
+                    },
+                ],
+                columnDefs: [{ visible: false, targets: groupColumn }],
+                order: [[groupColumn, 'asc']],
+                displayLength: 25,
+                drawCallback: function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+            
+                    api.column(groupColumn, { page: 'current' })
+                        .data()
+                        .each(function (group, i) {
+                            if (last !== group) {
+                                $(rows)
+                                    .eq(i)
+                                    .before(
+                                        '<tr class="group"><td colspan="9">' +
+                                            group +
+                                            '</td></tr>'
+                                    );
+            
+                                last = group;
+                            }
+                        });
+                }
+            });
+
+            table.on('click', 'button.edit-btn', function() {
+                var $row = $(this).closest('tr');
+
+                console.log(usersTable.row($row).data())
+                $(this).hide();
+                $row.find('.save-btn').show();
+
+                $row.find('td').each(function(index) {
+                    if ([2,3, 4, 5, 6].includes(index)) { // Editable columns
+                        var cell = usersTable.cell(this);
+                        var data = cell.data();
+                        $(this).html('<input type="text" value="' + data + '" style="width:100%;" />');
+                    }
+                });
+             
+            });
+            
+            table.on('click', 'button.save-btn', function() {
+                var $row = $(this).closest('tr');
+                var indId = usersTable.row($row).data().indId;
+                var ctrlNo = usersTable.row($row).data().ctrlNo;
+                console.log(rowData)
+
+                $(this).hide();
+                $row.find('.edit-btn').show();
+
+                var updatedData = {};
+                $row.find('td').each(function(index) {
+                    if ([2,3, 4, 5, 6].includes(index)) { // Editable columns
+                        var cell = usersTable.cell(this);
+                        var input = $(this).find('input');
+                        if (input.length) {
+                            var newData = input.val();
+                            cell.data(newData).draw();
+                            updatedData[cell.index().column] = newData; // Store updated data
+                        }
+                    }
+                });
+                console.log(updatedData)
+                // Send updated data to server via AJAX
+                $.ajax({
+                    url: '{% url "saveScorecardParams" %}', // Replace with your Django view URL
+                    method: "POST",
+                    data: {
+                        ctrlNo: ctrlNo,
+                        indId: indId, // Assuming 'indId' is stored in row data
+                        reference: updatedData[5],
+                        target: updatedData[6],
+                        actual: updatedData[7],
+                        variance: updatedData[8],
+                        percentage: updatedData[9],
+                        targetyear: '2022',
+                        csrfmiddlewaretoken: '{{ csrf_token }}' // Ensure CSRF token is included
+                    },
+                    
+                    success: function(response) {
+                    
+                        if (response.Status === "Saved") {
+                            Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Saved!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+                        } else {
+                            Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Save Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+                    }
+                });
+            });
+        }
+
+        table.on("click", "td.dt-control", function(e) {
+            e.stopPropagation();
+            var tr = $(this).closest("tr");
+            var row = usersTable.row(tr);
+
+            if (row.child.isShown()) {
+                destroyChild(row);
+                tr.removeClass("shown");
+            } else {
+                var data = row.data();
+                var rowData = { 
+                    code: data.code,
+                };
+
+                if (level === 1) {
+                    rowData.level2 = 'Level 2';
+                } else if (level === 2) {
+                    rowData.level3 = 'Level3';
+                } else {
+                    rowData.other = 'Other stuff';
+                }
+
+                keyName = Object.keys(data)[1];
+                createChild(row, rowData, keyName, data.objId, level + 1);
+                tr.addClass("shown");
+            }
+        });
+    }
+
+    function destroyChild(row) {
+        var table = $("table", row.child());
+        table.DataTable().destroy();
+        row.child.hide();
+    }
+
+    function initializeDataTable(data) {
+        var siteTable = $("#example").DataTable({
+            data: data,
+            rowId: 'areaId',
+            order: [1, "asc"],
+            columns: [
+                {
+                    className: "dt-control",
+                    orderable: false,
+                    data: null,
+                    defaultContent: "",
+                    width: "1px"
+                },
+                { data: 'areaId', width: "5%" },
+                { title: "CODE", data: 'code' },
+                { title: "AREA", data: 'area' },
+                { 
+                    data: null,
+                    defaultContent: '<button class="btn edit-area btn-default"><i class="fas fa-edit"></i></button>' +
+                                    '<button class="btn delete-area btn-default"><i class="fa fa-trash" aria-hidden="true"></i></button>',
+                    targets: -1,
+                    width: "15%",
+                    visible:false
+                }
+            ],
+            select: {
+                style: "os",
+                selector: "td:not(:first-child)"
+            }
+        });
+
+        $("#example tbody").on("click", "td.dt-control", function() {
+            var tr = $(this).closest("tr");
+            var row = siteTable.row(tr);
+
+            if (row.child.isShown()) {
+                destroyChild(row);
+            } else {
+                var data = row.data();
+                var rowData = { 
+                    code: data.code, 
+                    area: data.area,  
+                    objects: data.objects,
+                    indicator: data.indicator 
+                };
+                var keyName = Object.keys(data)[0];
+                createChild(row, rowData, keyName, data.areaId, 1);
+            }
+        });
+
+        $("#example tbody").on("click", "td:not(.dt-control)", function() {
+            var tr = $(this).closest("tr");
+            var row = siteTable.row(tr);
+            var rowData = row.data();
+
+            if (!row.child.isShown()) {
+                var keyName = Object.keys(rowData)[1];
+                createChild(row, rowData, keyName, rowData.areaId, 1);
+            }
+        });
+    }
+  
+
+    });
+
+    </script>
+	{% endblock %}

@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Dashboard - GAD</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">GAD</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						  <div class="row">
+							<div class="col-12">
+								<div class="card">
+										<div class="card-header bg-maroon">
+											<h5 class="mb-0">Data Visualization</h5>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-4">
+													<div class="row">
+														<div class="col-12">
+															<form class="search">
+																<div class="row p-2">
+																	<div class="col-2">
+																		<label for="campus">Division</label>
+																	</div>
+																	<div class="col-10">
+																		<select id="division" name="division" class="form-control search2add">
+																			<option value="">Select a division</option>
+																			{% for divis in divList %}
+																			<option value="{{ divis.name }}">{{ divis.name }}</option>
+																			{% endfor %}
+																		</select>
+																	</div>		
+																</div>
+																	<div class="row p-2">
+																		<div class="col-2">
+																			<label for="campus">Campus</label>
+																		</div>
+																		<div class="col-10">
+																			<select id="campus" name="divId" class="form-control search2add">
+																				<option value="">Select a Campus</option>
+																				{% for campus in campusList %}
+																				<option value="{{ campus.name }}">{{ campus.name }}</option>
+																				{% endfor %}
+																			</select>
+																		</div>		
+																	</div>
+																
+																	<div class="row p-2">
+																		<div class="col-6">
+																			<button
+																			type="submit"
+																			class="btn btn-success btn-success btn-block"
+																			data-url="{% url 'saveUpdateGadDetails' %}"
+																				>
+																					Fetch
+																			</button>
+																		</div>
+																		<div class="col-6">
+																			<a href="{% url 'gadDashAllView' %}" class="btn btn-warning btn-block">
+																				View All
+																			</a>
+																		</div>
+
+																		
+																	</div>
+															</form>
+													   </div>
+													</div>
+												</div>
+												<div class="col-8">
+													<!-- <div class="row"id="cards-container">
+												  </div> -->
+											     <!-- BAR CHART -->
+														<div class="card">
+															<div class="card-header">
+																<h3 class="card-title">Reference</h3>
+															</div>
+															<div class="card-body">
+																<div class="chart">
+																	<canvas id="myChart"></canvas>
+																</div>
+															</div>
+													
+														</div>
+
+														<!-- <div class="card">
+															<div class="card-header">
+																<h3 class="card-title">Bar Chart</h3>
+															</div>
+															<div class="card-body">
+															<div class="chart">
+																<canvas id="restaurantChart"></canvas>
+															</div>
+															</div>
+														</div> -->
+												
+												</div>
+											</div>
+									</div>
+								</div>		
+							</div>
+						  </div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+<script>
+
+			$(".search2add").select2({
+				theme: "bootstrap4",
+			});
+			
+
+			var myChart;
+
+
+			$('form.search').on('submit', function(e) {
+            e.preventDefault();
+
+            var selectedCampus = $('#campus').val();
+            var selectedDivision = $('#division').val();
+
+            // Fetch data using AJAX
+            $.ajax({
+                url: '/gadJsonList/',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    // Ensure the response is an array
+                    var data = Array.isArray(response.data) ? response.data : [];
+                    var filteredData = data.filter(function(item) {
+                        return (selectedCampus === '' || item.campus === selectedCampus) &&
+                               (selectedDivision === '' || item.division === selectedDivision);
+                    });
+
+                    displayResults(filteredData);
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        });
+
+        function displayResults(data) {
+            var labels = [];
+            var maleData = [];
+            var femaleData = [];
+			var totalMale = 0;
+			var totalFemale = 0;
+
+            $.each(data, function(index, item) {
+                labels.push(item.component);
+                maleData.push(item.male);
+                femaleData.push(item.female);
+				totalMale += item.male;
+      			totalFemale += item.female;
+            });
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            // Destroy the previous chart if it exists
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            // Clear the canvas
+            $('#myChart').remove(); // Remove the canvas
+            $('.chart').append('<canvas id="myChart"><canvas>'); // Add a new canvas
+            ctx = document.getElementById('myChart').getContext('2d');
+
+			myChart = new Chart(ctx, {
+                type: 'bar', // Use 'bar' for horizontal bar chart
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Male',
+                            data: maleData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Female',
+                            data: femaleData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+				options: {
+            indexAxis: 'y', // This sets the bar chart to horizontal
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true,
+                    stacked: false
+                }
+            },
+            plugins: {
+                datalabels: {
+                    anchor: 'end',
+                    align: 'right',
+                    formatter: function(value) {
+                        return value;
+                    },
+                    color: 'black'
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+            });
+        }
+           
+    
+</script>
+		
+	{% endblock %}

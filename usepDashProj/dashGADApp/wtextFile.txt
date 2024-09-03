@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Dashboard - GAD</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">GAD</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						  <div class="row">
+							<div class="col-12">
+								<div class="card">
+										<div class="card-header bg-maroon">
+											<h5 class="mb-0">Data Visualization</h5>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-4">
+													<div class="row">
+														<div class="col-12">
+															<form class="search">
+																	<div class="row p-2">
+																		<div class="col-2">
+																			<label for="campus">Campus</label>
+																		</div>
+																		<div class="col-10">
+																			<select id="divis" name="divId" class="form-control search2add">
+																				<option value="">Select a Campus</option>
+																				{% for campus in campusList %}
+																				<option value="{{ campus.campId }}">{{ campus.name }}</option>
+																				{% endfor %}
+																			</select>
+																		</div>		
+																	</div>
+																	<div class="row p-2">
+																		<div class="col-2">
+																			<label for="campus">Division</label>
+																		</div>
+																		<div class="col-10">
+																			<select id="campus" name="campus" class="form-control search2add">
+																				<option value="">Select a division</option>
+																				{% for divis in divList %}
+																				<option value="{{ divis.divId }}">{{ divis.name }}</option>
+																				{% endfor %}
+																			</select>
+																		</div>		
+																	</div>
+																	<div class="row p-2">
+																			<button
+																					type="submit"
+																					class="btn btn-success btn-success col-12"
+																					data-url="{% url 'saveUpdateGadDetails' %}"
+																				>
+																					Fetch
+																			</button>
+																	</div>
+															</form>
+													   </div>
+													</div>
+												</div>
+												<div class="col-8">
+													<!-- <div class="row"id="cards-container">
+												  </div> -->
+											     <!-- BAR CHART -->
+														<div class="card">
+															<div class="card-header">
+																<h3 class="card-title">Bar Chart</h3>
+															</div>
+															<div class="card-body">
+															<div class="chart">
+																<canvas id="myChart" width="400" height="200"></canvas>
+															</div>
+															</div>
+														</div>
+
+														<!-- <div class="card">
+															<div class="card-header">
+																<h3 class="card-title">Bar Chart</h3>
+															</div>
+															<div class="card-body">
+															<div class="chart">
+																<canvas id="restaurantChart"></canvas>
+															</div>
+															</div>
+														</div> -->
+												
+												</div>
+											</div>
+									</div>
+								</div>		
+							</div>
+						  </div>
+                       
+
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+<script>
+
+			$(".search2add").select2({
+				theme: "bootstrap4",
+			});
+			
+
+
+   var ctx = document.getElementById('myChart').getContext('2d');
+        
+        var data = {
+            labels: ['Restaurant 1', 'Restaurant 2', 'Restaurant 3', 'Restaurant 4'],
+            datasets: [
+                {
+                    label: 'Male Employees',
+                    data: [35, 50, 45, 60], // Example random data for males
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // Light blue color
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Female Employees',
+                    data: [40, 55, 30, 70], // Example random data for females
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // Light red color
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+        
+        var options = {
+            indexAxis: 'y', // This makes the bar chart horizontal
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        };
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+
+
+</script>
+		
+	{% endblock %}

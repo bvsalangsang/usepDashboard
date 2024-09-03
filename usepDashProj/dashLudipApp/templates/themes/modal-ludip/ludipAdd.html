@@ -1,0 +1,81 @@
+<div class="modal fade" id="modal-ind-lg">
+	<form id="ludip-add-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-success">
+					<h4 class="modal-title">Add New Entry (LUDIP)</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="add-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="campus">Campus</label>
+								{{ lform.campus }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="total-area"> Total Land Area </label>
+								{{ lform.totalLandArea }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+
+							<div class="form-group validate">
+								<label for="land-used"> Land Used </label>
+								{{ lform.landUsed }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+
+							<div class="form-group validate">
+								<label for="rem-land"> Remaining Land </label>
+								{{ lform.remainLand }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+
+							<div class="form-group validate">
+								<label for="used-map"> Land Used Map </label>
+								{{ lform.landUsedMap }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+
+							<div class="form-group validate">
+								<label for="site-dev"> Site Development Plan</label>
+								{{ lform.siteDevPlan }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+
+							<div class="form-group validate">
+								<label for="remarks"> Remarks</label>
+								{{ lform.remarks }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close
+					</button>
+					<button
+						type="submit"
+						class="btn btn-success btn-save"
+						data-url="{% url 'ludipSaveParams' %}"
+					>
+						Save
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

@@ -1,0 +1,448 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Land Use Development and Infrastructure Plan</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LUDIP</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header">
+										LUDIP
+									</div>
+									<div class="card-body">
+										<table id="example" class="table table-striped" style="width:100%">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Code</th>
+													<th>Description</th>
+													<th>Object</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+										</table>
+									</div>	
+									<div class="card-footer">
+										<button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-ind-lg">
+											Add New
+										  </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+
+				{% include 'themes/modal-ludip/ludipAdd.html' %}
+        
+				{% include 'themes/modal-ludip/ludipEdit.html' %}
+				
+				{% include 'themes/modal-ludip/ludipDelete.html' %}
+   
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+<script>
+
+	$(document).ready(function() {
+		$.ajax({
+				url: "/ludipJsonList/",
+				method: 'GET',
+				success: function (data) {
+					// Assuming response is an object
+					const dataArray = data.data;
+					let totalLandArea = 0;
+                    let totalLandUsed = 0;
+                    let totalRemainLand = 0;
+					console.log(dataArray)
+					dataArray.forEach(function(item, index) { 
+						totalLandArea += parseFloat(item.totalLandArea);
+                        totalLandUsed += parseFloat(item.landUsed);
+                        totalRemainLand += parseFloat(item.remainLand);
+						});
+
+						console.log(totalLandArea)
+						console.log(totalLandUsed)
+						console.log(totalRemainLand)
+
+
+						if (Array.isArray(dataArray)) {
+                        console.log(dataArray); // Display the JSON response in console
+                        dataArray.forEach(function(item, index) {
+                            const cardHtml = `
+							<div class="col-4"> 
+                                <div class="card  card-danger">
+                                    <div class="card-header">
+                                        <h3 class="card-title">${item.campus} - Land Usage</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="chart-${index}" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                    </div>
+                                </div>
+							</div>
+                            `;
+
+                            $('#cards-container').append(cardHtml);
+							const ctx = document.getElementById(`chart-${index}`).getContext('2d');
+
+									new Chart(ctx, {
+										type: 'pie',
+										data: {
+											labels: ['Land Used', 'Remaining Land'],
+											datasets: [{
+												data: [parseFloat(item.landUsed), parseFloat(item.remainLand)],
+												backgroundColor: ['#8B0000', '#013220']
+											}]
+										},
+										options: {
+											responsive: true,
+											maintainAspectRatio: false,
+											plugins: {
+												datalabels: {
+													formatter: (value, context) => {
+														let sum = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+														let percentage = (value * 100 / sum).toFixed(2) + "%";
+														return percentage;
+													},
+													color: '#fff'
+												}
+											}
+										},
+										plugins: [ChartDataLabels]
+									});
+
+                          
+                        });
+                    } else {
+                        console.error('Error: Expected data to be an array.');
+                    }
+
+					}
+				});
+	});
+
+
+</script>
+		
+		
+		<script>
+
+			$(document).ready(function() {
+
+				//  ==========================================
+				lupidId = "";
+				var siteTable = $("#example").DataTable({
+				ajax: "/ludipJsonList/",
+				rowId: "ludipId",
+				order: [1, "asc"],
+				columns: [
+				
+					{ title:"ID",data: "ludipId",  width: "5%" },
+					{ title: "Campus", data: "campus" },
+					{ title: "Total Area", data: "totalLandArea" },
+					{ title: "Land Used", data: "landUsed" },
+					{ title: "Remaining Land", data: "remainLand" },
+					{ title: "Land Used Map", data: "landUsedMap" },
+					{ title: "Site Dev Plan", data: "siteDevPlan" },
+					{ title: "Remarks", data: "remarks" },
+					{
+						title:"Action",
+						data: null,
+						defaultContent:
+							'<button class="btn edit-area btn-default" > <i class="fas fa-edit"></i></button> ' +
+							'<button class="btn delete-area btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+						targets: -1,
+						width: "15%",
+					},
+				],
+				select: {
+					style: "os",
+					selector: "td:not(:first-child)",
+				},
+				});
+				$("#example tbody").on("click", ".edit-area", function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					let data = siteTable.row(e.target.closest("tr")).data();
+					console.log(data);
+					lupidId = data.ludipId;
+					$("#ludip-edit-form input[name='campus']").val(data.campus);
+					$("#ludip-edit-form input[name='totalLandArea']").val(data.totalLandArea);
+					$("#ludip-edit-form input[name='landUsed']").val(data.landUsed);
+					$("#ludip-edit-form input[name='remainLand']").val(data.remainLand);
+					$("#ludip-edit-form input[name='landUsedMap']").val(data.landUsedMap);
+					$("#ludip-edit-form input[name='siteDevPlan']").val(data.siteDevPlan);
+					$("#ludip-edit-form textarea[name='remarks']").val(data.remarks);
+					$("#ludip-edit-lg").modal("show");
+				});
+				$("#example tbody").on("click", ".delete-area", function(e){
+					e.preventDefault();
+					e.stopPropagation();
+
+					let data = siteTable.row(e.target.closest("tr")).data();
+					lupidId = data.ludipId;
+					console.log(data)
+					const element = document.getElementById("campus");
+					element.innerHTML =
+						"<h5>ID: " + data.ludipId + "</h5>" + "  Campus: " + data.campus;
+					$("#ludip-del-lg").modal("show");
+						
+				});
+				//add
+				$("#ludip-add-form").on("submit", function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+					var $this = $(this);
+					var valid = true;
+
+					console.log(valid);
+					$("#ludip-add-form input").each(function () {
+						let $this = $(this);
+						var currentInputVal = $this.val();
+						if (currentInputVal == null || currentInputVal == "") {
+							valid = false;
+							$this
+								.parent(".validate")
+								.find(".mySpan")
+								.text(
+									"The " +
+										$this.attr("name").replace(/[\_]+/g, " ") +
+										"field is required"
+								);
+						} else {
+							$this.parent(".validate").find(".mySpan").text("");
+						}
+					});
+					if (valid) {
+						$(".btn-save").text("Saving...").attr("disabled", true);
+						let data = $this.serialize();
+
+						console.log(data);
+						$.ajax({
+							url: $(".btn-save").data("url"),
+							type: "POST",
+							data: data,
+							dataType: "json",
+							success: function (data) {
+								if (data.Status == "Saved") {
+									Swal.fire({
+										position: "center",
+										icon: "success",
+										title: "Record Successfully Saved!",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+									$(".btn-save").text("Save").attr("disabled", false);
+									$this[0].reset();
+									$("#example").DataTable().ajax.reload();
+									$("#modal-ind-edit-lg").modal("show");
+								} else {
+									Swal.fire({
+										position: "center",
+										icon: "error",
+										title: "Failed to Save Record!",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+								}
+							},
+							error: function (data) {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Error Occured!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							},
+						});
+					}
+					return false;
+				});
+				
+				//edit
+				$("#ludip-edit-form").on("submit", function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					var $this = $(this);
+					var valid = true;
+
+					$("#ind-edit-form input").each(function () {
+						let $this = $(this);
+						var currentInputVal = $this.val();
+
+						if (currentInputVal == null || currentInputVal == "") {
+							valid = false;
+							$this
+								.parent(".validate")
+								.find(".mySpan")
+								.text(
+									"The " +
+										$this.attr("name").replace(/[\_]+/g, " ") +
+										"field is required"
+								);
+						} else {
+							valid = true;
+							$this.parent(".validate").find(".mySpan").text("");
+						}
+					});
+
+					$("#ludip-edit-form input").each(function () {
+						let $this = $(this);
+						var currentInputVal = $this.val();
+						if (currentInputVal == null || currentInputVal == "") {
+							valid = false;
+							$this
+								.parent(".validate")
+								.find(".mySpan")
+								.text(
+									"The " +
+										$this.attr("name").replace(/[\_]+/g, " ") +
+										"field is required"
+								);
+						} else {
+							$this.parent(".validate").find(".mySpan").text("");
+						}
+					});
+
+					if (valid) {
+						$(".btn-update").text("Updating...").attr("disabled", true);
+						let data = $this.serialize();
+
+						var editUrl = $(".btn-update").data("url");
+
+						console.log(data);
+						$.ajax({
+							url: editUrl.replace("0", lupidId),
+							type: "POST",
+							data: data,
+							dataType: "json",
+							success: function (data) {
+								console.log(data.Status);
+								if (data.Status == "Updated") {
+									Swal.fire({
+										position: "center",
+										icon: "success",
+										title: "Record Successfully Updated!",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+
+									$(".btn-update").text("Update").attr("disabled", false);
+									$this[0].reset();
+									$("#example").DataTable().ajax.reload();
+									$("#ludip-edit-lg").modal("hide");
+								} else {
+									Swal.fire({
+										position: "center",
+										icon: "error",
+										title: "Failed to Update Record!",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+								}
+							},
+							error: function (data) {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Error Occured!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							},
+						});
+					}
+				});
+			
+				//delete
+				$("#ludip-del-form").on("submit", function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+						siteTable.row($(this).parents("tr")).remove().draw();
+						var delUrl = $("#ludip-del-form .btn-delete").data("url");
+						$.ajax({
+							url: delUrl.replace("0", lupidId),
+							method: "POST",
+							success: function (data) {
+								if (data.Status == "Deleted") {
+									Swal.fire({
+										position: "center",
+										icon: "success",
+										title: "Record Successfully Deleted!",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+
+									$("#example").DataTable().ajax.reload();
+									$("#ludip-del-lg").modal("hide");
+								} else {
+									Swal.fire({
+										position: "center",
+										icon: "error",
+										title: "Failed to Delete Record!",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+								}
+							},
+							error: function (data) {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Error Occured!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							},
+						});
+					});
+	
+			});
+		</script>
+
+	{% endblock %}

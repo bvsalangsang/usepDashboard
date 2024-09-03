@@ -1,0 +1,102 @@
+<div class="modal fade" id="modal-gad-lg">
+	<form id="gad-add-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-success">
+					<h4 class="modal-title">Add New Entry</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="gad-id">ID</label>
+								<input
+									type="text"
+									name="gadId"
+									id="id_gadId"
+									class="form-control"
+									disabled
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="campus">Campus</label>
+								<select
+									id="campus"
+									name="campId"
+									class="form-control select2add"
+								>
+									<option value="">Select a Campus</option>
+									{% for campus in campusList %}
+									<option value="{{ campus.campId }}">{{ campus.name }}</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="divis">Division</label>
+								<select id="divis" name="divId" class="form-control select2add">
+									<option value="">Select a division</option>
+									{% for divis in divList %}
+									<option value="{{ divis.divId }}">{{ divis.name }}</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+
+							<div class="form-group validate">
+								<label for="comp">Component</label>
+								<select id="comp" name="compId" class="form-control select2add">
+									<option value="">Select a component</option>
+								</select>
+							</div>
+							<div class="form-group validate">
+								<label for="series"> Series</label>
+								{{ form.series }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="program"> Program</label>
+								{{ form.program }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="name"> Female</label>
+								{{ form.female }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="name"> male</label>
+								{{ form.male }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close
+					</button>
+					<button
+						type="submit"
+						class="btn btn-success btn-save"
+						data-url="{% url 'saveUpdateGadDetails' %}"
+					>
+						Save
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

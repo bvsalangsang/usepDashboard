@@ -1,0 +1,83 @@
+<div class="modal fade" id="resdeg-edit-lg">
+	<form id="resdeg-edit-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-warning">
+					<h4 class="modal-title">Edit Entry</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="edit-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="campus">Year </label>
+								<input
+									type="text"
+									name="year"
+									id="id_year"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="grad"> No. of Graduate Students</label>
+								<input
+									type="text"
+									name="noOfGrad"
+									id="id_noOfGrad"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="res-deg">
+									No. of Grad. Stud. in Research Degree</label
+								>
+								<input
+									type="text"
+									name="noOfGradResDeg"
+									id="id_noOfGradResDeg"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="percentage"> Percentage</label>
+								<input
+									type="text"
+									name="percentage"
+									id="id_percentage"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button
+							type="submit"
+							class="btn bg-gradient-warning btn-update"
+							data-url="{% url 'resDegUpdateParams' id=0 %}"
+						>
+							Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

@@ -1,0 +1,82 @@
+<div class="modal fade" id="modal-anal-edit-lg">
+	<form id="anal-edit-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-warning">
+					<h4 class="modal-title">Edit Entry (Analytics)</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="edit-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="type">Program</label>
+								<select
+									id="prog-id"
+									name="progId"
+									class="form-control select2edit"
+								>
+									{% for program in programs %}
+									<option value="{{ program.progId }}">
+										{{ program.name }}
+									</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="obj">Type</label>
+								<select
+									id="anal-type"
+									name="typeNo"
+									class="form-control select2edit"
+								>
+									{% for type in types %}
+									<option value="{{ type.typeNo }}">
+										{{ type.description }}
+									</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="ind"> Indicator </label>
+								<textarea
+									class="form-control"
+									name="indicator"
+									rows="10"
+									placeholder="Indicator"
+									id="id_indicator"
+								>
+								</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button
+							type="submit"
+							class="btn bg-gradient-warning btn-update"
+							data-url="{% url 'analUpdateParams' id=0 %}"
+						>
+							Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

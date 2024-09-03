@@ -1,0 +1,63 @@
+<div class="modal fade" id="modal-resdeg-lg">
+	<form id="resdeg-add-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-success">
+					<h4 class="modal-title">Add New Entry (Board Passer)</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="add-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="col-year"> Year</label>
+								{{ form.year }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="grad"> No. of Graduate Students</label>
+								{{ form.noOfGrad }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="res-deg">
+									No. of Grad. Stud. in Research Degree</label
+								>
+								{{ form.noOfGradResDeg }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="percentage"> Percentage</label>
+								{{ form.percentage }}
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close
+					</button>
+					<button
+						type="submit"
+						class="btn btn-success btn-save"
+						data-url="{% url 'resDegSaveParams' %}"
+					>
+						Save
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

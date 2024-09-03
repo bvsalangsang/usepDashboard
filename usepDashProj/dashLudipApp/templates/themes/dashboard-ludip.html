@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Dashboard - LUDIP</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LUDIP</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+
+						   
+						 
+						   <div class="row mb-3">
+							<div class="col-12 callout callout-info mb-2">
+								<h5 class="mb-0">Land Use Development and Infrastructure Plan of USeP - All Campuses </h5>
+							</div>
+							<!-- Small boxes (Stat box) -->
+							<div class="col-lg-4">
+							  <!-- small box -->
+							  <div class="small-box bg-info">
+								<div class="inner">
+								  <h3 class="overall-area"></h3>
+								  <p>Hectares</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-pie-graph"></i>
+								</div>
+								<a href="#" class="small-box-footer"
+								  >OVERALL LAND AREA</a>
+							  </div>
+							</div>
+							<!-- ./col -->
+							<div class="col-lg-4">
+							  <!-- small box -->
+							  <div class="small-box bg-success">
+								<div class="inner">
+								  <h3 class="overall-rem"></h3>
+								  <p>Hectares</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-pie-graph"></i>
+								</div>
+								<a href="#" class="small-box-footer"
+								  >OVERALL REMAINING LAND</a>
+							  </div>
+							</div>
+							<!-- ./col -->
+					
+							<div class="col-lg-4">
+							  <!-- small box -->
+							  <div class="small-box bg-danger">
+								<div class="inner">
+								  <h3 class="overall-used"></h3>
+			  
+								  <p>Hectares</p>
+								</div>
+								<div class="icon">
+								  <i class="ion ion-pie-graph"></i>
+								</div>
+								<a href="#" class="small-box-footer"
+								  >OVERALL LAND USED</a>
+							  </div>
+							</div>
+							<!-- ./col -->
+						
+						  </div>
+						  <div class="row">
+							
+							<div class="col-12">
+								
+								<div class="card">
+									<div class="card-header bg-maroon">
+										<h5 class="mb-0">Per Campus</h5>
+									</div>
+									<div class="card-body">
+										<div class="row"id="cards-container">
+											<!-- Dynamic cards will be appended here -->
+										  </div>
+									</div>
+								</div>
+								
+							</div>
+						  </div>
+                       
+
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+					url: "/ludipJsonList/",
+					method: 'GET',
+					success: function (data) {
+						// Assuming response is an object
+						const dataArray = data.data;
+						let totalLandArea = 0;
+						let totalLandUsed = 0;
+						let totalRemainLand = 0;
+						console.log(dataArray)
+						dataArray.forEach(function(item, index) { 
+							totalLandArea += parseFloat(item.totalLandArea);
+							totalLandUsed += parseFloat(item.landUsed);
+							totalRemainLand += parseFloat(item.remainLand);
+							});
+
+							console.log(totalLandArea)
+							console.log(totalLandUsed)
+							console.log(totalRemainLand)
+							$(".overall-area").html(totalLandArea.toFixed(2));
+							$(".overall-rem").html(totalRemainLand.toFixed(2));
+							$(".overall-used").html(totalLandUsed.toFixed(2));
+
+							if (Array.isArray(dataArray)) {
+							console.log(dataArray); // Display the JSON response in console
+							dataArray.forEach(function(item, index) {
+								const cardHtml = `
+								<div class="col-4"> 
+									<div class="card ">
+										<div class="card-header bg-navy color-palette">
+											<h3 class="card-title">${item.campus} - Land Use</h3>
+										</div>
+										<div class="card-body">
+											<div class ="row">
+												<div class ="col-8">
+													<canvas id="chart-${index}" style ="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+												</div>
+												<div class ="col-4">
+													<div class="info-box p-0 bg-info">
+														<div class="info-box-content">
+															<span class="info-box-text">Total Area</span>
+															<span class="info-box-number">${item.totalLandArea} ha </span>
+														</div>
+
+													</div>
+													<div class="info-box p-0 bg-success">
+														<div class="info-box-content">
+															<span class="info-box-text">Remaining</span>
+															<span class="info-box-number">${item.remainLand} ha </span>
+														</div>
+
+													</div>
+													<div class="info-box p-0 bg-danger">
+														<div class="info-box-content">
+															<span class="info-box-text">Used</span>
+															<span class="info-box-number">${item.landUsed} ha</span>
+														</div>
+
+													</div>
+					
+												</div>
+											</div>
+										</div>
+									
+									</div>
+								</div>
+								`;
+
+								$('#cards-container').append(cardHtml);
+
+								const ctx = document.getElementById(`chart-${index}`).getContext('2d');
+								new Chart(ctx, {
+									type: 'pie',
+									data: {
+										labels: ['Used' , 'Remaining'],
+										datasets: [{
+											data: [parseFloat(item.landUsed), parseFloat(item.remainLand)],
+											backgroundColor: ['#dc3545', '#28a745 ']
+										}]
+									},
+									options: {
+										responsive: true,
+									maintainAspectRatio: false,
+										plugins: {
+											datalabels: {
+												formatter: (value, context) => {
+													let sum = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+													let percentage = (value * 100 / sum).toFixed(2) + "%";
+													return percentage;
+												},
+												color: '#fff',
+											}
+										}
+									},
+									plugins: [ChartDataLabels]
+								});
+							});
+						} else {
+							console.error('Error: Expected data to be an array.');
+						}
+
+						}
+					});
+		});
+	</script>
+		
+	{% endblock %}

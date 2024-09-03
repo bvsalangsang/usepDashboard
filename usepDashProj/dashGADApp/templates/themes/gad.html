@@ -1,0 +1,476 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Division Library</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Division Library</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<!-- Small boxes (Stat box) -->
+						<div class="row">
+							<div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                      Program Records
+                                    </div>
+                                    <div class="card-body">
+										<!-- {% for msg in messages %}
+										<div class="alert alert-info alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<i class="icon fas fa-check"></i>
+											{{ msg }}
+										</div>
+										{% endfor %} -->
+											<table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Name</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+											</table>
+								   </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <!-- <div class="col-2">
+                                                <a href="/key-result-area-add-form/" class="btn btn-block bg-gradient-success "> Add New</a>
+                                            </div> -->
+											<button type="button" class="btn bg-gradient-success" data-toggle="modal" id="add-new"  data-target="#modal-gad-lg">
+												Add New
+											</button>
+										</div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						<!-- /.row -->
+				
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			
+				{% include 'themes/modal-gad/gadAdd.html' %}
+				{% include 'themes/modal-gad/gadEdit.html' %}
+				{% include 'themes/modal-gad/gadDelete.html' %}
+                
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+
+      $(document).ready(function() {
+			
+            $(".edit-select").select2({
+				theme: "bootstrap4",
+			});
+
+					
+            $(".select2add").select2({
+				theme: "bootstrap4",
+			});
+			
+			$('#edit-divis').change(function() {
+                var divId = $(this).val();
+				console.log($(this).val())
+                $.ajax({
+                    url: '/getCompJsonList/',
+                    data: {
+                        'divId': divId
+                    },
+                    success: function(response) {
+                        var $compSelect = $('#edit-comp');
+                        $compSelect.empty();
+						$compSelect.append($('<option>', { value: '', text: 'Select a component' }));  // Add default option
+
+						var data = response.data;
+
+						// Check if data is an array
+						if (Array.isArray(data)) {
+							$.each(data, function(index, component) {
+								console.log('Component:', component);  // Debugging
+								if (component && component.compId && component.desc) {
+									$compSelect.append($('<option>', {
+										value: component.compId,
+										text: component.desc
+									}));
+								} else {
+									console.error('Invalid component structure:', component);
+								}
+							});
+						} else {
+							console.error('Data is not an array:', data);
+						}		
+                    
+                    }
+                });
+            });
+			
+			$('#divis').change(function() {
+                var divId = $(this).val();
+				console.log($(this).val())
+                $.ajax({
+                    url: '/getCompJsonList/',
+                    data: {
+                        'divId': divId
+                    },
+                    success: function(response) {
+                        var $compSelect = $('#comp');
+                        $compSelect.empty();
+						$compSelect.append($('<option>', { value: '', text: 'Select a component' }));  // Add default option
+
+						var data = response.data;
+
+						// Check if data is an array
+						if (Array.isArray(data)) {
+							$.each(data, function(index, component) {
+								console.log('Component:', component);  // Debugging
+								if (component && component.compId && component.desc) {
+									$compSelect.append($('<option>', {
+										value: component.compId,
+										text: component.desc
+									}));
+								} else {
+									console.error('Invalid component structure:', component);
+								}
+							});
+						} else {
+							console.error('Data is not an array:', data);
+						}		
+                    
+                    }
+                });
+            });
+			
+			var modalEdit = $("#modal-gad-edit-lg")
+			var modalDelete = $("#modal-gad-del-lg")
+
+			var addForm = $("#gad-add-form")
+			var addformInput = $("#gad-add-form input")
+			var editForm = $("#gad-edit-form");
+			var editformInput = $("#gad-edit-form input")
+			var delForm = $("#gad-del-form");
+			 
+			var formSelector = "#gad-edit-form";
+			var inputSelector1 = "input[name='divId']";
+			var inputSelector2 = "input[name='series']";
+			var inputSelector3 = "input[name='program']";
+			var inputSelector4 = "input[name='female']";
+			var inputSelector5 = "input[name='male']";
+
+			totalVal = 0
+			perVal = 0
+			ctrlNo="";
+			analId = "";
+
+			var siteTable = $("#example").DataTable({
+			ajax: "/gadJsonList/",
+			rowId: "gadId",
+			order: [0, "asc"],
+			columns: [
+				{ title:"ID",data: "gadId",  width: "5%" },
+				{ title: "Campus", data: "campus" },
+				{ title: "Division", data: "division" },
+				{ title: "Component", data: "component" },
+				{ title: "Series", data: "series" },
+				{ title: "Program", data: "program" },
+				{ title: "Female", data: "female" },
+				{ title: "Male", data: "male" },
+				{ title: "Total", data: "total" },
+				{
+                    title: "Action",
+					data: null,
+					defaultContent:
+						'<button class="btn edit-area btn-default" > <i class="fas fa-edit"></i></button> ' +
+						'<button class="btn delete-area btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+					targets: -1,
+					width: "15%",
+				},
+			],
+			select: {
+				style: "os",
+				selector: "td:not(:first-child)",
+			},
+			});
+
+
+			$("#example tbody").on("click", ".edit-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				pKey = data.gadId
+				tmptotal = parseInt(data.female) + parseInt(data.male)
+				
+				$(formSelector).find(inputSelector1).val(data.gadId);
+				$(formSelector).find(inputSelector2).val(data.series);
+				$(formSelector).find(inputSelector3).val(data.program);
+				$(formSelector).find(inputSelector4).val(data.female);
+				$(formSelector).find(inputSelector5).val(data.male);
+				modalEdit.modal("show");
+			});
+
+			$("#example tbody").on("click", ".delete-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				pKey = data.gadId
+				const element = document.getElementById("context");
+				element.innerHTML =
+					"<h5>ID: " + pKey + "</h5>" +  "<h5>Component: " + data.component;
+				modalDelete.modal("show");
+			});
+
+
+			$('#add-new').click(function() {
+				if ( !siteTable.data().any() ) {
+					$('#id_gadId').val(1) 
+				}
+				else {
+					var lastIndex = siteTable.rows().indexes().length - 1;
+					// Get the last row data
+					var lastRowData = siteTable.row(lastIndex).data();
+					$('#id_gadId').val(lastRowData.gadId + 1) 
+					ctrlNo = lastRowData.gadId + 1
+				}
+
+			  
+			
+			});
+
+			addForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $this = $(this);
+				var valid = true;
+
+				addformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+				
+
+				if (valid) {
+					$(".btn-save").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					total = parseInt($('#id_female').val()) + parseInt( $('#id_male').val())
+					let data =$this.serialize() + "&gadId=" +  $('#id_gadId').val() + "&total=" + total;
+					
+					console.log(data)
+					$.ajax({
+						url: $(".btn-save").data("url"),
+						type: "POST",
+						data:data,
+						dataType: "json",
+						success: function (data) {
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Saved!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-save").text("Save").attr("disabled", false);
+
+								$this[0].reset();
+
+								$("#example").DataTable().ajax.reload();
+								
+								ctrlNo = ctrlNo + 1
+								$('#id_gadId').val(ctrlNo) 
+								// $("#modal-div-lg").modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Save Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				 }
+				return false;
+			});
+			
+			editForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var $this = $(this);
+				var valid = true;
+
+			editformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+
+				if (valid) {
+					$(".btn-update").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					
+					data =$this.serialize() + "&gadId=" + pKey + "&total=" + tmptotal;
+					
+				   console.log(data)
+					var editUrl = $(".btn-update").data("url"); 
+					$.ajax({
+					    url: editUrl, // editUrl.replace("0", pKey),
+						type: "POST",
+						data: data,
+						dataType: "json",
+						success: function (data) {
+							console.log(data.Status);
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Updated!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-update").text("update").attr("disabled", false);
+								$("#example").DataTable().ajax.reload();
+								modalEdit.modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Update Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				}
+			});
+
+			delForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				siteTable.row($(this).parents("tr")).remove().draw();
+				var delUrl = $(".btn-delete").data("url");
+				$.ajax({
+					url: delUrl.replace("0", pKey),
+					method: "POST",
+					success: function (data) {
+						if (data.Status == "Deleted") {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Record Successfully Deleted!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+							$("#example").DataTable().ajax.reload();
+							modalDelete.modal("hide");
+						} else {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Failed to Delete Record!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					},
+					error: function (data) {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Error Occured!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					},
+				});
+			});
+
+		});
+
+	</script>
+	{% endblock %}

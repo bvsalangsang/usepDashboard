@@ -1,0 +1,342 @@
+{% load static %}
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+	<!-- Brand Logo -->
+	<a href="index3.html" class="brand-link">
+		<img
+			src="{% static 'dist/img/AdminLTELogo.png' %}"
+			alt="AdminLTE Logo"
+			class="brand-image img-circle elevation-3"
+			style="opacity: 0.8"
+		/>
+		<span class="brand-text font-weight-light">USeP Dashboard</span>
+	</a>
+
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<!-- Sidebar user panel (optional) -->
+		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+			<div class="image">
+				<img
+					src="{% static 'dist/img/user2-160x160.jpg' %}"
+					class="img-circle elevation-2"
+					alt="User Image"
+				/>
+			</div>
+			<div class="info">
+				<a href="#" class="d-block">Bobby V. Salangsang</a>
+			</div>
+		</div>
+
+		<!-- SidebarSearch Form -->
+		<div class="form-inline">
+			<div class="input-group" data-widget="sidebar-search">
+				<input
+					class="form-control form-control-sidebar"
+					type="search"
+					placeholder="Search"
+					aria-label="Search"
+				/>
+				<div class="input-group-append">
+					<button class="btn btn-sidebar">
+						<i class="fas fa-search fa-fw"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Sidebar Menu -->
+		<nav class="mt-2">
+			<ul
+				class="nav nav-pills nav-sidebar flex-column"
+				data-widget="treeview"
+				role="menu"
+				data-accordion="false"
+			>
+				<!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+				<!-- <li class="nav-item menu-open">
+					<a href="#" id="dashboard" class="nav-link">
+						<i class="nav-icon fas fa-tachometer-alt"></i>
+						<p>Demo Dashboard</p>
+					</a>
+				</li> -->
+
+				<li class="nav-item menu-open">
+					<a href="#" id="dashboard" class="nav-link">
+						<i class="nav-icon fas fa-tachometer-alt"></i>
+						<p>Dashboard</p>
+						<i class="right fas fa-angle-left"></i>
+					</a>
+					<ul class="nav nav-treeview">
+						<!-- <li class="nav-item">
+							<a href="{% url  'stratDash' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Strategic</p>
+							</a>
+						</li> -->
+						<li class="nav-item">
+							<a href="{% url  'demoDash' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Strategic Matrices</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url  'scoreDash' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Strategic Scorecard</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{% url  'anaDashboardView' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Analytic</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url  'ludipDash' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>LUDIP</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url  'gadDashNewView' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>GAD</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<p>LIBRARY</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="{% url  'ludipView' %}" class="nav-link">
+						<i class="fas fa-chevron-circle-right nav-icon"></i>
+						<p>LUDIP</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<i class="fas fa-solid fa-newspaper nav-icon"></i>
+						<p>
+							ANALYTICAL
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{% url 'analyticsView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Program</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'boardPassersView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Board Passers</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'employabilityView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Employability</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'chedRdcView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>CHED and RDC</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'accredView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Accreditation</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'gradResView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Faculty Research</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'resDegView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Research Degree</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'accrGradProgView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Accredited Grad Program</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'resOutputView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Research Output</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'resCompleteView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Research Complete</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'resPublishedView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Research Published</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'actPartnerView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Active Partners</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'traineesView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Trainees</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'extProgramView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Extension Program</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'beneficiaryView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Beneficiaries</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<i class="fas fa-solid fa-newspaper nav-icon"></i>
+						<p>
+							STRATEGIC
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{% url 'stratAreaView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Area</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'stratObjView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Objective</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'stratIndView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Indicator</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{% url 'stratTemplateView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Template</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<i class="fas fa-solid fa-newspaper nav-icon"></i>
+						<p>
+							GAD
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{% url 'campus' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Campus</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'division' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Division</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'componentView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>Component</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'gadView' %}" class="nav-link">
+								<i class="fas fa-chevron-circle-right nav-icon"></i>
+								<p>GAD Details</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<i class="nav-icon fas fa-chart-pie"></i>
+						<p>
+							Charts
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a
+								href="{% static 'pages/charts/chartjs.html' %}"
+								class="nav-link"
+							>
+								<i class="far fa-circle nav-icon"></i>
+								<p>ChartJS</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% static 'pages/charts/flot.html' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Flot</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a
+								href="{% static 'pages/charts/inline.html' %}"
+								class="nav-link"
+							>
+								<i class="far fa-circle nav-icon"></i>
+								<p>Inline</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% static 'pages/charts/uplot.html' %}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>uPlot</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>

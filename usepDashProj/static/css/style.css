@@ -1,0 +1,37 @@
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+	background-color: rgba(255, 255, 255, 0.9);
+	color: #343a40;
+}
+
+#dashboard {
+	background-color: #007bff;
+	color: #fff;
+}
+
+ul.nav.nav-treeview li {
+	padding-left: 1rem;
+}
+
+.gad-bg-male {
+	background-color: #b437ad !important;
+	color: #fff;
+}
+.gad-bg-female {
+	background-color: #e838bf !important;
+	color: #fff;
+}
+
+.custom-bg-gad-header {
+	background-color: #a75072;
+	color: #fff;
+}
+
+.bg-gad-header {
+	background-color: #73374f;
+	color: #fff;
+}
+.custom-bg-header {
+	background-color: maroon;
+	color: #fff;
+}

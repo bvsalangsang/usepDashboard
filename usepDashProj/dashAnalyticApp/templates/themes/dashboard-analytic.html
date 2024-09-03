@@ -1,0 +1,493 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Dashboard - Analytics</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Analytics</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						  <div class="row">
+							<div class="col-12">
+								<div class="card ">
+									<div class="card-header bg-gradient-navy">
+										<h5 class="mb-0 card-title">Higher Education Program</h5>
+										<div class="card-tools">
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="remove">
+												<i class="fas fa-times"></i>
+											</button>
+										</div>
+										
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of first-time licensure exam-takers that pass the licensure exams
+													</div>
+													<div class="card-body">
+														<canvas id="board-passer" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of graduates (2 years prior) that are employed
+													</div>
+													<div class="card-body">
+														<canvas id="employ" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+                              
+										<div class="row">
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of undergraduate students enrolled in CHED-identified and RDC- identified priority programs											</div>
+													<div class="card-body">
+														<canvas id="ched-rdc" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of undergraduate programs with accreditation
+													</div>
+													<div class="card-body">
+														<canvas id="accred" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+                              
+
+									</div>
+								</div>
+								
+							</div>
+						  </div>
+                       
+						  <div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header bg-gradient-navy">
+										<h5 class="mb-0 card-title">Advanced Education Program</h5>
+										<div class="card-tools">
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="remove">
+												<i class="fas fa-times"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of graduate school faculty engaged in research work
+													</div>
+													<div class="card-body">
+														<canvas id="fac-res" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of graduate students enrolled in research degree programs
+													</div>
+													<div class="card-body">
+														<canvas id="res-deg" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of accredited graduate programs
+													</div>
+													<div class="card-body">
+														<canvas id="grad-prog" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						  </div>
+                       
+						   <div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header bg-gradient-navy">
+										<h5 class="mb-0 card-title">Research Program</h5>
+										<div class="card-tools">
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="remove">
+												<i class="fas fa-times"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Number of research outputs in the last three years utilized by the industry or by other beneficiaries
+													</div>
+													<div class="card-body">
+														<canvas id="res-out" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Number of research outputs completed within the year
+													</div>
+													<div class="card-body">
+														<canvas id="res-com" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of research outputs published in internationally-refereed or CHED recognized journal within the year	</div>
+													<div class="card-body">
+														<canvas id="res-pub" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						  </div>
+
+						  <div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header bg-gradient-navy">
+										<h5 class="mb-0 card-title">Extension Program</h5>
+										<div class="card-tools">
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn bg-gradient-navy btn-sm" data-card-widget="remove">
+												<i class="fas fa-times"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Number of active partnerships with LGUs, industries, NGOs, NGAs, SMEs, and other stakeholders as a result of extension activities		</div>
+													<div class="card-body">
+														<canvas id="act-part" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Number of trainees weighted by the length of training
+													</div>
+													<div class="card-body">
+														<canvas id="train" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Number of extension programs organized and supported consistent with the SUCs mandated and priority programs
+													</div>
+													<div class="card-body">
+														<canvas id="ext-prog" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="card">
+													<div class="card-header">
+														Percentage of beneficiaries who rate the training course/s as satisfactory or higher in terms of quality and relevance				</div>
+													<div class="card-body">
+														<canvas id="benef" width="400" height="200"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						  </div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+
+<script>
+        function renderPercentageChart(url, ctx, label) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    const labels = response.data.map(item => item.year);
+                    const percentages = response.data.map(item => parseFloat(item.percentage));
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: label,
+                                backgroundColor: 'rgba(255, 87, 51, 1)',
+                                borderColor: 'rgba(255, 87, 51, 1)',
+                                data: percentages,
+                                fill: false,
+                                pointRadius: 5,
+                                pointBackgroundColor: 'rgba(255, 87, 51, 1)',
+                                tension: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                            },
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            hover: {
+                                mode: 'nearest',
+                                intersect: true
+                            },
+                            scales: {
+                                xAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Year'
+                                    },
+									gridLines: {
+                                            display: false // Disable gridlines for y-axis
+                                        }
+									
+                                }],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Percentage'
+                                    },
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 100
+                                    },
+									gridLines: {
+                                            display: true // Disable gridlines for y-axis
+                                        }
+                                }]
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.log('Error fetching data:', error);
+                }
+            });
+        }
+
+		function fetchDataChart(url, ctx, label) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+					
+					tempData = ""
+					switch(label){
+						case "Research Output":
+							tempData = response.data.map(item => item.noOfResOutput);
+							break;
+						case "Research Complete":
+							tempData = response.data.map(item => item.noOfResComplete);
+							break;
+						case "Research Published":
+							tempData = response.data.map(item => item.noOfResPublished);
+							break;
+						case "Active Partners":
+							tempData = response.data.map(item => item.noOfActPart);
+							break;
+						case "Trainees":
+							tempData = response.data.map(item => item.noOfTrainees);
+							console.log(tempData)
+							break;
+						case "Extension Program":
+							tempData = response.data.map(item => item.noOfExtProgram);
+							break;
+					} 
+
+   					const tmpData = tempData ;
+					const labels = response.data.map(item => item.year);
+					
+					const maxYValue = Math.max(...tempData); // Calculate the maximum percentage value
+                    
+					
+					new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: label,
+                                backgroundColor: 'rgba(255, 87, 51, 1)',
+                                borderColor: 'rgba(255, 87, 51, 1)',
+                                data: tmpData,
+                                fill: false,
+                                pointRadius: 5,
+                                pointBackgroundColor: 'rgba(255, 87, 51, 1)',
+                                tension: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                            },
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            hover: {
+                                mode: 'nearest',
+                                intersect: true
+                            },
+                            scales: {
+                                xAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Year'
+                                    },
+									gridLines: {
+                                            display: false // Disable gridlines for y-axis
+                                        }
+									
+                                }],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Output'
+                                    },
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: maxYValue                                    },
+									gridLines: {
+                                            display: true // Disable gridlines for y-axis
+                                        }
+                                }]
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.log('Error fetching data:', error);
+                }
+            });
+        }
+
+
+        $(document).ready(function() {
+			//------------------------------------------------------------
+			// Higher Education Program
+			//------------------------------------------------------------
+			renderPercentageChart('/boardPasserJsonList/', document.getElementById('board-passer').getContext('2d'), 'Board Passer');
+			renderPercentageChart('/employabilityJsonList/', document.getElementById('employ').getContext('2d'), 'Employability');
+			renderPercentageChart('/chedRdcJsonList/', document.getElementById('ched-rdc').getContext('2d'), 'CHED - RDC Identified');
+			renderPercentageChart('/accredJsonList/', document.getElementById('accred').getContext('2d'), 'Accreditation');
+  			//------------------------------------------------------------
+        
+			//------------------------------------------------------------
+			//	Advanced Education Program
+			//------------------------------------------------------------
+			renderPercentageChart('/gradResJsonList/', document.getElementById('fac-res').getContext('2d'), 'Faculty Research');
+			renderPercentageChart('/resDegJsonList/', document.getElementById('res-deg').getContext('2d'), 'Research Degree');
+			renderPercentageChart('/accrGradProgJsonList/', document.getElementById('grad-prog').getContext('2d'), 'Graduate Programs');
+		 
+		    //------------------------------------------------------------
+			//	Research Program
+			//------------------------------------------------------------
+			fetchDataChart('/resOutputJsonList/', document.getElementById('res-out').getContext('2d'), 'Research Output');
+			fetchDataChart('/resCompleteJsonList/', document.getElementById('res-com').getContext('2d'), 'Research Complete');
+			fetchDataChart('/resPublishedJsonList/', document.getElementById('res-pub').getContext('2d'), 'Research Published');
+			
+			//------------------------------------------------------------
+			//	Extension Program
+			//------------------------------------------------------------
+			fetchDataChart('/actPartnerJsonList/', document.getElementById('act-part').getContext('2d'), 'Active Partners');
+			fetchDataChart('/traineesJsonList/', document.getElementById('train').getContext('2d'), 'Trainees');
+			fetchDataChart('/extProgramJsonList/', document.getElementById('ext-prog').getContext('2d'), 'Extension Program');
+			renderPercentageChart('/beneficiaryJsonList/', document.getElementById('benef').getContext('2d'), 'Beneficiary');
+		   
+        });
+</script>
+		
+	{% endblock %}

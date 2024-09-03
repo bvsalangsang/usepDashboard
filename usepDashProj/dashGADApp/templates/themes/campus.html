@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Campus Library</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Campus Library</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<!-- Small boxes (Stat box) -->
+						<div class="row">
+							<div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                      Program Records
+                                    </div>
+                                    <div class="card-body">
+										<!-- {% for msg in messages %}
+										<div class="alert alert-info alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<i class="icon fas fa-check"></i>
+											{{ msg }}
+										</div>
+										{% endfor %} -->
+											<table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Name</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+											</table>
+								   </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <!-- <div class="col-2">
+                                                <a href="/key-result-area-add-form/" class="btn btn-block bg-gradient-success "> Add New</a>
+                                            </div> -->
+											<button type="button" class="btn bg-gradient-success" data-toggle="modal" id="add-new"  data-target="#modal-campus-lg">
+												Add New
+											</button>
+										</div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						<!-- /.row -->
+				
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			
+				{% include 'themes/modal-campus/campusAdd.html' %}
+				{% include 'themes/modal-campus/campusEdit.html' %}
+				{% include 'themes/modal-campus/campusDelete.html' %}
+                
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+			
+		function fetchPkey() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "/campusJsonList/",
+                    dataType: "json",
+                    success: function (data) {
+                        var pKey = data.data[0].campId;
+                        resolve(pKey);
+                    },
+                    error: function (error) {
+                        reject(error);
+                    }
+                });
+            });
+        }
+
+
+
+$(document).ready(function() {
+			
+            $(".select2add").select2({
+				theme: "bootstrap4",
+			});
+			
+			var modalEdit = $("#modal-campus-edit-lg")
+			var modalDelete = $("#modal-campus-del-lg")
+
+			var addForm = $("#campus-add-form")
+			var addformInput = $("#campus-add-form input")
+			var editForm = $("#campus-edit-form");
+			var editformInput = $("#campus-edit-form input")
+			var delForm = $("#campus-del-form");
+			 
+			var formSelector = "#campus-edit-form";
+			var inputSelector1 = "input[name='campId']";
+			var inputSelector2 = "input[name='name']";
+
+			totalVal = 0
+			perVal = 0
+			ctrlNo="";
+			analId = "";
+
+			var siteTable = $("#example").DataTable({
+			ajax: "/campusJsonList/",
+			rowId: "campId",
+			order: [0, "asc"],
+			columns: [
+				{ title:"ID",data: "campId",  width: "5%" },
+				{ title: "Name", data: "name" },
+				{
+                    title: "Action",
+					data: null,
+					defaultContent:
+						'<button class="btn edit-area btn-default" > <i class="fas fa-edit"></i></button> ' +
+						'<button class="btn delete-area btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+					targets: -1,
+					width: "15%",
+				},
+			],
+			select: {
+				style: "os",
+				selector: "td:not(:first-child)",
+			},
+			});
+
+
+			$("#example tbody").on("click", ".edit-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				pKey = data.campId
+
+                // $("#area-edit-form input[name='code']").val(data.code);
+				$(formSelector).find(inputSelector1).val(data.campId);
+				$(formSelector).find(inputSelector2).val(data.name);
+				modalEdit.modal("show");
+			});
+
+			$("#example tbody").on("click", ".delete-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				pKey = data.campId
+				const element = document.getElementById("context");
+				element.innerHTML =
+					"<h5>ID: " + pKey + "</h5>" +  "<h5>Name: " + data.name;
+				modalDelete.modal("show");
+			});
+
+
+			$('#add-new').click(function() {
+				if ( !siteTable.data().any() ) {
+					$('#id_campId').val(1) 
+				}
+				else {
+
+					var lastIndex = siteTable.rows().indexes().length - 1;
+					var lastRowData = siteTable.row(lastIndex).data();
+					$('#id_campId').val(lastRowData.campId + 1) 
+
+				}
+			 	
+			});
+
+
+			addForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $this = $(this);
+				var valid = true;
+
+				addformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+				console.log(valid);
+				if (valid) {
+					$(".btn-save").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					let data =$this.serialize() + "&campId=" +  $('#id_campId').val();
+					
+					console.log(data)
+					$.ajax({
+						url: $(".btn-save").data("url"),
+						type: "POST",
+						data:data,
+						dataType: "json",
+						success: function (data) {
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Saved!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-save").text("Save").attr("disabled", false);
+
+								$this[0].reset();
+
+								$("#example").DataTable().ajax.reload();
+								$("#modal-campus-lg").modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Save Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				 }
+				return false;
+			});
+			
+			editForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var $this = $(this);
+				var valid = true;
+
+			editformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+
+				if (valid) {
+					$(".btn-update").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					data = $this.serialize()  + "&campId=" +  pKey;
+					console.log(data)
+					var editUrl = $(".btn-update").data("url"); 
+					$.ajax({
+					    url: editUrl, // editUrl.replace("0", pKey),
+						type: "POST",
+						data: data,
+						dataType: "json",
+						success: function (data) {
+							console.log(data.Status);
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Updated!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-update").text("update").attr("disabled", false);
+								$("#example").DataTable().ajax.reload();
+								modalEdit.modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Update Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				}
+			});
+
+			delForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				siteTable.row($(this).parents("tr")).remove().draw();
+				var delUrl = $(".btn-delete").data("url");
+				$.ajax({
+					url: delUrl.replace("0", pKey),
+					method: "POST",
+					success: function (data) {
+						if (data.Status == "Deleted") {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Record Successfully Deleted!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+							$("#example").DataTable().ajax.reload();
+							modalDelete.modal("hide");
+						} else {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Failed to Delete Record!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					},
+					error: function (data) {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Error Occured!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					},
+				});
+			});
+
+		});
+
+	</script>
+	{% endblock %}

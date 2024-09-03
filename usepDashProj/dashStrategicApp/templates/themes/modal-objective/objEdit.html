@@ -1,0 +1,70 @@
+<div class="modal fade" id="modal-obj-edit-lg">
+	<form id="obj-edit-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-warning">
+					<h4 class="modal-title">Edit Entry (Analytics)</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="edit-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="area">Area</label>
+								<select id="area" name="areaId" class="form-control select2add">
+									{% for area in areaList %}
+									<option value="{{ area.areaId }}">{{ area.name }}</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="code">Code</label>
+								<input
+									type="text"
+									name="code"
+									id="id_code"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="description">Description</label>
+								<input
+									type="text"
+									name="description"
+									id="id_description"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button
+							type="submit"
+							class="btn bg-gradient-warning btn-update"
+							data-url="{% url 'objUpdateParams' id=0 %}"
+						>
+							Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->

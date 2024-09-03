@@ -1,0 +1,1394 @@
+
+================================================================================
+================================================================================
+-- System Title: Usep Dashboard Management System (usepMS)
+-- Company: University of Southeastern Philippines
+-- Address:  -.-
+-- Date Started: January 18, 2024
+================================================================================
+================================================================================
+
+'-------------------------------------------------------------------------------
+'=-Target Unit Specification ****
+'-------------------------------------------------------------------------------
+  * 2.70 Ghz Dual Core
+  * 1014mb RAM
+  * 256mb Graphics
+  * 75gb Hard Disk
+  * Windows 7
+
+'-------------------------------------------------------------------------------
+'=-Tool setup ****
+'-------------------------------------------------------------------------------
+
+1. Download visual studio code(v1.85.1)
+   - https://code.visualstudio.com/
+
+2. Download python(v3.10.4)
+   - https://www.python.org/downloads/  
+
+3. Download xampp
+   - https://www.apachefriends.org/index.html
+
+
+'-------------------------------------------------------------------------------
+'=-Project Properties Setup ****
+'-------------------------------------------------------------------------------
+  * Framework: Django-5.0.1
+  * Added References
+    - pip install djangorestframework(3.14.0)
+    - pip install django-cors-headers(4.3.1)
+    - pip install mysqlclient(2.2.1)
+
+
+'-------------------------------------------------------------------------------
+'=-MySql Database Setup ****
+'-------------------------------------------------------------------------------
+  * database: tmp_bms
+ 
+================================================================================
+=- WORK LOG -= FORMAT: YYMMDD - NO. OF DAYS - VERSION * NAME OF CODER *
+================================================================================
+'-------------------------------------------------------------------------------
+'=-240118 - 0001 - Version 0.0.1 - * BOB *
+'-------------------------------------------------------------------------------
+* created virtual environmen <venvusepms>
+* created django project <usepmscore> 
+* created project 'usepWebAPI'
+* created app 'usepDashboardApp'
+
+'-------------------------------------------------------------------------------
+'=-240123 - 0002 - Version 0.0.2 - * BOB *
+'-------------------------------------------------------------------------------
+* installed djangorestframework
+* installed django-cors-headers
+* added folder templates\main (usepDashboardApp)
+       - campus.html
+       - college.html
+       - dashboard.html
+       - main.html
+       - navbar.html
+=-usepDashboardApp
+   * added serializers.py
+
+'-------------------------------------------------------------------------------
+'=-240124 - 0003 - Version 0.0.3 - * BOB *
+'-------------------------------------------------------------------------------
+=-usep WEB Core  
+  * created django admininstration
+
+=-usepDashboardApp
+  * deleted all models
+  * created new model - added class Meta (campus and college)
+  * added 'forms.py'
+
+'-------------------------------------------------------------------------------
+'=-240214 - 0004 - Version 0.0.4 - * BOB *
+'-------------------------------------------------------------------------------
+=- added themes 'adminLte'
+
+'-------------------------------------------------------------------------------
+'=-240215 - 0005 - Version 0.0.5 - * BOB *
+'-------------------------------------------------------------------------------
+=- Added template folder
+    * added 'base.html' 
+    * added 'dashboard.html' 
+    * added 'footer.html' 
+    * added 'index.html' 
+    * added 'strategic.html' 
+'-------------------------------------------------------------------------------
+'=-240215 - 0006 - Version 0.0.6 - * BOB *
+'-------------------------------------------------------------------------------
+=- Added template folder
+    * added 'indicator.html' 
+    * added 'indicatorAdd.html' 
+    * added 'indicatorEdit.html' 
+
+=- Forms.py
+    * created 'IndicatorForm' model form
+
+=- Added file 'sqlcommands.py' 
+    * added query 'insertNewIndicator' 
+    * added query 'updateIndicator' 
+    * added query 'fetchIndicator'
+
+=- urls.py 
+    * added path 'indicator'
+    * added path 'indicatorAddform'
+    * added path 'indicatorSaveParams'
+    
+
+'-------------------------------------------------------------------------------
+'=-240216 - 0007 - Version 0.0.7 - * BOB *
+'-------------------------------------------------------------------------------
+=- Added file 'sqlparams.py' 
+    * created 'manIndicator' 
+
+=- urls.py 
+    * added path 'indicatorEdit/<int:id>'
+    * added pathe 'indicatorUpdateParams/<int:id>'
+
+=- views.py 
+    * created 'index' function 
+    * created 'strategic' function 
+    * created 'strategicAdd' function 
+    * created 'indicator' function 
+    * created 'indicatorAddForm' function 
+    * created 'indicatorEdit' function 
+
+
+'-------------------------------------------------------------------------------
+'=-240217 - 0008 - Version 0.0.8 - * BOB *
+'-------------------------------------------------------------------------------
+=- views.py 
+    * created 'indicatorUpdateParams' function 
+    * created 'indicatorSaveParams' function 
+
+=- templates (.hml)
+    * Add save function on 'indicatorAdd.html' on button clicked
+    * Add edit function on 'indicatorEdit.html' on button clicked
+    * fetch records on database on 'indicator.html'
+
+'-------------------------------------------------------------------------------
+'=-240219 - 0009 - Version 0.0.9 - * BOB *
+'-------------------------------------------------------------------------------
+=- template folder
+    * added 'stratarea.html'
+    * added 'stratareaAdd.html'
+
+=- urls.py
+    * added path 'stratArea'
+    * added path 'stratAreaAddform'
+
+=-forms.py 
+   * created 'StratAreaForm' model form
+
+=-sqlparams
+   * added 'refStratArea'
+
+=- views.py 
+   * added function 'stratArea'
+   * added function 'stratAreaSaveParams'
+   * added function  'stratAreaEdit'
+   * added function 'stratAreaUpdateParams'
+
+=- sqlcommands.py 
+   * added query 'insertNewStratArea'  
+   * added query 'fetchStratArea'  
+   * added query 'updateStratArea'
+
+'-------------------------------------------------------------------------------
+'=-240220 - 0010 - Version 0.0.10 - * BOB *
+'-------------------------------------------------------------------------------
+=- template folder
+   * added 'stratobj.html' 
+   * added 'stratobjAdd.html'
+
+=- urls.py
+   * added 'stratObj'
+
+=- forms.py 
+  * created 'StratObjForm' model form 
+
+=- sqlparams 
+  * added 'refStratObj'
+
+=- views.py  
+  * added function 'stratObj'
+  * added function 'stratObjSaveParams'
+
+=- sqlcommands.py  
+  * added query 'insertNewStratObj'
+
+'-------------------------------------------------------------------------------
+'=-240221 0011 - Version 0.0.11 - * BOB *
+'-------------------------------------------------------------------------------
+=- sqlcommands.py
+  * added query 'fetchStratObj'
+
+=- stratobj.html 
+  * add loop function to display records 'stratobj' 
+
+'-------------------------------------------------------------------------------
+'=-240222 0012 - Version 0.0.12 - * BOB *
+'-------------------------------------------------------------------------------
+=- forms.py
+  * created dummy function 'DemoForms'
+
+=- stratobjAdd.html
+  * added fetch function 'select' tag 
+   
+'-------------------------------------------------------------------------------
+'=-240223 0013 - Version 0.0.13 - * BOB *
+'-------------------------------------------------------------------------------
+-= sqlparams.py 
+  * Added 'sAreaId' on 'refStratObj'
+
+=- sqlcommands.py
+  * 'fetchStratObj': Updated query added LEFT JOIN on 'ref_strat_area' and 'ref_strat_obj'
+
+=- forms.py
+  * 'StratObjForm': added '__init__' function to declare 'sAreaId' as 'forms.ModelChoiceField'
+
+=- models.py('')
+  * 'RefStratObj': added model 'sAreaId'
+
+=- views.py('')
+  * stratObjSaveParams: added 'refStratObj["sAreaId"]'
+
+=- stratobj.html 
+  * in table display added 'item.name'
+
+'-------------------------------------------------------------------------------
+'=-240226 0014 - Version 0.0.14 - * BOB *
+'-------------------------------------------------------------------------------
+=- js folder 
+  * added app_data.txt
+
+=- base.html 
+  * added 'block scripts' and 'endblock' in scripts
+  * removed '<script src="{% static '/js/tablescript.js' %}" ></script>'
+
+=- indicator.html
+  * added '<script src="{% static '/js/tablescript.js' %}" ></script>' in 'block scripts'
+
+=-stratarea.html 
+  * added '<script src="{% static '/js/tablescript.js' %}" ></script>' in 'block scripts'
+
+=-stratobj.html 
+  * added '<script src="{% static '/js/tablescript.js' %}" ></script>' in 'block scripts'
+
+=- strategic.html    
+  * added script for parent-child datatable fetching
+
+'-------------------------------------------------------------------------------
+'=-240227 0015 - Version 0.0.15 - * BOB *
+'-------------------------------------------------------------------------------
+=- indicator.html 
+  * datatable fetching 
+
+=- stratarea.html 
+  * datatable fetching 
+
+=- stratobj.html 
+  * datatable fetching 
+
+'-------------------------------------------------------------------------------
+'=-240228 0016 - Version 0.0.16 - * BOB *
+'-------------------------------------------------------------------------------
+=- base.html 
+  * added scripts for datatable including printing and exports (6 scripts)
+
+=- tablescript.js  
+  * added layout to display buttons ' ["copy", "csv", "excel", "pdf", "print"]'
+
+=- templates folder (html)
+  * renamed 'stratarea' to 'keyresultarea'
+  * renamed 'stratAreaAdd' to 'keyresultareaAdd'
+  * renamed 'stratAreaEdit' to 'keyresultareaEdit'
+
+=- urls.py 
+  * renamed path 'stratarea' to 'key-result-area'
+  * renamed path 'stratAreaAddform' to 'key-result-area-add-form'
+  * renamed path 'stratAreaSaveParams' to 'keyResultAreaSaveParams'
+  * renamed path 'stratAreaEdit' to 'key-result-area-edit'
+  * renamed path 'stratAreaUpdateParams' to 'keyResultAreaUpdate'
+ 
+
+=- views.py   
+  * renamed 'stratArea' to 'keyResultArea'
+  * renamed variable 'stratArea' to 'resultArea'
+  * renamed 'stratAreaAddform' to 'keyResultAreaAddForm'
+  * renamed 'stratAreaSaveParams' to 'keyResultAreaSaveParams'
+  * renamed 'stratAreaEdit' to 'keyResultAreaEdit'
+  * renamed 'stratAreaUpdateParams' to 'keyResultAreaUpdate'
+  * added 'keyResultsAreaDelete' function
+
+=- sidebar.html 
+  * renamed link 'stratArea' to 'key-result-area'
+
+=- keyresultarea.html
+  * changed add link 'stratAreaAddform' to 'key-result-area-add-form/'
+
+=- keyresultarea.html 
+  * changed edit link 'stratAreaEdit' to 'key-result-area-edit'  
+  * added ajax delet function
+  
+=- keyresultareaEdit.html
+  * change back link 'stratArea' to 'key-result-area'
+  * method action link 'stratAreaUpdateParams' to 'keyResultAreaUpdate'
+
+=- sqlcommands.py
+  * added query 'deleteStratArea' 
+
+'-------------------------------------------------------------------------------
+'=-240304 0017 - Version 0.0.17 - * BOB *
+'-------------------------------------------------------------------------------
+=-templates folder
+  * rename 'stratobj' to 'keystratobj'
+  * added page 'keystratobjEdit.html'
+
+=- urls.py 
+  * renamed path 'stratObj' to 'key-strat-obj/'
+
+=-views.py
+  * renamed 'stratObj' to 'keyStratObj'
+  
+=- sqlcommands.py
+  * added query 'deleteStratArea' 
+
+'-------------------------------------------------------------------------------
+'=-24030 0018 - Version 0.0.18 - * BOB *
+'-------------------------------------------------------------------------------
+-= template
+  * renamed 'stratobjAdd' to 'keystratobjAdd'
+
+=- urls.py 
+  * renamed 'stratObjAddForm' to 'key-strat-obj-add-form/'
+  * renamed 'indicatorAddForm' to 'indicator-add-form'
+  * renamed 'indicatorEdit' to 'indicator-edit'
+  * added 'key-strat-obj-edit'
+
+=- view.py 
+  * renamed 'stratObjAddForm' to 'keyStratObjAddForm'
+  * added 'keyStratObjEdit'
+  * added 'keyStratObjUpdate'
+  
+=- indicator.html 
+  * changed link name to '{% url 'indicatorAddform' %}'
+
+
+'-------------------------------------------------------------------------------
+'=-240306 0019 - Version 0.0.19 - * BOB *
+'-------------------------------------------------------------------------------
+=- urls.py 
+  * renamed path 'stratObj' to 'key-strat-obj/'
+
+=- views.py
+  * renamed 'stratAreaEdit' to 'keyResultAreaEdit'
+  * renamed 'stratAreaUpdateParams' to 'keyResultAreaUpdate'
+  * added 'keyResultsAreaDelete' function
+
+
+'-------------------------------------------------------------------------------
+'=-240307 0020 - Version 0.0.20 - * BOB *
+'-------------------------------------------------------------------------------
+=- sqlcommands.py
+  * added query 'updateStratObj'
+
+=- views.py
+  * added function 'keyStratObjUpdate'
+
+=- urls.py 
+  * added path 'keyStratObjUpdate/<int:id>'
+
+=- models.py
+  * added model 'RefStratPlan'
+
+'-------------------------------------------------------------------------------
+'=-240308 0021 - Version 0.0.21 - * BOB *
+'-------------------------------------------------------------------------------
+=- models.py 
+  - refStratArea 
+      * added 'sPlanId' field (max_length=20)
+
+=- templates
+  * added 'keystratplanAdd.html'
+
+=- forms.py
+  * added 'StratPlanForm'
+
+-= views.py 
+  * added 'keyStratPlanAddForm'
+
+=- ulrs.py 
+  * added path 'key-strat-plan-add-form/'
+
+=- sqlparams.py
+  * added 'refStratPlan'
+
+'-------------------------------------------------------------------------------
+'=-240311 0022 - Version 0.0.22 - * BOB *
+'-------------------------------------------------------------------------------
+=- sqlcommands.py
+   - updateStratObj
+       * updated sql command
+
+=- template folder
+   * created demopage.html
+
+   
+'-------------------------------------------------------------------------------
+'=-240312 0023 - Version 0.0.23 - * BOB *
+'-------------------------------------------------------------------------------
+=- demopage.html
+   * added function 'createNodeChild'
+   * fixing bugs on fetching parent child approach
+
+      
+'-------------------------------------------------------------------------------
+'=-240319 0024 - Version 0.0.24 - * BOB *
+'-------------------------------------------------------------------------------
+=- demopage.html
+  * added 'findNestedObj' function 
+  * bug fixes on 'createNodeChild' function
+  * fixed parent-child approached
+
+'-------------------------------------------------------------------------------
+'=-240320 0025 - Version 0.0.25 - * BOB *
+'-------------------------------------------------------------------------------
+=- models.py  
+    - stratIndicator model 
+         * added 'sObjId' column
+
+=- database 
+    - man_indicator 
+        * added 'sObjId' column
+
+=- forms.py 
+   - indicator form 
+      * added 'sObjId' ModelChoiceField 
+
+=- sqlparams.py
+   - manIndicator 
+     * added 'sObjId'
+
+=- sqlcommands.py
+   - insertNewIndicator 
+      * added 'sObjId'
+   - fetchIndicator 
+      * updated sql command
+
+   - updateIndicator 
+      * added 'sObjId'
+
+=- indicatorEdit.html
+  * added select tag to fetch stratgic objectives
+
+=- views.py 
+  * updated function 'indicatorSaveParams'
+  * created function 'demofetch2' 
+
+'-------------------------------------------------------------------------------
+'=-240321 0021 - Version 0.0.21 - * BOB *
+'-------------------------------------------------------------------------------
+** Meeting with vp Tammy
+
+'-------------------------------------------------------------------------------
+'=-240401 0022 - Version 0.0.22 - * BOB *
+'-------------------------------------------------------------------------------
+** continuation on editing man_indicator
+
+'-------------------------------------------------------------------------------
+'=-240402 0023 - Version 0.0.23 - * BOB *
+'-------------------------------------------------------------------------------
+=-demoPage2.html
+  * added 'findNestedObj' function
+  * added 'createChild' function
+  * added 'destroyChild' function 
+
+'-------------------------------------------------------------------------------
+'=-240403 0024 - Version 0.0.24 - * BOB *
+'-------------------------------------------------------------------------------
+=- demopage2.html  
+  - createChild 
+      * added if statement for fetching 'areas' and 'indicator' 
+
+'-------------------------------------------------------------------------------
+'=-240404 0025 - Version 0.0.25 - * BOB *
+'-------------------------------------------------------------------------------
+=-demopage2.html
+  * added script on click event on Area edit 
+  * added script on click event on Area delete 
+
+=-urls.py
+  * path 'keyResultAreaDelete' change to 'keyResultAreaDelete/<int:id>'
+
+=-views.py
+  * 'keyResultsAreaDelete(request)' changed to 'keyResultsAreaDelete(request,id)'
+  * updated code in 'demoFetch2' does not display when isActive set to 'N'
+
+'-------------------------------------------------------------------------------
+'=-240416 0026 - Version 0.0.26 - * BOB *
+'-------------------------------------------------------------------------------
+=-dempage.html  
+  * added Modal forms
+  * added save function on Modal form
+
+'-------------------------------------------------------------------------------
+'=-240417 0027 - Version 0.0.27 - * BOB *
+'-------------------------------------------------------------------------------
+=-demopage.html
+  * added modal for Update item
+  * added ajax function to fetch items
+
+'-------------------------------------------------------------------------------
+'=-240418 0028 - Version 0.0.28 - * BOB *
+'-------------------------------------------------------------------------------
+added folder 'include\modal'
+Added file 'kraEdit.html'
+
+=-kraEdit.html
+  * added html tag 
+
+=-demopage.html 
+ * added url include on modal tag
+ 
+=- demopage (views.py)
+  * added Area form
+  * return render with area form 
+
+'-------------------------------------------------------------------------------
+'=-240419 0029 - Version 0.0.29 - * BOB *
+'-------------------------------------------------------------------------------
+=- html 
+  * added file 'kraAdd.html'
+
+=- kraAdd.html 
+  * added html content tag 
+  * added script '('#area-add-form').on('submit', function(e))'
+  * added display success message
+  * added display error message
+  * added clear input function
+  * added validation function
+
+'-------------------------------------------------------------------------------
+=-240420 0030 - Version 0.0.30 - * BOB *
+'-------------------------------------------------------------------------------
+=-JS folder
+  * created 'customtablescript.js'
+
+=-script
+  * added 'sweetalertapp2'
+
+=-demopage.html
+  * remove page script
+  
+=-customtablescript.js
+  * customize and clean code
+  * bug fixed on delete entry
+  * added function on '#area-edit-form' on 'submit'
+  * change alert status from 'toast' to 'swal'
+
+'-------------------------------------------------------------------------------
+=-240423 0031 - Version 0.0.31 - * BOB *
+'-------------------------------------------------------------------------------
+*** team meeting  quarterly report
+
+'-------------------------------------------------------------------------------
+=-240424 0032 - Version 0.0.32 - * BOB *
+'-------------------------------------------------------------------------------
+=-customtablescript.js
+  * added strategic Objective functions
+      - fetch form on click event
+      - save function
+      - updating function
+
+=- modal folder
+  * added soAdd.html
+  * added soEdit.html
+
+
+'-------------------------------------------------------------------------------
+=-240425 0033 - Version 0.0.33 - * BOB *
+'-------------------------------------------------------------------------------
+=- modal folder
+  * added 'soDelete.html'
+
+=-sqlcommands.py  
+  * added function 'deleteStratObj'
+  
+=-view.py 
+  * added function 'keyStraObjDelete'
+  * 'demopage' function 
+     - added 'StratAreaForm'
+     - added 'IndicatorForm'
+     - added 'RefStratArea.objects.raw(fetchStratArea())'
+     - added 'RefStratObj.objects.raw(fetchStratObj())'
+     - added return render 'form,area,ind, resultArea, resultObj'
+
+
+=-customtablescript.js
+  * added strategic delete function
+
+'-------------------------------------------------------------------------------
+=-240426 0034 - Version 0.0.34 - * BOB *
+'-------------------------------------------------------------------------------
+=- views.py 
+  * bug fix on 'keyStraObjDelete' function
+  * data validation 
+  * bug fix on 'deleteStratObj'
+
+'-------------------------------------------------------------------------------
+=-240429 0035 - Version 0.0.35 - * BOB *
+'-------------------------------------------------------------------------------
+=-sidebar.html 
+  * added dropdown menu for strategic
+  * added script functions for dropdown
+
+=-views.py 
+  * created json fetch file for Area
+
+
+'-------------------------------------------------------------------------------
+=-240430 0036 - Version 0.0.36 - * BOB *
+'-------------------------------------------------------------------------------
+=- views.py
+  * added function 'keyResultAreaJsonList'
+  * added function 'keyResultObjJsonList'
+
+=-urls.py
+  * added path 'keyResultAreaJsonList'
+  * added path 'keyResultObjJsonList'
+
+=- keyresultarea.html
+  * added scripts   
+      - CRUD functions
+      - on click functions
+  * added modal pages 
+      - add
+      - edit 
+      - delete
+
+=- keystratobj.html
+  * added scripts   
+      - CRUD functions
+      - on click functions
+  * added modal pages 
+      - add
+      - edit 
+      - delete
+
+'-------------------------------------------------------------------------------
+=-240502 0037 - Version 0.0.37 - * BOB *
+'-------------------------------------------------------------------------------
+=-sqlcommands.py
+  * added query 'insertNewStrat'
+  * added query 'fetchStrategic'
+
+=- urls.py
+  * added path 'strategic'
+  * added path 'stratJsonList'
+  * added path 'stratDet'
+
+=-customtablescript.js
+ * added script for indicator delete
+ * added script for click event for indicator
+
+=- keystratobj.html
+  * added scripts   
+      - CRUD functions
+      - on click functions
+  * added modal pages 
+      - add
+      - edit 
+      - delete
+
+=- templates 
+  * added 'trnstrategic.html'
+
+=- sqlcommands.py
+  * added query 'fetchStrategic'
+
+=- forms.py
+  * added form 'StrategicForm' 
+  * added form 'stratDetAreaForm'
+
+'-------------------------------------------------------------------------------
+=-240503 0039 - Version 0.0.39 - * BOB *
+'-------------------------------------------------------------------------------
+=-views.py
+  * added function 'strat'
+  * added function 'stratJsonList'
+
+=-sqlcommands.py
+  * added query 'deleteIndicator'
+  * added query 'insertNewDetArea'
+
+=-customtablescript.js
+  * added script for indicator add
+  * added script for indicator edit
+
+'-------------------------------------------------------------------------------
+=-240506 0040 - Version 0.0.40 - * BOB *
+'-------------------------------------------------------------------------------
+=- views.py 
+  * added function 'indicatorDelete'  
+  * added function 'stratSaveparams'
+  * added function 'stratDet'
+
+=- models.py
+  * added models 
+     - strategic
+     - stratDetArea
+     - stratDetObj
+     - stratDet
+
+'-------------------------------------------------------------------------------
+=-240507 0040 - Version 0.0.40 - * BOB *
+'-------------------------------------------------------------------------------
+=-sqlcommands.py
+  * added query 'getStrat'
+
+=-views.py 
+  * renamed 'stratGetArea' from 'getStratArea' 
+
+=-statscript.js
+  * added function 'loadStrat'
+
+=-sqlcommands.py   
+  * added code for 'insertNewDetArea'
+
+'-------------------------------------------------------------------------------
+=-240508 0041 - Version 0.0.41 - * BOB *
+'-------------------------------------------------------------------------------
+=-models.py
+  * model 'stratDet' - added 'typeNo'
+  * added model 'stratDetType'
+
+=-sqlparams.py
+  * added 'deStratId'
+
+=-sqlcommands.py
+  * added query 'getStratDet'
+  * added query 'getObj'
+
+=-views.py
+  * added function 'stratDetObjSaveParams'
+  * added function 'stratGetObj'
+  * stratDet
+      - added 'stratDetIndForm'
+
+=-urls.py
+  * added path 'stratDetObjSaveParams'
+
+=-stratscript.js
+  * added object save function
+
+=-forms.py
+  * added form 'stratDetIndForm'
+
+=-modal-strat folder 
+  * added 'stratdetInd.html'
+
+'-------------------------------------------------------------------------------
+=-240509 0042 - Version 0.0.42 - * BOB *
+'-------------------------------------------------------------------------------
+=-stratdetInd.html
+  * added 'type' dropdown
+
+-=sqlparams.py
+  * added 'refStratDetInd'
+
+-= sqlcommands.py
+  * added query 'inserNewDetInd'
+
+=-views.py 
+  * function 'stratDet' 
+    - added 'resultType'
+  * added function 'stratDetIndSaveParams'
+  * function 'stratFetch'
+    - updated query 
+    - arrange row list
+
+=-urls.py
+  * added path 'stratDetIndSaveParams'
+
+'-------------------------------------------------------------------------------
+=-240510 0043 - Version 0.0.43 - * BOB *
+'-------------------------------------------------------------------------------
+=-stratscript.js
+  * modify function to get json subitems (objects and Indicator)
+=-views.py 
+  * function 'stratDet' 
+    - added 'resultType' bug fix
+
+'-------------------------------------------------------------------------------
+=-240513 0044 - Version 0.0.44 - * BOB *
+'-------------------------------------------------------------------------------
+=-Meeting with FT team
+
+=-sqlcommands.py
+  * added query 'getStratObjperArea'
+
+=-views.py 
+  * added function 'ObjPerAreaJsonList'
+
+=-stratscript.py
+  * 'createChild' function 
+      - added ajax on action function
+
+'-------------------------------------------------------------------------------
+=-240514 0045 - Version 0.0.45 - * BOB *
+'-------------------------------------------------------------------------------
+=- models.py
+  * added model 'ludip'
+
+=-folder template/themes/modal-ludip
+  * added 'ludip.html'
+  * added 'ludipAdd.html'
+  * added 'ludipEdit.html'
+  * added 'ludipDelete.html'
+
+=-sidebar.html
+  * added 'ludip' link
+
+=-ludip.html
+  * added modals(add/edit/delete)
+
+=-views.py 
+  * added function 'ludipView'
+  * added function 'ludipJsonList'
+  * added function 'updateLupid'
+  * added function 'ludipSaveParams'
+  * added function 'lupidDeleteParams'
+  
+=-urls.py
+  * added path 'ludipView' 
+  * added path 'ludipSaveParams'
+  * added path 'ludipJsonList'
+  * added path 'updateLupidParams'
+  * added path 'lupidDeleteParams'
+
+=-models.py 
+  * added form 'ludipForm'
+ 
+=-sqlparams.py 
+  * added params 'ludipParams'
+
+=- sqlcommands.py
+  * added query 'fetchLudip'
+  * added query 'insertNewLudip'
+  * added query  'updateLudip'
+  * added query 'deleteLudip'
+
+
+'-------------------------------------------------------------------------------
+=-240515 0046 - Version 0.0.46 - * BOB *
+'-------------------------------------------------------------------------------
+=-added charts
+
+
+'-------------------------------------------------------------------------------
+=-240516 0047 - Version 0.0.47 - * BOB *
+'-------------------------------------------------------------------------------
+=-templates.html
+  * added 'dashboard-ludip'
+
+=-dashboard-ludip.html
+  * added script dynamic cards for pie creation
+
+=-sidebar.html
+  * created Dashboard dropdown
+
+=-views.py
+  * added function 'ludipDash' 
+
+=- urls.py 
+  * added path 'ludipDash'
+
+'-------------------------------------------------------------------------------
+=-240517 0048 - Version 0.0.48 - * BOB *
+'-------------------------------------------------------------------------------
+=-html
+  * added 'analytics.html'
+  * added modal 'analAdd.html
+
+=-models.py
+  * Create model 'analytics'
+  * Create model 'analIndicator'
+  * Create model 'analIndicatorDet'
+  * Alter field 'remarks' on ludip
+  * Create model 'analPrograms'
+
+=-views.py 
+  * added function 'analyticsView'
+  * added function 'analJsonList'
+  * added function 'analSaveParams'
+  * added function 'analUpdateParams'
+  * added function 'analDeleteParams'
+  
+=-urls.py
+  * added path 'analytics'
+
+=-forms.py
+  * added form 'analyticsForm'
+
+=- sqlparams.py 
+  * added param 'analytics'
+
+=-sqlcommands.py 
+  * added query 'fetchAnalytics'
+  * added query 'insertNewAnal'
+  * added query 'updateAnal'
+  * added query 'deleteAnal'
+  
+'-------------------------------------------------------------------------------
+=-240518 0049 - Version 0.0.49 - * BOB *
+'-------------------------------------------------------------------------------
+=-html 
+  * created 'anal-indicator.html'
+
+=-forms.py 
+  * added form 'analIndForm'
+
+=-sqlparams.py
+  * added param 'analIndParams'
+
+=-sqlcommands.py 
+  * added query 'insertNewAnalInd'
+  * added query 'getAnalInd'
+
+
+
+'-------------------------------------------------------------------------------
+=-240520 0050 - Version 0.0.50 - * BOB *
+'-------------------------------------------------------------------------------
+=-sqlcommands.py 
+  * added query 'fetchAnalInd'
+
+=-views.py 
+  * added function 'analIndJsonList'
+  * added function 'analIndUpdateParams'
+
+'-------------------------------------------------------------------------------
+=-240521 0051 - Version 0.0.51 - * BOB *
+'-------------------------------------------------------------------------------
+=-views.py 
+  * added function 'analIndView'
+  * added function 'analIndSaveParams'
+  * added function 'indGetAnal'
+
+=-urls.py 
+  * added path 'analytics-indicator'
+  * added path 'indGetAnal'
+
+  **fix analIndJsonList and make query on sqlcommands.py
+
+'-------------------------------------------------------------------------------
+=-240522 0051 - Version 0.0.51 - * BOB *
+'-------------------------------------------------------------------------------
+=-views.py 
+  * bug fix on 'analIndUpdateParams' function
+  * added function 'analIndDeleteParams'
+
+=-sqlcommands.py
+  * added query 'deleteAnalInd'
+
+'-------------------------------------------------------------------------------
+=-240523 0052 - Version 0.0.52 - * BOB *
+'-------------------------------------------------------------------------------
+=-html 
+  * added html 'anal-ind-bp'
+-=models.py 
+  * added model 'analIndBoardPassers'
+
+=-views.py 
+  * added function 'analIndBPView'
+  * added function 'anaIndBpSaveParams'
+  * added function 'analIndBpJsonList'
+
+=-urls.py 
+  * added path 'analIndBPView'
+  * added path 'anaIndBpSaveParams'
+  * added path 'analIndBpJsonList'
+
+=-sidebar.html 
+  * added link for 'anal-ind-bp'
+
+=-forms.py 
+  * added form 'analIndBPForm'
+
+=-sqlparams.py
+  * added param 'analIndBpParams'
+  * added param 'fetchAnalIndBp'
+
+=-sqlcommands.py 
+  * added query 'insertNewAnalIndBp'
+  * added query 'fetchAnalIndBp'
+
+'-------------------------------------------------------------------------------
+=-240524 0053 - Version 0.0.53 - * BOB *
+'-------------------------------------------------------------------------------
+=-html 
+  * added html 'anal-ind-employ'
+
+=-views.py 
+  * added function 'IndicatorDash'
+
+=-urls.py 
+  * added path 'dashboard-indicator'
+
+=-forms.py 
+  * added form 'analIndEmpForm'
+
+=-models.py
+  * added model 'analIndEmployability'
+
+'-------------------------------------------------------------------------------
+=-240527 0054 - Version 0.0.54 - * BOB *
+'-------------------------------------------------------------------------------
+=-views.py 
+  * bug fix function 'analIndBPView'
+  * bug fix function 'anaIndBpSaveParams'
+  * bug fix function 'analIndBpJsonList'
+
+=-models.py
+  * bug fix model 'analIndEmployability'
+
+'-------------------------------------------------------------------------------
+=-240529 0055 - Version 0.0.55 - * BOB *
+'-------------------------------------------------------------------------------
+=-html 
+  * added html 'indBpEdit.html'
+  * added html 'indBpDelete.html'
+
+=-sqlParams.py 
+  * added 'ctrlNo' in 'analIndBpParams'
+
+=-sqlcommands.py 
+  * added query 'updateAnalIndBp'
+  * added query 'deleteAnalIndBp'
+
+=-views.py 
+  * added query 'analIndBpUpdateParams'
+  * added query 'analIndBpDeleteParams'
+
+=-urls.py  
+  * added path 'analIndBpUpdateParams'
+  * added path 'analIndBpDeleteParams'
+
+'-------------------------------------------------------------------------------
+=-240530 0056 - Version 0.0.56 - * BOB *  new version updated
+'-------------------------------------------------------------------------------
+=-MAJOR changes updated **
+    * created app per modules
+      * dashAnalyticApp
+      * dashLudipApp
+      * dashStrategicApp
+    * migrations of files / folders
+      * static  
+      * templates
+=-created new project 'usepdashProj'
+
+=-created new database 'usep_dashboard'
+
+'-------------------------------------------------------------------------------
+=-240531 0057 - Version 0.0.57 - * BOB * 
+'-------------------------------------------------------------------------------
+=-dashAnalyticApp
+  * added board passer modules (CRUD)
+  * added Employability modules (CRUD)
+  * added CHED and RDC identified modules (CRUD)
+  * added accreditation (CRUD)
+
+'-------------------------------------------------------------------------------
+=-240601 0058 - Version 0.0.58 - * BOB * 
+'-------------------------------------------------------------------------------
+  * added graduate school Research work modules (CRUD)
+
+'-------------------------------------------------------------------------------
+=-240603 0059 - Version 0.0.59 - * BOB * 
+'-------------------------------------------------------------------------------
+  * added research degree module (CRUD)
+  * added Accredited Graduate Program module (CRUD)
+  * added Research Output (create)
+
+'-------------------------------------------------------------------------------
+=-240604 0060 - Version 0.0.60 - * BOB * 
+'-------------------------------------------------------------------------------
+  * Updated Research Output (RUD)
+  * added Research Completed (CRUD) 
+
+'-------------------------------------------------------------------------------
+=-240605 0061 - Version 0.0.61 - * BOB * 
+'-------------------------------------------------------------------------------
+  * added Research Published (CRUD) 
+  * added Active Partnership (CRUD) 
+  * added Number of Trainees (CRUD) 
+  * added Number of Extension Program (Create) 
+
+'-------------------------------------------------------------------------------
+=-240606 0062 - Version 0.0.62 - * BOB * 
+'-------------------------------------------------------------------------------
+  * added Number of Extension Program (RUD) 
+  * added Beneficiaries (CRUD) 
+
+'-------------------------------------------------------------------------------
+=-240607 0063 - Version 0.0.63 - * BOB * 
+'-------------------------------------------------------------------------------
+  * created Dashboard - anaylics 
+    * display linegraph
+
+'-------------------------------------------------------------------------------
+=-240610 0064 - Version 0.0.64 - * BOB * 
+'-------------------------------------------------------------------------------
+  * added Strategic Area (CRUD) 
+  * added Strategic Objectives (CRUD) 
+  ** cont work on Strategic Indicator
+
+'-------------------------------------------------------------------------------
+=-240612 0065 - Version 0.0.65 - * BOB * 
+'-------------------------------------------------------------------------------
+ * added Strategic Indicator (CRUD)
+
+'-------------------------------------------------------------------------------
+=-240613 0066 - Version 0.0.66 - * BOB * 
+'-------------------------------------------------------------------------------
+ * added strategic Dashboard (parent-child)
+
+'-------------------------------------------------------------------------------
+=-240614 0067 - Version 0.0.67 - * BOB * 
+'-------------------------------------------------------------------------------
+ * added strategic Matrices 
+ * added strategic scorecard 
+ 
+'-------------------------------------------------------------------------------
+=-240618 0068 - Version 0.0.68 - * BOB * 
+'-------------------------------------------------------------------------------
+  * created github account 
+  * adding entry for martrices
+
+'-------------------------------------------------------------------------------
+=-240619 0069 - Version 0.0.69 - * BOB * 
+'-------------------------------------------------------------------------------
+  * adding entry for scorecard
+
+=-dashStrategicApp (sqlcommands.py)
+  * insertMartrices
+      -added "ON DUPLICATE KEY UPDATE" on query
+      
+  * insertNewScorecards
+    -added "ON DUPLICATE KEY UPDATE" on query
+    
+'-------------------------------------------------------------------------------
+=-240703 0070 - Version 0.0.70 - * BOB * 
+'-------------------------------------------------------------------------------
+=-created app
+  * dashGADApp
+
+=- modals template 
+  * added campusAdd.html
+  * added campusEdit.html
+  * added campusDelete.html
+
+'-------------------------------------------------------------------------------
+=-240704 0071 - Version 0.0.71 - * BOB * 
+'-------------------------------------------------------------------------------
+=-models.py (dashGADApp)
+  * added 'gadCampus' 
+  * added 'gadDivision'
+  * added 'gadComponent'
+
+=- sqlparams.py (dashGADApp)
+  * added 'gadCampusParams'
+
+=- sqlcommands.py (dashGADApp)
+  * added query 'fetchCampus' 
+  * added query 'insertUpdateCampus' 
+
+=- forms.py (dashGADApp) 
+  * added form 'campusForm'
+
+'-------------------------------------------------------------------------------
+=-240705 0072 - Version 0.0.72 - * BOB * 
+'-------------------------------------------------------------------------------
+=-html (dashGADApp)
+  * added 'division.html'
+  * added 'divisionAdd.html'
+  * added 'divisionEdit.html'
+  * added 'divisionDelete.html'
+
+=- sqlcommands.py (dashGADApp)
+  * added query 'deleteCampus' 
+  * added query 'fetchDivision'
+  * added query 'insertUpdateDivision'
+  * added query 'deleteDivision'
+
+=-forms.py (dashGADApp) 
+  * added form 'divisionForm'
+
+=-sqlParams.py (dashGADApp)
+  * added 'gadDivisionParams'
+
+'-------------------------------------------------------------------------------
+=-240708 0073 - Version 0.0.73 - * BOB * 
+'-------------------------------------------------------------------------------
+=-html (dashGADApp)
+  * added 'compoenent.html'
+  * added 'compoAdd.html'
+  * added 'compoEdit.html'
+  * added 'compoDelete.html'
+
+'-------------------------------------------------------------------------------
+=-240709 0074 - Version 0.0.74 - * BOB * 
+'-------------------------------------------------------------------------------
+=-sidebar.html
+  * added url 'GAD > Components'
+
+=-sqlparams.py (dashGADApp)
+  * added 'gadComponentParams'
+
+=-sqlcommands.py (dashGADApp)
+  * added query 'insertUpdateComponent'
+
+'-------------------------------------------------------------------------------
+=-240710 0075 - Version 0.0.75 - * BOB * 
+'-------------------------------------------------------------------------------
+=-sqlcommands.py (dashGADApp)
+  * added query 'deleteComponent'
+
+=- html (dashGADApp)
+  * added CRUD functions
+
+=-views.py (dashGADApp)
+  * added function 'deleteCompParams'
+
+=-urls.py (dashGADApp)
+  * added path 'deleteCompParams'
+
+'-------------------------------------------------------------------------------
+=-240712 0076 - Version 0.0.76 - * BOB * 
+'-------------------------------------------------------------------------------
+=-sqlcommands.py (dashGADApp)
+  * added query 'fetchGad'
+  * added query 'insertUpdateGadDetails'
+
+=-sqlParams (dashGADApp)
+  * added params 'gadDetParams'
+
+=-forms.py (dashGADApp)
+  * added form 'gadForm'
+
+=-model.py (dashGADApp)
+  * added model 'gadForm'
+
+'-------------------------------------------------------------------------------
+=-240715 0077 - Version 0.0.77 - * BOB * 
+'-------------------------------------------------------------------------------
+=-gad.html  (script)
+  * added dynamic fetch on another combobox
+
+=-views.py (dashGADApp)
+  * bug fix on 'saveUpdateGadDetails'
+
+'-------------------------------------------------------------------------------
+=-240717 0078 - Version 0.0.78 - * BOB * 
+'-------------------------------------------------------------------------------
+=-gad.html (script)
+  * updated Edit script
+  * updated delete script 
+
+'-------------------------------------------------------------------------------
+=-240718 0079 - Version 0.0.79 - * BOB * 
+'-------------------------------------------------------------------------------
+=-themes 
+  * created dashboard-gad.html
+
+'-------------------------------------------------------------------------------
+=-240719 0080 - Version 0.0.80 - * BOB * 
+'-------------------------------------------------------------------------------
+=-sqlcommands.py (dashGADApp)
+  * added query 'fetchGad'
+
+=-dashboard-gad.html
+  * added 'bar' chart
+
+'-------------------------------------------------------------------------------
+=-240722 0081 - Version 0.0.81 - * BOB * 
+'-------------------------------------------------------------------------------
+-=themes(dashStrategicApp)
+  * added strat-template
+
+'-------------------------------------------------------------------------------
+=-240723 0082 - Version 0.0.82 - * BOB * 
+'-------------------------------------------------------------------------------
+=-strat-template.html  
+  * javascript - added functin to check all items 
+
+'-------------------------------------------------------------------------------
+=-240724 0083 - Version 0.0.83 - * BOB * 
+'-------------------------------------------------------------------------------
+=-themes(dashGADApp)
+  * added 'dashboard-gad-all.html'
+  * added fetch function and display in bar graph
+
+'-------------------------------------------------------------------------------
+=-240725 0084 - Version 0.0.84 - * BOB * 
+'-------------------------------------------------------------------------------
+=-strat-template.html
+  * fix script to copy check items
+
+'-------------------------------------------------------------------------------
+=-240729 0085 - Version 0.0.85 - * BOB * 
+'-------------------------------------------------------------------------------
+=-themes(dashStrategicApp)
+  * added 'strat-template-1.html'
+
+'-------------------------------------------------------------------------------
+=-240730 0086 - Version 0.0.86 - * BOB * 
+'-------------------------------------------------------------------------------
+=-themes (dashGADApp)
+  * added 'dashboard-gad-new.html'
+
+=-views.py (dashGADApp)
+  * added function 'gadDashNewView'
+
+=- urls.py (dashGADApp)
+  * added path 'gadDashNewView'
+
+=-dashboard-gad-new.html 
+  * added script to fetch data and display charts
+
+'-------------------------------------------------------------------------------
+=-240731 0087 - Version 0.0.87 - * BOB * 
+'-------------------------------------------------------------------------------
+=-dashboard-gad-new.html (javascript)
+  * display total population per campus
+  * display 'bar' chart per division per campus
+     
+'-------------------------------------------------------------------------------
+=-240801 0088 - Version 0.0.88 - * BOB * 
+'-------------------------------------------------------------------------------
+=-dashboard-gad-new.html (javascript)
+  * bug fixes on display charts
+
+'-------------------------------------------------------------------------------
+=-240803 0088 - Version 0.0.88 - * BOB * 
+'-------------------------------------------------------------------------------
+ *** MIDYEAR REPORT - PLANNING AND EVALUATION ***
+    
+'-------------------------------------------------------------------------------
+=-240805 0089 - Version 0.0.89 - * BOB * 
+'-------------------------------------------------------------------------------
+=-strat-template.html
+  * added stepper in form -  layout
+
+'-------------------------------------------------------------------------------
+=-240806 0090 - Version 0.0.90 - * BOB * 
+'-------------------------------------------------------------------------------
+=-strat-template.html (script)
+  * added stepper script
+  * on '("#comp-select")' function added filter on existing indicator
+
+'-------------------------------------------------------------------------------
+=-24087 0091 - Version 0.0.91 - * BOB * 
+'-------------------------------------------------------------------------------
+=-models.py (dashStrategicApp)
+  * added model 'stratTemplate'
+  * added modedl 'stratTemplateDet'
+
+=-sqlparams.py (dashStrategicApp)
+  * added param 'stratTempParams'
+
+=-sqlcommands.py (dashStrategicApp)
+  * added query 'insertStratTemp'
+
+=-forms.py 
+  * added form 'stratTempForm'
+
+'-------------------------------------------------------------------------------
+=-240808 0092 - Version 0.0.92 - * BOB * 
+'-------------------------------------------------------------------------------
+=-models.py (dashStrategicApp)
+  * remove 'year' in 'stratTemplateDet' model

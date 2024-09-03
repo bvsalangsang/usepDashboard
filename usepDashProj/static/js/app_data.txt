@@ -1,0 +1,76 @@
+{
+    "data": [
+      
+      {
+        "id": "1",
+        "Year":"2022",
+        "Area": "CURRICULUM AND INSTRUCTION",
+        "Object": "Future-driven program offering with integrated transdisciplinary courses, delivered on-site or via alternative learning modalities",
+        "Type": "Outcome Indicators",
+        "Code": "SAC1-SO1.1",
+        "Indicator": "Percentage of first-time licensure exam-takers who pass the licensure exams",
+        "Reference": "PREXC",
+        "Target": "75%",
+        "Actual": "79.66%",
+        "Variance": "-4.66",
+        "Percentage": "106.21%",
+        "Outcome_Indicators": [
+           "SAC1-SO1.1",
+            "Percentage of first-time licensure exam-takers who pass the licensure exams",
+            "PREXC",
+            "75%",
+            "79.66%",
+            "-4.66",
+            "106.21%",
+            
+            "SAC1-SO1.2",
+            "Percentage of retakers who pass the licensure examinations ",
+            "CUP",
+            "65%",
+            "72.41%",
+            "-7.41%",
+            "111.40%",
+
+            "SAC1-SO1.3",
+            "Percentage of undergraduate students enrolled in CHED-identified and RDC-identified priority programs. ",
+            "PREXC",
+            "95%",
+            "100%",
+            "-5.00%",
+            "105.26%",
+
+            "Outcome Indicators"
+
+
+        ],
+        "Output_Indicators": [
+           "SAC1-SO1.4",
+            "Percentage of graduate students enrolled in research degree programs",
+            "PREXC",
+            "100%",
+            "100%",
+            "0",
+            "100%",
+
+            "SAC1-SO1.5",
+            "Number of programs offered through Expanded Tertiary Education Equivalency and Accreditation Program (ETEEAP) and other modalities.",
+            "CUP",
+            "6",
+            "6",
+            "0",
+            "100%",
+
+            "SAC1-SO1.6",
+            "Number of e-learning materials produced",
+            "CUP",
+            "50",
+            "13",
+            "3700%",
+            "26%",
+
+              "Output Indicators"
+        ]
+      }
+   
+    ]
+  }

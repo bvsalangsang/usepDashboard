@@ -1,0 +1,393 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Number of Extension Program</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Number of Extension Program</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<!-- Small boxes (Stat box) -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="info-box">
+									<span class="info-box-icon bg-info"><i class="fas fa-solid fa-scroll"></i></span>
+									<div class="info-box-content">
+										<span class="info-box-text"><h5 class="anal-id"></h5></span>
+										<h4 class="indicator"></h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12">
+								
+                                <div class="card">
+                                    <div class="card-header">
+										Number of Extension Program Record
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="example" class="table table-bordered table-striped dataTable dtr-inline" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+								    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <!-- <div class="col-2">
+                                                <a href="/key-result-area-add-form/" class="btn btn-block bg-gradient-success "> Add New</a>
+                                            </div> -->
+											<button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-extprog-lg">
+												Add New
+											</button>
+										</div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						<!-- /.row -->
+				
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			
+				{% include 'themes/modal-ext-program/extprogAdd.html' %}
+				{% include 'themes/modal-ext-program/extprogEdit.html' %}
+				{% include 'themes/modal-ext-program/extprogDelete.html' %}
+				
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+	<script>
+
+		function loadStrat(stratId) {
+			$.ajax({
+				async: false,
+				url: "/getAnalytic/" + stratId,
+				dataType: "json",
+				success: function (data) {
+					analId = data.data[0].analId;
+					indicator = data.data[0].indicator;
+					$(".anal-id").html(analId)
+					$(".indicator").html(indicator)
+
+				},
+			});
+		}
+		
+		$(document).ready(function() {
+			
+			var modalEdit = $("#extprog-edit-lg")
+			var modalDelete = $("#extprog-del-lg")
+
+			var addForm = $("#extprog-add-form")
+			var addformInput = $("#extprog-add-form input")
+			var editForm = $("#extprog-edit-form");
+			var editformInput = $("#extprog-edit-form input")
+			var delForm = $("#extprog-del-form");
+			 
+			var formSelector = "#extprog-edit-form";
+			var inputSelector1 = "input[name='year']";
+			var inputSelector2 = "input[name='noOfExtProgram']";
+
+			totalVal = 0
+			perVal = 0
+			ctrlNo="";
+			analId = "";
+			loadStrat(13);
+
+			var siteTable = $("#example").DataTable({
+			ajax: "/extProgramJsonList/",
+			rowId: "ctrlNo",
+			order: [1, "asc"],
+			columns: [
+			
+				{ title:"ID",data: "ctrlNo",  width: "5%" },
+				{ title: "Year", data: "year" },
+				{ title: "No. of Extension Program", data: "noOfExtProgram" },
+				{
+                    title: "Action",
+					data: null,
+					defaultContent:
+						'<button class="btn edit-area btn-default" > <i class="fas fa-edit"></i></button> ' +
+						'<button class="btn delete-area btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button> ',
+					targets: -1,
+					width: "15%",
+				},
+			],
+			select: {
+				style: "os",
+				selector: "td:not(:first-child)",
+			},
+			});
+
+
+			$("#example tbody").on("click", ".edit-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				ctrlNo = data.ctrlNo
+				analId = data.analId
+				console.log(data)
+			
+				// $("#area-edit-form input[name='code']").val(data.code);
+				$(formSelector).find(inputSelector1).val(data.year);
+				$(formSelector).find(inputSelector2).val(data.noOfExtProgram);
+				modalEdit.modal("show");
+			});
+
+			$("#example tbody").on("click", ".delete-area", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let data = siteTable.row(e.target.closest("tr")).data();
+				ctrlNo = data.ctrlNo
+				analId = data.analId
+				const element = document.getElementById("context");
+				element.innerHTML =
+					"<h5>ID: " + ctrlNo + "</h5>" + "  Year: " + data.year;
+				modalDelete.modal("show");
+			});
+
+			addForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $this = $(this);
+				var valid = true;
+
+				addformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+				console.log(valid);
+				if (valid) {
+					$(".btn-save").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					let data =
+						$this.serialize() +
+						"&" +
+						$.param({
+							analId: analId
+						});
+					
+					console.log(data);
+					$.ajax({
+						url: $(".btn-save").data("url"),
+						type: "POST",
+						data: data,
+						dataType: "json",
+						success: function (data) {
+							if (data.Status == "Saved") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Saved!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-save").text("Save").attr("disabled", false);
+
+								$this[0].reset();
+
+								$("#example").DataTable().ajax.reload();
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Save Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				 }
+				return false;
+			});
+			
+			editForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var $this = $(this);
+				var valid = true;
+
+			editformInput.each(function () {
+					let $this = $(this);
+					var currentInputVal = $this.val();
+
+					if (currentInputVal == null || currentInputVal == "") {
+						valid = false;
+						$this
+							.parent(".validate")
+							.find(".mySpan")
+							.text(
+								"The " +
+									$this.attr("name").replace(/[\_]+/g, " ") +
+									"field is required"
+							);
+					} else {
+						$this.parent(".validate").find(".mySpan").text("");
+					}
+				});
+
+				if (valid) {
+					$(".btn-update").text("Saving...").attr("disabled", true);
+					// let data = $this.serialize();
+					data =
+						$this.serialize() +
+						"&" +
+						$.param({
+							analId: analId,
+						});
+					console.log(data)
+					var editUrl = $(".btn-update").data("url"); 
+					$.ajax({
+						url: editUrl.replace("0", ctrlNo),
+						type: "POST",
+						data: data,
+						dataType: "json",
+						success: function (data) {
+							console.log(data.Status);
+							if (data.Status == "Updated") {
+								Swal.fire({
+									position: "center",
+									icon: "success",
+									title: "Record Successfully Updated!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+
+								$(".btn-update").text("update").attr("disabled", false);
+								$("#example").DataTable().ajax.reload();
+								modalEdit.modal("hide");
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: "Failed to Update Record!",
+									showConfirmButton: false,
+									timer: 1500,
+								});
+							}
+						},
+						error: function (data) {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Error Occured!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						},
+					});
+				}
+			});
+
+			delForm.on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				siteTable.row($(this).parents("tr")).remove().draw();
+				var delUrl = $(".btn-delete").data("url");
+				$.ajax({
+					url: delUrl.replace("0", ctrlNo),
+					method: "POST",
+					success: function (data) {
+						if (data.Status == "Deleted") {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "Record Successfully Deleted!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+							$("#example").DataTable().ajax.reload();
+							modalDelete.modal("hide");
+						} else {
+							Swal.fire({
+								position: "center",
+								icon: "error",
+								title: "Failed to Delete Record!",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					},
+					error: function (data) {
+						Swal.fire({
+							position: "center",
+							icon: "error",
+							title: "Error Occured!",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					},
+				});
+			});
+
+		});
+
+	</script>
+	{% endblock %}

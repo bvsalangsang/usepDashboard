@@ -1,0 +1,130 @@
+<div class="modal fade" id="modal-gad-edit-lg">
+	<form id="gad-edit-form" autocomplete="off">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-gradient-warning">
+					<h4 class="modal-title">Edit Entry</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<div id="edit-notif"></div>
+							{% csrf_token %}
+							<div class="form-group validate">
+								<label for="code">ID</label>
+								<input
+									type="text"
+									name="divId"
+									id="id_divId"
+									class="form-control"
+									disabled
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="campus">Campus</label>
+								<select
+									id="campus"
+									name="campId"
+									class="form-control edit-select"
+								>
+									<option value="">Select a Campus</option>
+									{% for campus in campusList %}
+									<option value="{{ campus.campId }}">{{ campus.name }}</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="divis">Division</label>
+								<select
+									id="edit-divis"
+									name="divId"
+									class="form-control edit-select"
+								>
+									<option value="">Select a division</option>
+									{% for divis in divList %}
+									<option value="{{ divis.divId }}">{{ divis.name }}</option>
+									{% endfor %}
+								</select>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="comp">Component</label>
+								<select
+									id="edit-comp"
+									name="compId"
+									class="form-control edit-select"
+								>
+									<option value="">Select a component</option>
+								</select>
+							</div>
+							<div class="form-group validate">
+								<label for="series"> Series</label>
+								<input
+									type="text"
+									name="series"
+									id="id_series"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="program">Program</label>
+								<input
+									type="text"
+									name="program"
+									id="id_program"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="female">Female</label>
+								<input
+									type="text"
+									name="female"
+									id="id_female"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+							<div class="form-group validate">
+								<label for="male">Male</label>
+								<input
+									type="text"
+									name="male"
+									id="id_male"
+									class="form-control"
+								/>
+								<small class="text-red text-muted mySpan"></small>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<button
+							type="submit"
+							class="btn bg-gradient-warning btn-update"
+							data-url="{% url 'saveUpdateGadDetails' %}"
+						>
+							Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</form>
+</div>
+<!-- /.modal-dialog -->
