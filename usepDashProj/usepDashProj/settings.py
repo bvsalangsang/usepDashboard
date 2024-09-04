@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$yb=waacn1gj6+asgrr!@$dz15*)1+hbz^g#%8q%z8#7j!9cxu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.16.210.21','localhost']
 
 
 # Application definition
@@ -89,8 +89,8 @@ DATABASES = {
      "default": {
         "ENGINE": 'django.db.backends.mysql',
         "NAME": 'usep_dashboard',
-        "USER": 'root',
-        "PASSWORD": '',
+        "USER": 'dash',
+        "PASSWORD": 'Usepdash@101',
         "HOST": 'localhost',
         "PORT": '3306',
     }
