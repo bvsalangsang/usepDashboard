@@ -38,6 +38,16 @@ class stratIndicator(models.Model):
         db_table = "man_strat_indicator"
 
 
+class stratReference(models.Model):
+    refNo = models.AutoField(primary_key=True,editable=True)
+    refName = models.CharField(max_length=100)
+    description = models.CharField(max_length=500)
+    isActive = models.CharField(max_length=1, default='Y') 
+
+    class Meta:
+        db_table = "ref_strat_reference"
+
+
 #Strategic Plan Matrices 
 class stratPlanMatrices(models.Model):
     ctrlNo = models.AutoField(primary_key=True, editable=True)

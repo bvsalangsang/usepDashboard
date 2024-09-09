@@ -1425,3 +1425,35 @@ Added file 'kraEdit.html'
 *** task ***
 check all CRUD for auto number 
 
+
+'-------------------------------------------------------------------------------
+=-240909 0096 - Version 0.0.96 - * BOB * 
+'-------------------------------------------------------------------------------
+=-models.py (dashStrategicApp)
+  * added model 'stratReference'
+
+=-forms.py (dashStrategicApp)
+  * added form 'stratRefForm'
+
+=-views.py (dashStrategicApp)
+  * added function 'referenceView'
+  * added function 'refJsonList'
+  * added function 'refSaveUpdateParams'
+  * added function  'refDeleteParams'
+
+=-urls.py (dashStrategicApp)
+  * added path 'referenceView'
+  * added path 'refJsonList'
+  * added path 'refSaveUpdateParams'
+  * added path 'refDeleteParams'
+
+=-sqlParams(dashStrategicApp)
+  * added params 'stratRefParams'
+
+=-sqlcommands.py (dashStrategicApp)
+  * added query 'fetchRef'
+  * added query 'saveUpdateReference'
+  * added query 'deleteRef'
+
+=-template/themes  
+  * added html files 'refAdd, refEdit, refDelete'

@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$yb=waacn1gj6+asgrr!@$dz15*)1+hbz^g#%8q%z8#7j!9cxu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['172.16.210.21','localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -132,15 +132,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 # old on my local server
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS=[
-#     os.path.join(BASE_DIR,'static'),
-#    ]
+STATIC_URL = 'static/'
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'static'),
+   ]
 
 #on ubuntu server
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/') 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/') 
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 

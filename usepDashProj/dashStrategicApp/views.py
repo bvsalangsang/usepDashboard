@@ -452,6 +452,66 @@ def indDeleteParams(request,id):
         print(f"{type(err).__name__} was raised: {err}")
         return JsonResponse ({"Error":err}) 
 
+#reference
+def referenceView(request):
+    form = stratRefForm()
+    return render(request, 'themes/reference.html', {'form':form})
+
+def refJsonList(request):
+    with connection.cursor() as cursor:
+            cursor.execute(fetchRef())
+            rows = cursor.fetchall()
+            
+    tempRes = None
+    jsonResultData = []
+
+    for row in rows:
+        tempRes = {
+            'refNo': row[0],
+            'refName': row[1],
+            'description':row[2],
+            'isActive': row[3]
+        }
+        jsonResultData.append(tempRes)
+    return JsonResponse({"data":list(jsonResultData)}, safe=False)
+
+def refSaveUpdateParams(request):
+    cursor = connection.cursor()
+    form = stratRefForm()
+    if(request.POST):
+        form = stratRefForm(request.POST)
+        try:
+            if form.is_valid():
+                stratRefParams['refNo'] = request.POST['refNo']
+                stratRefParams['refName'] = form['refName'].value()
+                stratRefParams['description'] = form['description'].value()
+                stratRefParams['isActive'] = 'Y'
+                print("Debug: " + saveUpdateReference(**stratRefParams))
+                cursor.execute(saveUpdateReference(**stratRefParams))
+                return (JsonResponse({"Status": "Saved"}))
+            else:
+                print(form.errors)
+                return JsonResponse({"Status":"Error"})
+        except Exception as err:
+            print(f"{type(err).__name__} was raised: {err}")
+            return JsonResponse ({"err":err})
+    else:
+        return JsonResponse({"Status":"Wrong Request"})
+
+@csrf_exempt        
+def refDeleteParams(request,id):
+    cursor = connection.cursor()
+    try:
+        stratRefParams["refNo"] = id
+        stratRefParams["isActive"] = 'N'
+        print("Debug: " + deleteRef(**stratRefParams))
+        cursor.execute(deleteRef(**stratRefParams))
+        return JsonResponse({"Status":"Deleted"})
+    except Exception as err:
+        print(f"{type(err).__name__} was raised: {err}")
+        return JsonResponse ({"Error":err}) 
+
+
 
 #template 
 def stratTemplateListView(request):
@@ -475,7 +535,6 @@ def tempJsonList(request):
         }
         jsonResultData.append(tempRes)
     return JsonResponse({"data":list(jsonResultData)}, safe=False)
-
 
 def stratTemplateView(request):
     form = stratTempForm()
@@ -590,8 +649,6 @@ def stratTempJsonList(request,id):
 
     data = list(areas.values())
     return JsonResponse({"data": data}, json_dumps_params={'indent': 2})
-
-
 
 @csrf_exempt    
 def saveTemplateParams(request):

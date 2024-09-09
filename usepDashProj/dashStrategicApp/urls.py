@@ -33,6 +33,11 @@ urlpatterns = [
     path('update-indicator/<int:id>',views.indUpdateParams,name="indUpdateParams"),
     path('delete-indicator/<int:id>',views.indDeleteParams,name="indDeleteParams"),
     
+    path('reference/',views.referenceView,name="referenceView"),
+    path('refJsonList/',views.refJsonList,name="refJsonList"),
+    path('refSaveUpdateParams/',views.refSaveUpdateParams,name="refSaveUpdateParams"),
+    path('refDeleteParams/<int:id>',views.refDeleteParams,name="refDeleteParams"),
+
     path('strat-template-list/',views.stratTemplateListView,name="stratTemplateListView"),
     path('strat-template/',views.stratTemplateView,name="stratTemplateView"),
     path('stratRawJsonList/',views.stratRawJsonList,name="stratRawJsonList"),

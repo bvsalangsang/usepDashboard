@@ -48,8 +48,8 @@
 												<thead>
 													<tr>
 														<th>ID</th>
-														<th>Code</th>
 														<th>Name</th>
+														<th>Description</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -61,7 +61,7 @@
                                             <!-- <div class="col-2">
                                                 <a href="/key-result-area-add-form/" class="btn btn-block bg-gradient-success "> Add New</a>
                                             </div> -->
-											<button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-area-lg">
+											<button type="button" class="btn bg-gradient-success" data-toggle="modal"  id="add-new" data-target="#modal-ref-lg">
 												Add New
 											</button>
 										</div>
@@ -77,14 +77,12 @@
 				</section>
 				<!-- /.content -->
 			
-				{% include 'themes/modal-area/areaAdd.html' %}
+				{% include 'themes/modal-reference/refAdd.html' %}
                   
-				{% include 'themes/modal-area/areaEdit.html' %}
+				{% include 'themes/modal-reference/refEdit.html' %}
 				
-				{% include 'themes/modal-area/areaDelete.html' %}
+				{% include 'themes/modal-reference/refDelete.html' %}
                 
-			
-
 			</div>
 			<!-- /.content-wrapper -->
             {% include 'includes/footer.html' %}
@@ -101,51 +99,37 @@
 	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
 	<script>
 
-		function loadStrat(stratId) {
-			$.ajax({
-				async: false,
-				url: "/getAnalytic/" + stratId,
-				dataType: "json",
-				success: function (data) {
-					analId = data.data[0].analId;
-					indicator = data.data[0].indicator;
-					$(".anal-id").html(analId)
-					$(".indicator").html(indicator)
-
-				},
-			});
-		}
 		
+	
+
 		$(document).ready(function() {
 			
-			var modalEdit = $("#modal-area-edit-lg")
-			var modalDelete = $("#modal-area-del-lg")
+			var modalEdit = $("#modal-ref-edit-lg")
+			var modalDelete = $("#modal-ref-del-lg")
 
-			var addForm = $("#area-add-form")
-			var addformInput = $("#area-add-form input")
-			var editForm = $("#area-edit-form");
-			var editformInput = $("#area-edit-form input")
-			var delForm = $("#area-del-form");
+			var addForm = $("#ref-add-form")
+			var addformInput = $("#ref-add-form input")
+			var editForm = $("#ref-edit-form");
+			var editformInput = $("#ref-edit-form input")
+			var delForm = $("#ref-del-form");
 			 
-			var formSelector = "#area-edit-form";
-			var inputSelector1 = "input[name='code']";
-			var inputSelector2 = "input[name='name']";
+			var formSelector = "#ref-edit-form";
 
-			totalVal = 0
-			perVal = 0
-			ctrlNo="";
-			analId = "";
-			loadStrat(12);
+			var inputPkey = "input[name='refNo']";
+			var inputSelector1 = "input[name='refName']";
+			var inputSelector2 = "input[name='description']";
+			
+			var pkey ="";
 
 			var siteTable = $("#example").DataTable({
-			ajax: "/areaJsonList/",
-			rowId: "areaId",
+			ajax: "/refJsonList/",
+			rowId: "refNo",
 			order: [1, "asc"],
 			columns: [
 			
-				{ title:"ID",data: "areaId",  width: "5%" },
-				{ title: "Code", data: "code" },
-				{ title: "Name", data: "name" },
+				{ title:"ID",data: "refNo",  width: "5%" },
+				{ title: "Name", data: "refName" },
+				{ title: "Description", data: "description" },
 				{
                     title: "Action",
 					data: null,
@@ -162,17 +146,15 @@
 			},
 			});
 
-
 			$("#example tbody").on("click", ".edit-area", function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 				let data = siteTable.row(e.target.closest("tr")).data();
-				pKey = data.areaId
-				console.log(pKey)
-			
+				pkey = data.refNo
 				// $("#area-edit-form input[name='code']").val(data.code);
-				$(formSelector).find(inputSelector1).val(data.code);
-				$(formSelector).find(inputSelector2).val(data.name);
+				$(formSelector).find(inputPkey).val(data.refNo);
+				$(formSelector).find(inputSelector1).val(data.refName);
+				$(formSelector).find(inputSelector2).val(data.description);
 				modalEdit.modal("show");
 			});
 
@@ -180,11 +162,26 @@
 				e.preventDefault();
 				e.stopPropagation();
 				let data = siteTable.row(e.target.closest("tr")).data();
-				pKey = data.areaId
+				pKey = data.refNo
 				const element = document.getElementById("context");
 				element.innerHTML =
-					"<h5>ID: " + pKey + "</h5>" + "  Code: " + data.code + "<h5>Name: " + data.name;
+					"<h5>ID: " + pKey + "</h5>" + "  Name: " + data.refName + "<h5>Description: " + data.description;
 				modalDelete.modal("show");
+			});
+
+
+			$('#add-new').click(function() {
+				if ( !siteTable.data().any() ) {
+					$('#id_refNo').val(1) 
+				}
+				else {
+					var lastIndex = siteTable.rows().indexes().length - 1;
+					// Get the last row data
+					var lastRowData = siteTable.row(lastIndex).data();
+					$('#id_refNo').val(lastRowData.refNo + 1) 
+					ctrlNo = lastRowData.refNo + 1
+				}
+
 			});
 
 			addForm.on("submit", function (e) {
@@ -214,7 +211,7 @@
 				if (valid) {
 					$(".btn-save").text("Saving...").attr("disabled", true);
 					// let data = $this.serialize();
-					let data =$this.serialize();
+					let data =$this.serialize() + "&refNo=" +  $('#id_refNo').val();
 					
 					console.log(data);
 					$.ajax({
@@ -290,17 +287,17 @@
 				if (valid) {
 					$(".btn-update").text("Saving...").attr("disabled", true);
 					// let data = $this.serialize();
-					data = $this.serialize() 
-					console.log(pKey)
-					var editUrl = $(".btn-update").data("url"); 
+					data = $this.serialize() + "&refNo=" + pkey 
+					console.log(data)
+
 					$.ajax({
-						url: editUrl.replace("0", pKey),
+						url:  $(".btn-update").data("url"),
 						type: "POST",
 						data: data,
 						dataType: "json",
 						success: function (data) {
 							console.log(data.Status);
-							if (data.Status == "Updated") {
+							if (data.Status == "Saved") {
 								Swal.fire({
 									position: "center",
 									icon: "success",

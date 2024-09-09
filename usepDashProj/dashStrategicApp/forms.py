@@ -2,7 +2,7 @@ from django import forms
 from django.forms.models import model_to_dict
 from .models import *
 
-#area 
+
 class stratAreaForm(forms.ModelForm):
     class Meta:
         model = stratArea
@@ -43,4 +43,13 @@ class stratTempForm(forms.ModelForm):
         widgets = {
         'tempId':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px'}),
         'tempName':forms.TextInput(attrs={'class':'form-control', 'style':'margin-bottom:10px'}),
+        }
+
+class  stratRefForm(forms.ModelForm):
+    class Meta:
+        model = stratReference
+        fields = ['refName','description']
+        widgets = {
+            'refName':forms.TextInput(attrs={'class':'form-control','style':'margin-bottom:10px'}),
+            'description':forms.TextInput(attrs={'class':'form-control', 'style':'margin-bottom:10px'}),
         }

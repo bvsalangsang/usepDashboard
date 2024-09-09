@@ -35,3 +35,12 @@ ul.nav.nav-treeview li {
 	background-color: maroon;
 	color: #fff;
 }
+.action-buttons {
+	display: flex;
+	gap: 5px;
+}
+
+.action-buttons .btn {
+	display: inline-block;
+	padding: 5px 10px;
+}

@@ -1,7 +1,7 @@
 """
-SQL Command for mainApp.
+SQL Command for dashStrategicApp.
 
-List of CRUD functions for mainApp 
+List of CRUD functions for dashStrategicApp 
 """
 
 #area
@@ -93,7 +93,6 @@ def deleteObj(**stratObjParams):
              stratObjParams["isActive"]) 
     return sql
 
-
 # Indicator
 def fetchInd():
     sql = ("SELECT man_strat_indicator.indId AS indId, "
@@ -147,6 +146,46 @@ def deleteInd(**stratIndParams):
             ).format(stratIndParams["indId"],
              stratIndParams["isActive"]) 
     return sql
+
+#reference
+def fetchRef():
+    sql =("""
+            SELECT ref_strat_reference.refNo AS refNo,
+            ref_strat_reference.refName AS refName,
+            ref_strat_reference.description AS description,
+            ref_strat_reference.isActive AS isActive
+            FROM ref_strat_reference
+            WHERE ref_strat_reference.isActive = 'Y'
+        """)
+
+    return sql
+
+def saveUpdateReference(**stratRefParams):
+    sql = ("""
+            INSERT INTO ref_strat_reference
+            SET refNo = '{0}',
+            refName = '{1}',
+            description = '{2}',
+            isActive = '{3}'
+            ON DUPLICATE KEY UPDATE 
+            refName = '{1}',
+            description = '{2}',
+            isActive = '{3}'
+          """).format(stratRefParams['refNo'],
+                    stratRefParams['refName'], 
+                    stratRefParams['description'], 
+                    stratRefParams['isActive'])
+    
+    return sql
+
+def deleteRef(**stratRefParams):
+    sql = ("UPDATE ref_strat_reference "
+            "SET isActive = '{1}' " 
+            "WHERE refNo  = '{0}' "
+            ).format(stratRefParams["refNo"],
+             stratRefParams["isActive"]) 
+    return sql
+
 
 #matrices
 def stratAnnualTargets():
@@ -299,7 +338,6 @@ def fetchTemplate():
         """)
     
     return sql
-
 
 def rawStratItems():
     sql = ("""SELECT 

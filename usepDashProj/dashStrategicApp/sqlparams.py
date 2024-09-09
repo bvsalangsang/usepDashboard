@@ -64,3 +64,10 @@ stratTempDetParams = {
     "target":"",
     "isActive":""
 }
+
+stratRefParams = {
+    "refNo":"",
+    "refName":"",
+    "description":"",
+    "isActive":"",
+}
