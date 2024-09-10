@@ -1,7 +1,7 @@
 **/__pycache__/
 **/*.pyc
 # Ignore setting file  
-settings.py
+usepDashProj/settings.py
 
 #migrations
 usepDashProj/dashStrategicApp/migrations/0006_stratreference.py
