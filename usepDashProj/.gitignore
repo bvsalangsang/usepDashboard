@@ -1,2 +1,10 @@
 **/__pycache__/
 **/*.pyc
+# Ignore setting file  
+settings.py
+
+#migrations
+usepDashProj/dashStrategicApp/migrations/0006_stratreference.py
+
+# virtual for windows
+venvdashwin/
