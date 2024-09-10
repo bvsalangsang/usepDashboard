@@ -1,7 +1,7 @@
 """
-SQL Command for mainApp.
+SQL Command for dashLudipApp.
 
-List of CRUD functions for mainApp 
+List of CRUD functions for dashLudipApp 
 """
 
 def fetchLudip():

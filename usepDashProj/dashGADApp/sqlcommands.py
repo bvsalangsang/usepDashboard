@@ -1,7 +1,7 @@
 """
-SQL Command for mainApp.
+SQL Command for dashGadApp.
 
-List of CRUD functions for mainApp 
+List of CRUD functions for dashGadApp 
 """
 
 #campus

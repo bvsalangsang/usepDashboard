@@ -1,4 +1,10 @@
 
+"""
+SQL Command for dashAnalyticApp.
+
+List of CRUD functions for dashAnalyticApp 
+"""
+
 #universal 
 def fetchType():
     sql = ("SELECT * from ref_type WHERE isActive = 'Y'")
