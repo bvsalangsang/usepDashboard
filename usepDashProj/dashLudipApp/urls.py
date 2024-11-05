@@ -4,8 +4,8 @@ from . import views
 
 
 urlpatterns = [
-    path('dashboard-ludip/',views.ludipDash,name="ludipDash"),
-    path('ludip/',views.ludipView,name="ludipView"),
+    path('dash-admin/ashboard-ludip/',views.ludipDash,name="ludipDash"),
+    path('dash-admin/ludip/',views.ludipView,name="ludipView"),
     path('ludipSaveParams/',views.ludipSaveParams,name="ludipSaveParams"),
     path('ludipJsonList/',views.ludipJsonList,name="ludipJsonList"),
     path('lupidUpdateParams/<int:id>',views.lupidUpdateParams,name="lupidUpdateParams"),

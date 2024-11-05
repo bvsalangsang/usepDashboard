@@ -1,0 +1,439 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block body %} {% include 'includes/sidebar.html' %}
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 class="m-0">Strategic Template</h1>
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Strategic Template</li>
+								</ol>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-box">
+									<span class="info-box-icon bg-info"><i class="fas fa-edit"></i></span>
+									<div class="info-box-content">
+										<span class="info-box-text"><h5 class="cur-year">2022</h5></span>
+										<h4>Strategic Template</h4>
+									</div>
+								</div>
+                            </div>
+                        </div>
+						<div class="row">
+							<div class="col-6">
+                                <div class="card">
+                                    <div class="card-header bg-gradient-navy">
+										Report List 
+                                    </div>
+                                    <div class="card-body">
+										<!-- <table id="example" class="table table-bordered dataTable dtr-inline" style="width:100%">
+                                            <thead>
+                                                <tr>  
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Area ID</th>
+                                                    <th>Code</th>
+                                                    <th>Area</th>
+                                                    <th>Actions</th>
+                                                 </tr>
+                                            </thead>
+                                        </table> -->
+                                        <table id="example" class="display" style="width:100%"></table>
+                                    </div>
+                                    <button id="copyCheckedButton">Copy Checked Rows</button>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header bg-gradient-navy">
+										Report List 
+                                    </div>
+                                    <div class="card-body">
+										<table id="targetTable" class="display" width="100%"></table>
+								    </div>
+                            
+                                </div>
+                            </div>
+						</div>
+						<!-- /.row -->
+				
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			
+				{% include 'themes/modal-board-passer/indBpAdd.html' %}
+				{% include 'themes/modal-board-passer/indBpEdit.html' %}
+				{% include 'themes/modal-board-passer/indBpDelete.html' %}
+				
+			</div>
+			<!-- /.content-wrapper -->
+            {% include 'includes/footer.html' %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+  
+    {% endblock %}
+	{% block scripts %}
+	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
+<script>
+     $(document).ready(function() {
+        var tempData; // Variable to hold temporary data
+        var lvl2Data = {}; // Variable to hold level 2 data
+        var getCurYr = "";
+
+        // Define the URL for the AJAX request
+        var url = `/stratRawJsonList/`;
+        console.log(url);
+
+        // AJAX request to fetch data
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function(response) {
+                tempData = response.data;
+                initializeDataTable(response.data); // Assuming response.data is the array of objects to display
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+
+        function createChild(row, rowData, keyName, rowId, level) {
+            var numLevels = 2;  // Number of child levels with .details-control
+            var trData;
+            var table = $('<table class="display" width="100%"/>');
+            row.child(table).show();
+
+            if (keyName === "areaId") {
+                trData = rowData.objects.map(doc => Object(doc));
+                lvl2Data = rowData;
+
+                table.DataTable({
+                    dom: 'rt',
+                    data: trData,
+                    columns: [
+                        {
+                            title: "<input type='checkbox' class='select-all'/>",
+                            data: null,
+                            defaultContent: "<input type='checkbox' class='select-checkbox'/>",
+                            orderable: false,
+                            width: "1%"
+                        },
+                        {
+                            className: "dt-control",
+                            orderable: false,
+                            data: null,
+                            defaultContent: "",
+                            width: "1%"
+                        },
+                        { title: "CODE", data: 'objCode' },
+                        { title: "OBJECTS", data: 'ObjName' },
+                        {
+                            data: null,
+                            defaultContent: '<button class="btn btn-default"> <i class="fas fa-edit"></i></button> ' +
+                                            '<button class="btn btn-default"> <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                            targets: -1,
+                            width: "15%",
+                            visible: false
+                        },
+                    ]
+                });
+            } else {
+                var groupColumn = 2;
+                var index = lvl2Data.objects.findIndex(obj => obj.objId == rowId);
+                var rawParams = lvl2Data.objects[index].indicator;
+
+                table.DataTable({
+                    dom: 'rt',
+                    data: rawParams,
+                    columns: [
+                        {
+                            title: "<input type='checkbox' class='select-all'/>",
+                            data: null,
+                            defaultContent: "<input type='checkbox' class='select-checkbox'/>",
+                            orderable: false,
+                            width: "1%"
+                        },
+                        { title: "ID", data: 'indId', visible: false },
+                        { title: "Type", data: 'refType', visible: false },
+                        { title: "CODE", data: 'indCode' },
+                        { title: "INDICATORS", data: 'indDesc' }
+                    ],
+                    columnDefs: [{ visible: false, targets: groupColumn }],
+                    order: [[groupColumn, 'asc']],
+                    displayLength: 25,
+                    drawCallback: function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({ page: 'current' }).nodes();
+                        var last = null;
+
+                        api.column(groupColumn, { page: 'current' })
+                            .data()
+                            .each(function(group, i) {
+                                if (last !== group) {
+                                    $(rows).eq(i).before(
+                                        '<tr class="group"><td colspan="9">' + group + '</td></tr>'
+                                    );
+                                    last = group;
+                                }
+                            });
+                    }
+                });
+            }
+
+            table.on("click", "td.dt-control", function(e) {
+                e.stopPropagation();
+                var tr = $(this).closest("tr");
+                var row = table.DataTable().row(tr);
+
+                if (row.child.isShown()) {
+                    destroyChild(row);
+                    tr.removeClass("shown");
+                } else {
+                    var data = row.data();
+                    var childRowData = {
+                        code: data.code,
+                    };
+
+                    if (level === 1) {
+                        childRowData.level2 = 'Level 2';
+                    } else if (level === 2) {
+                        childRowData.level3 = 'Level 3';
+                    } else {
+                        childRowData.other = 'Other stuff';
+                    }
+
+                    var childKeyName = Object.keys(data)[1];
+                    createChild(row, childRowData, childKeyName, data.objId, level + 1);
+                    tr.addClass("shown");
+                }
+            });
+        }
+
+        function destroyChild(row) {
+            var table = $("table", row.child());
+            table.DataTable().destroy();
+            row.child.hide();
+        }
+
+        function initializeDataTable(data) {
+            var siteTable = $("#example").DataTable({
+                data: data,
+                rowId: 'areaId',
+                order: [1, "asc"],
+                columns: [
+                    {
+                        title: "<input type='checkbox' class='select-all'/>",
+                        data: null,
+                        defaultContent: "<input type='checkbox' class='select-checkbox'/>",
+                        orderable: false,
+                        width: "1%"
+                    },
+                    {
+                        className: "dt-control",
+                        orderable: false,
+                        data: null,
+                        defaultContent: "",
+                        width: "1px"
+                    },
+                    { title: "ID", data: 'areaId', width: "5%" },
+                    { title: "CODE", data: 'code' },
+                    { title: "AREA", data: 'area' },
+                    {
+                        data: null,
+                        defaultContent: '<button class="btn edit-area btn-default"><i class="fas fa-edit"></i></button>' +
+                                        '<button class="btn delete-area btn-default"><i class="fa fa-trash" aria-hidden="true"></i></button>',
+                        targets: -1,
+                        width: "15%",
+                        visible: false
+                    }
+                ],
+                select: {
+                    style: "os",
+                    selector: "td:not(:first-child)"
+                }
+            });
+
+            $("#example tbody").on("click", "td.dt-control", function() {
+                var tr = $(this).closest("tr");
+                var row = siteTable.row(tr);
+
+                if (row.child.isShown()) {
+                    destroyChild(row);
+                } else {
+                    var data = row.data();
+                    var rowData = {
+                        code: data.code,
+                        area: data.area,
+                        objects: data.objects,
+                        indicator: data.indicator
+                    };
+                    var keyName = Object.keys(data)[0];
+                    createChild(row, rowData, keyName, data.areaId, 1);
+                }
+            });
+
+            // Event listener for "select-all" checkbox
+            $('#example').on('click', '.select-all', function() {
+                var isChecked = $(this).is(':checked');
+                $(this).closest('table').find('tbody .select-checkbox').prop('checked', isChecked);
+            });
+
+            // Event listener for individual checkboxes to update "select-all" checkbox
+            $('#example').on('click', '.select-checkbox', function() {
+                var allChecked = $(this).closest('table').find('tbody .select-checkbox').length ===
+                                 $(this).closest('table').find('tbody .select-checkbox:checked').length;
+                $(this).closest('table').find('.select-all').prop('checked', allChecked);
+            });
+
+            $("#example tbody").on("click", "td:not(.dt-control)", function() {
+                var tr = $(this).closest("tr");
+                var row = siteTable.row(tr);
+                var rowData = row.data();
+
+                if (!row.child.isShown()) {
+                    var keyName = Object.keys(rowData)[1];
+                    createChild(row, rowData, keyName, rowData.areaId, 1);
+                }
+            });
+        }
+
+        function copyCheckedRows() {
+            var copiedData = [];
+
+            function gatherCheckedData(table, level = 0) {
+                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    var row = this;
+                    var rowData = row.data();
+                    var isChecked = false;
+
+                    if (level === 0) {
+                        // For the top level, we consider it "checked" if it has any checked children
+                        isChecked = $(row.node()).next('tr.child').find('.select-checkbox:checked').length > 0;
+                    } else {
+                        isChecked = $(row.node()).find('.select-checkbox').prop('checked');
+                    }
+
+                    if (isChecked) {
+                        var copiedRow = $.extend(true, {}, rowData);
+                        copiedRow.level = level;
+
+                        if (row.child.isShown()) {
+                            copiedRow.children = [];
+                            var childTable = $(row.child()).find('table').DataTable();
+                            gatherCheckedDataForChildren(childTable, copiedRow.children, level + 1);
+                        }
+
+                        copiedData.push(copiedRow);
+                    }
+                });
+            }
+
+            function gatherCheckedDataForChildren(table, childrenArray, level) {
+                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    var row = this;
+                    var rowData = row.data();
+                    var isChecked = $(row.node()).find('.select-checkbox').prop('checked');
+
+                    if (isChecked) {
+                        var copiedRow = $.extend(true, {}, rowData);
+                        copiedRow.level = level;
+
+                        if (row.child.isShown()) {
+                            copiedRow.children = [];
+                            var childTable = $(row.child()).find('table').DataTable();
+                            gatherCheckedDataForChildren(childTable, copiedRow.children, level + 1);
+                        }
+
+                        childrenArray.push(copiedRow);
+                    }
+                });
+            }
+
+            // Start gathering data from the top-level table
+            var topLevelTable = $('#example').DataTable();
+            gatherCheckedData(topLevelTable);
+
+            console.log('Copied data:', copiedData);
+
+            // Here you would insert the copiedData into your target DataTable
+            insertCopiedData(copiedData);
+        }
+
+        function insertCopiedData(copiedData) {
+            var targetTable = $('#targetTable').DataTable();
+
+            // Clear the target table first
+            targetTable.clear().draw();
+
+            function insertRow(rowData) {
+                var displayData = {
+                    ID: rowData.areaId || rowData.objId || rowData.indId,
+                    CODE: rowData.code || rowData.objCode || rowData.indCode,
+                    AREA: rowData.area || '',
+                    OBJECTS: rowData.ObjName || '',
+                    INDICATORS: rowData.indDesc || ''
+                };
+
+                var newRow = targetTable.row.add(displayData).draw();
+
+                if (rowData.children && rowData.children.length > 0) {
+                    rowData.children.forEach(function(childData) {
+                        insertRow(childData);
+                    });
+                }
+            }
+
+            copiedData.forEach(function(rowData) {
+                insertRow(rowData);
+            });
+        }
+
+        // Initialize the target table
+        var targetTable = $('#targetTable').DataTable({
+            columns: [
+                { title: "ID", data: 'ID' },
+                { title: "CODE", data: 'CODE' },
+                { title: "AREA", data: 'AREA' },
+                { title: "OBJECTS", data: 'OBJECTS' },
+                { title: "INDICATORS", data: 'INDICATORS' }
+            ]
+        });
+
+        // Attach the copy function to the button
+        $("#copyCheckedButton").click(function() {
+            copyCheckedRows();
+        });
+    });
+
+</script>
+	{% endblock %}

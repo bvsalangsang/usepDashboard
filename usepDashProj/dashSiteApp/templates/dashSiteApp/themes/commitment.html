@@ -1,0 +1,125 @@
+{% extends 'dashSiteApp/base.html' %} {% load static %} {% block body %}
+
+<div class="content-wrapper">
+	<section class="content">
+		<!-- Page Header Start -->
+		<div
+			class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn"
+			data-wow-delay="0.1s"
+		>
+			<div class="container text-center">
+				<h1 class="display-4 text-white animated slideInDown mb-4">
+					Commitment
+				</h1>
+				<nav aria-label="breadcrumb animated slideInDown">
+					<ol class="breadcrumb justify-content-center mb-0">
+						<li class="breadcrumb-item">
+							<a class="text-white" href="#">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a class="text-white" href="#">Pages</a>
+						</li>
+						<li class="breadcrumb-item text-primary active" aria-current="page">
+							Commitment
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+		<!-- Page Header End -->
+
+		<!-- About Start -->
+		<div class="container-xxl py-6">
+			<div class="container">
+				<div class="row g-5">
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="h-100">
+							<!-- <h6 class="text-primary text-uppercase mb-2">About Us</h6> -->
+							<h1 class="display-6 mb-4">COMMITMENTS</h1>
+							<p class="fs-5 text">
+								As education is critical in promoting and assisting the
+								achievement of the SDGs, USeP responds to the call of the United
+								Nations on the localization of the Sustainable Development Goals
+								through various initiatives aimed at alleviating poverty,
+								promoting sustainable agriculture, and providing equitable,
+								high-quality, and lifelong learning.
+							</p>
+							<p class="fs-5 text">
+								It may also build resilient infrastructure and gender-responsive
+								programs and projects, ensure sustainable consumption and
+								production patterns, combat climate change and its impact,
+								promote sustainable land resources, and promote peace and order.
+							</p>
+							<p class="fs-5 text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+								enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+								in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+								nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+								sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+						<div class="commitment-img">
+							<img
+								src="{% static 'dashSiteApp/img/sir-boni-crop.png' %}"
+								alt="suc-president"
+								class="pres-img"
+							/>
+							<img
+								class="position-absolute top-0 start-0 pe-3 pb-3"
+								src="{% static 'dashSiteApp/img/usep-logo.png' %}"
+								alt="usep-logo"
+								style="width: 200px; height: 200px"
+							/>
+						</div>
+						<div class="bg-white shadow text-center p-4">
+							<h5>Dr. Bonifacio G. Gabales, Jr.</h5>
+							<p class="m-0">SUC President IV</p>
+							<p class="m-0">University of Southeastern Philippines</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- About End -->
+
+		<!-- mission and vision -->
+		<div class="container-xxl global-ranking my-6 py-6 pb-0">
+			<div class="container">
+				<div class="row mb-5 text-center justify-content-center">
+					<div class="col-5 bg-white shadow bg-custom-border p-4 me-5">
+						<h1 class="text-center wow fadeInUp" data-wow-delay="0.5s">
+							Vision
+						</h1>
+						<div class="logo-metric wow fadeInUp" data-wow-delay="0.5s">
+							<p>
+								Premier research university transforming communities in the
+								ASEAN and beyond.
+							</p>
+						</div>
+					</div>
+					<div class="col-5 bg-white shadow bg-custom-border p-4">
+						<h1 class="text-center wow fadeInUp" data-wow-delay="0.5s">
+							Mission
+						</h1>
+						<div class="logo-metric wow fadeInUp" data-wow-delay="0.5s">
+							<p>
+								USeP shall contribute to inclusive growth and sustainable
+								development through continual innovation in proactive academic
+								programs, impactful research for utilization, economically
+								empowering community services, and sustainable resource
+								management.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  mission and vision -->
+	</section>
+</div>
+
+{% include 'dashSiteApp/includes/footer.html' %} {% endblock %}

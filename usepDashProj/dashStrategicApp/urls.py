@@ -4,14 +4,14 @@ from . import views
 
 
 urlpatterns = [
-    path('',views.dashboard,name="dashboard"),
-    path('dashboard-strategic/',views.stratDash,name="stratDash"),
+    path('dash-admin',views.dashboard,name="dashboard"),
+    path('dash-admin/dashboard-strategic/',views.stratDash,name="stratDash"),
     path('dashAnnTargetJsonList/',views.dashAnnTargetJsonList,name="dashAnnTargetJsonList"),
   
-    path('demo-dash-strat/',views.demoDash,name="demoDash"),
+    path('dash-admin/demo-dash-strat/',views.demoDash,name="demoDash"),
     path('saveDashRecord/',views.saveDashRecord, name="saveDashRecord"),
    
-    path('dashboard-scorecard/',views.scoreDash,name="scoreDash"),
+    path('dash-admin/dashboard-scorecard/',views.scoreDash,name="scoreDash"),
     path('dashScorecardJsonList/<str:year>/',views.dashScorecardJsonList,name="dashScorecardJsonList"),
     path('saveScorecard/',views.saveScorecardParams, name="saveScorecardParams"),
    
@@ -46,5 +46,5 @@ urlpatterns = [
     path('stratTempJsonList/<int:id>',views.stratTempJsonList, name="stratTempJsonList"),
     path('saveTemplateParams/',views.saveTemplateParams,name="saveTemplateParams"),
 
-    #path('strat-template-1/',views.stratTemplateView1,name="stratTemplateView1"),
+    path('strat-template-1/',views.stratTemplateView1,name="stratTemplateView1"),
     ]

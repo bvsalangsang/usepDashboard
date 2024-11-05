@@ -20,10 +20,12 @@ from dashLudipApp import urls
 from dashStrategicApp import urls
 from dashAnalyticApp import urls
 from dashGADApp import urls
+from dashSiteApp import urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashLudipApp.urls')),
     path('', include('dashStrategicApp.urls')), 
     path('', include('dashAnalyticApp.urls')), 
     path('', include('dashGADApp.urls')), 
+    path('', include('dashSiteApp.urls')), 
 ]

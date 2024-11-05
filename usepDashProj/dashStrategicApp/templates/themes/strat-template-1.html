@@ -29,67 +29,157 @@
 				<!-- Main content -->
 				<section class="content">
 					<div class="container-fluid">
-						
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="info-box">
-									<span class="info-box-icon bg-info"><i class="fas fa-edit"></i></span>
-									<div class="info-box-content">
-										<span class="info-box-text"><h5 class="cur-year">2022</h5></span>
-										<h4>Strategic Template</h4>
-									</div>
-								</div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header custom-bg-gad-header">
+                                    Create a Template
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="bs-stepper" id="stepper">
+                                                <div class="bs-stepper-header" role="tablist">
+                                                  <!-- your steps here -->
+                                                  <div class="step" data-target="#man-indicator-part">
+                                                    <button type="button" class="step-trigger" role="tab" aria-controls="man-indicator-part" id="man-indicator-part-trigger">
+                                                      <span class="bs-stepper-circle">1</span>
+                                                      <span class="bs-stepper-label">Manage Indicator</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="line"></div>
+                                                  <div class="step" data-target="#information-part">
+                                                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                                      <span class="bs-stepper-circle">2</span>
+                                                      <span class="bs-stepper-label">Template Details</span>
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                                <div class="bs-stepper-content">
+                                                  <!-- your steps content here -->
+                                                         <div id="man-indicator-part" class="content" role="tabpanel" aria-labelledby="man-indicato-part-trigger">
+                                                            <div class="row">
+                                                            
+                                                                <div class="col-12">
+                                                                    <div class="card">
+                                                                        <div class="card-header bg-gad-header">
+                                                                            Select Object
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <div class="form-group">
+                                                                                    <select id ="area-select" name="areaId" class="form-control select2add" style="width: 100%;">
+                                                                                        <option value="">Select an Area</option>
+                                                                                        {% for area in areaList %}
+                                                                                        <option value="{{ area.areaId }}">{{ area.name }}</option>
+                                                                                        {% endfor %}
+                                                                                
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <table id="obj-table" class="table table-bordered table-striped  dtr-inline" style="width:100%"></table>
+                                                                                </div>
+                                                                                <div class="col-12 text-end">
+                                                                                    <button id="copy-button" type="button" class="btn btn-primary">Copy</button>
+                                                                            </div>
+                                                                        </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="card">
+                                                                        <div class="card-header bg-gad-header">
+                                                                            Copied Items
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <table id="copy-obj-table" class="table table-bordered table-striped  dtr-inline" style="width:100%">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>ID</th>
+                                                                                        <th>Indicator</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                </tbody>
+                                                                            </table>
+                                                                                
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>   
+                                                            <button onclick="stepper.next()" id="copy-to-update" class="btn bg-gradient-primary" >Next</button>
+                                                        </div>
+                                                        <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger"> 
+                                                            <form id="template-form">
+                                                                <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header bg-gad-header">
+                                                                                    Template Details
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <div class="form-group validate">
+                                                                                        <label for="code">Template ID</label>
+                                                                                        <input
+                                                                                            type="text"
+                                                                                            name="tempId"
+                                                                                            id="id_tempId"
+                                                                                            class="form-control"
+                                                                                            
+                                                                                        />
+                                                                                       <small class="text-red text-muted mySpan"></small>
+                                                                                    </div>
+                                                                                    <div class="form-group validate">
+                                                                                        <label for="code">Template Name</label>
+                                                                                        {{ form.tempName }}
+                                                                                        <small class="text-red text-muted mySpan"></small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header bg-gad-header">
+                                                                                    Update Reference and Target
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <table id="copy-table" class="table table-bordered table-striped  dtr-inline" style="width:100%">
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            
+                                                                <button onclick="prev()" class="btn bg-gradient-primary">Previous</button>
+                                                                <button
+                                                                        type="submit"
+                                                                        class="btn btn-success btn-save"
+                                                                        data-url="{% url 'saveTemplateParams' %}"
+                                                                    >
+                                                                    Save
+                                                                </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                              <hr />
+                                              <div>current step: <span id="current-step"></span></div>
+                                        </div>
+    
+                                    </div>
+                                
+
+                                   
+                                </div>
                             </div>
+                    
+                        
                         </div>
-						<div class="row">
-							<div class="col-6">
-                                <div class="card">
-                                    <div class="card-header bg-gradient-navy">
-										Report List 
-                                    </div>
-                                    <div class="card-body">
-										<!-- <table id="example" class="table table-bordered dataTable dtr-inline" style="width:100%">
-                                            <thead>
-                                                <tr>  
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th>Area ID</th>
-                                                    <th>Code</th>
-                                                    <th>Area</th>
-                                                    <th>Actions</th>
-                                                 </tr>
-                                            </thead>
-                                        </table> -->
-                                        <table id="example" class="display" style="width:100%"></table>
-                                    </div>
-                                    <button id="copyCheckedButton">Copy Checked Rows</button>
-                                </div>
-
-                            </div>
-
-                            <div class="col-6">
-                                <div class="card">
-                                    <div class="card-header bg-gradient-navy">
-										Report List 
-                                    </div>
-                                    <div class="card-body">
-										<table id="targetTable" class="display" width="100%"></table>
-								    </div>
-                            
-                                </div>
-                            </div>
-						</div>
-						<!-- /.row -->
-				
 					</div>
 					<!-- /.container-fluid -->
 				</section>
-				<!-- /.content -->
-			
-				{% include 'themes/modal-board-passer/indBpAdd.html' %}
-				{% include 'themes/modal-board-passer/indBpEdit.html' %}
-				{% include 'themes/modal-board-passer/indBpDelete.html' %}
-				
 			</div>
 			<!-- /.content-wrapper -->
             {% include 'includes/footer.html' %}
@@ -104,336 +194,142 @@
     {% endblock %}
 	{% block scripts %}
 	<!-- <script src="{% static '/js/tablescript.js' %}" ></script> -->
-<script>
-     $(document).ready(function() {
-        var tempData; // Variable to hold temporary data
-        var lvl2Data = {}; // Variable to hold level 2 data
-        var getCurYr = "";
+	<script>
 
-        // Define the URL for the AJAX request
-        var url = `/stratRawJsonList/`;
-        console.log(url);
-
-        // AJAX request to fetch data
-        $.ajax({
-            url: url,
-            method: "GET",
-            success: function(response) {
-                tempData = response.data;
-                initializeDataTable(response.data); // Assuming response.data is the array of objects to display
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching data:', error);
-            }
-        });
-
-        function createChild(row, rowData, keyName, rowId, level) {
-            var numLevels = 2;  // Number of child levels with .details-control
-            var trData;
-            var table = $('<table class="display" width="100%"/>');
-            row.child(table).show();
-
-            if (keyName === "areaId") {
-                trData = rowData.objects.map(doc => Object(doc));
-                lvl2Data = rowData;
-
-                table.DataTable({
-                    dom: 'rt',
-                    data: trData,
-                    columns: [
-                        {
-                            title: "<input type='checkbox' class='select-all'/>",
-                            data: null,
-                            defaultContent: "<input type='checkbox' class='select-checkbox'/>",
-                            orderable: false,
-                            width: "1%"
-                        },
-                        {
-                            className: "dt-control",
-                            orderable: false,
-                            data: null,
-                            defaultContent: "",
-                            width: "1%"
-                        },
-                        { title: "CODE", data: 'objCode' },
-                        { title: "OBJECTS", data: 'ObjName' },
-                        {
-                            data: null,
-                            defaultContent: '<button class="btn btn-default"> <i class="fas fa-edit"></i></button> ' +
-                                            '<button class="btn btn-default"> <i class="fa fa-trash" aria-hidden="true"></i></button>',
-                            targets: -1,
-                            width: "15%",
-                            visible: false
-                        },
-                    ]
-                });
-            } else {
-                var groupColumn = 2;
-                var index = lvl2Data.objects.findIndex(obj => obj.objId == rowId);
-                var rawParams = lvl2Data.objects[index].indicator;
-
-                table.DataTable({
-                    dom: 'rt',
-                    data: rawParams,
-                    columns: [
-                        {
-                            title: "<input type='checkbox' class='select-all'/>",
-                            data: null,
-                            defaultContent: "<input type='checkbox' class='select-checkbox'/>",
-                            orderable: false,
-                            width: "1%"
-                        },
-                        { title: "ID", data: 'indId', visible: false },
-                        { title: "Type", data: 'refType', visible: false },
-                        { title: "CODE", data: 'indCode' },
-                        { title: "INDICATORS", data: 'indDesc' }
-                    ],
-                    columnDefs: [{ visible: false, targets: groupColumn }],
-                    order: [[groupColumn, 'asc']],
-                    displayLength: 25,
-                    drawCallback: function(settings) {
-                        var api = this.api();
-                        var rows = api.rows({ page: 'current' }).nodes();
-                        var last = null;
-
-                        api.column(groupColumn, { page: 'current' })
-                            .data()
-                            .each(function(group, i) {
-                                if (last !== group) {
-                                    $(rows).eq(i).before(
-                                        '<tr class="group"><td colspan="9">' + group + '</td></tr>'
-                                    );
-                                    last = group;
-                                }
-                            });
-                    }
-                });
-            }
-
-            table.on("click", "td.dt-control", function(e) {
-                e.stopPropagation();
-                var tr = $(this).closest("tr");
-                var row = table.DataTable().row(tr);
-
-                if (row.child.isShown()) {
-                    destroyChild(row);
-                    tr.removeClass("shown");
-                } else {
-                    var data = row.data();
-                    var childRowData = {
-                        code: data.code,
-                    };
-
-                    if (level === 1) {
-                        childRowData.level2 = 'Level 2';
-                    } else if (level === 2) {
-                        childRowData.level3 = 'Level 3';
-                    } else {
-                        childRowData.other = 'Other stuff';
-                    }
-
-                    var childKeyName = Object.keys(data)[1];
-                    createChild(row, childRowData, childKeyName, data.objId, level + 1);
-                    tr.addClass("shown");
+                var stepper = new Stepper(document.querySelector("#stepper"));
+                setCurrent();
+                function prev() {
+                    stepper.previous();
+                    setCurrent();
                 }
-            });
-        }
-
-        function destroyChild(row) {
-            var table = $("table", row.child());
-            table.DataTable().destroy();
-            row.child.hide();
-        }
-
-        function initializeDataTable(data) {
-            var siteTable = $("#example").DataTable({
-                data: data,
-                rowId: 'areaId',
-                order: [1, "asc"],
-                columns: [
-                    {
-                        title: "<input type='checkbox' class='select-all'/>",
-                        data: null,
-                        defaultContent: "<input type='checkbox' class='select-checkbox'/>",
-                        orderable: false,
-                        width: "1%"
-                    },
-                    {
-                        className: "dt-control",
-                        orderable: false,
-                        data: null,
-                        defaultContent: "",
-                        width: "1px"
-                    },
-                    { title: "ID", data: 'areaId', width: "5%" },
-                    { title: "CODE", data: 'code' },
-                    { title: "AREA", data: 'area' },
-                    {
-                        data: null,
-                        defaultContent: '<button class="btn edit-area btn-default"><i class="fas fa-edit"></i></button>' +
-                                        '<button class="btn delete-area btn-default"><i class="fa fa-trash" aria-hidden="true"></i></button>',
-                        targets: -1,
-                        width: "15%",
-                        visible: false
-                    }
-                ],
-                select: {
-                    style: "os",
-                    selector: "td:not(:first-child)"
+                function setCurrent() {
+                document.getElementById("current-step").innerText = stepper._currentIndex;
                 }
-            });
 
-            $("#example tbody").on("click", "td.dt-control", function() {
-                var tr = $(this).closest("tr");
-                var row = siteTable.row(tr);
-
-                if (row.child.isShown()) {
-                    destroyChild(row);
-                } else {
-                    var data = row.data();
-                    var rowData = {
-                        code: data.code,
-                        area: data.area,
-                        objects: data.objects,
-                        indicator: data.indicator
-                    };
-                    var keyName = Object.keys(data)[0];
-                    createChild(row, rowData, keyName, data.areaId, 1);
-                }
-            });
-
-            // Event listener for "select-all" checkbox
-            $('#example').on('click', '.select-all', function() {
-                var isChecked = $(this).is(':checked');
-                $(this).closest('table').find('tbody .select-checkbox').prop('checked', isChecked);
-            });
-
-            // Event listener for individual checkboxes to update "select-all" checkbox
-            $('#example').on('click', '.select-checkbox', function() {
-                var allChecked = $(this).closest('table').find('tbody .select-checkbox').length ===
-                                 $(this).closest('table').find('tbody .select-checkbox:checked').length;
-                $(this).closest('table').find('.select-all').prop('checked', allChecked);
-            });
-
-            $("#example tbody").on("click", "td:not(.dt-control)", function() {
-                var tr = $(this).closest("tr");
-                var row = siteTable.row(tr);
-                var rowData = row.data();
-
-                if (!row.child.isShown()) {
-                    var keyName = Object.keys(rowData)[1];
-                    createChild(row, rowData, keyName, rowData.areaId, 1);
-                }
-            });
-        }
-
-        function copyCheckedRows() {
-            var copiedData = [];
-
-            function gatherCheckedData(table, level = 0) {
-                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-                    var row = this;
-                    var rowData = row.data();
-                    var isChecked = false;
-
-                    if (level === 0) {
-                        // For the top level, we consider it "checked" if it has any checked children
-                        isChecked = $(row.node()).next('tr.child').find('.select-checkbox:checked').length > 0;
-                    } else {
-                        isChecked = $(row.node()).find('.select-checkbox').prop('checked');
-                    }
-
-                    if (isChecked) {
-                        var copiedRow = $.extend(true, {}, rowData);
-                        copiedRow.level = level;
-
-                        if (row.child.isShown()) {
-                            copiedRow.children = [];
-                            var childTable = $(row.child()).find('table').DataTable();
-                            gatherCheckedDataForChildren(childTable, copiedRow.children, level + 1);
-                        }
-
-                        copiedData.push(copiedRow);
-                    }
+                $("#stepper")[0].addEventListener('shown.bs-stepper', function (event) {
+                console.log("hello " + event.detail.indexStep)
                 });
-            }
 
-            function gatherCheckedDataForChildren(table, childrenArray, level) {
-                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-                    var row = this;
-                    var rowData = row.data();
-                    var isChecked = $(row.node()).find('.select-checkbox').prop('checked');
-
-                    if (isChecked) {
-                        var copiedRow = $.extend(true, {}, rowData);
-                        copiedRow.level = level;
-
-                        if (row.child.isShown()) {
-                            copiedRow.children = [];
-                            var childTable = $(row.child()).find('table').DataTable();
-                            gatherCheckedDataForChildren(childTable, copiedRow.children, level + 1);
-                        }
-
-                        childrenArray.push(copiedRow);
-                    }
-                });
-            }
-
-            // Start gathering data from the top-level table
-            var topLevelTable = $('#example').DataTable();
-            gatherCheckedData(topLevelTable);
-
-            console.log('Copied data:', copiedData);
-
-            // Here you would insert the copiedData into your target DataTable
-            insertCopiedData(copiedData);
-        }
-
-        function insertCopiedData(copiedData) {
-            var targetTable = $('#targetTable').DataTable();
-
-            // Clear the target table first
-            targetTable.clear().draw();
-
-            function insertRow(rowData) {
-                var displayData = {
-                    ID: rowData.areaId || rowData.objId || rowData.indId,
-                    CODE: rowData.code || rowData.objCode || rowData.indCode,
-                    AREA: rowData.area || '',
-                    OBJECTS: rowData.ObjName || '',
-                    INDICATORS: rowData.indDesc || ''
-                };
-
-                var newRow = targetTable.row.add(displayData).draw();
-
-                if (rowData.children && rowData.children.length > 0) {
-                    rowData.children.forEach(function(childData) {
-                        insertRow(childData);
+           
+                $(document).ready(function() {
+                    var area;
+                    $(".select2add").select2({
+                        theme: "bootstrap4",
                     });
-                }
-            }
 
-            copiedData.forEach(function(rowData) {
-                insertRow(rowData);
+                  // Initialize DataTable
+                    var compTable = $("#obj-table").DataTable({
+                        ajax: "/objJsonList/",
+                        rowId: "objId",
+                        order: [0, "asc"],
+                        columns: [
+                            {
+                                title: "<input type='checkbox' class='select-all' />", // Select all checkbox
+                                data: null,
+                                defaultContent: "<input type='checkbox' class='row-checkbox' />", // Row checkbox
+                                orderable: false,
+                                searchable: false,
+                                width: "5%",
+                            },
+                        
+                            { title:"ID",data: "objId",  width: "5%" ,visible: false},
+                            { title: "Code", data: "code" },
+                            { title: "Description", data: "description" },
+                        ],
+                        select: {
+                            style: "os",
+                            selector: "td:not(:first-child)",
+                        },
+                    });
+
+                  // Initialize copy-obj-table
+                    var selectedTable = $("#copy-obj-table").DataTable({
+                        order: [[1, 'desc']],
+                        columns: [
+                            { title: "ID", data: "objId", width: "5%" },
+                            { title: "Code", data: "code",  autoWidth: false},
+                            { title: "Object", data: "description" },
+                            { title: "Area", data: "area" },
+                            {
+                                title: "Action",
+                                data: null,
+                                defaultContent: '<button class="btn delete-obj btn-default "> <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                                targets: -1,
+                                width: "15%",
+                            },
+                        ],
+                    });
+
+                     // Select all functionality for the header checkbox
+                    $('#obj-table').on('click', '.select-all', function () {
+                        var rows = compTable.rows({ 'search': 'applied' }).nodes();
+                        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                    });
+
+                    $('#obj-table tbody').on('change', 'input[type="checkbox"]', function() {
+                        if (!this.checked) {
+                            var el = $('.select-all').get(0);
+                            if (el && el.checked && ('indeterminate' in el)) {
+                                el.indeterminate = true;
+                            }
+                        }
+                    });
+
+                    // Add copy button handler
+                    $("#copy-button").on("click", function () {
+                        var rows_selected = compTable.rows().nodes();
+                        var selectedData = [];
+                        var rowsToRemove = [];
+
+                        var areaId = $('#area-select').val();
+                        var areaName = $('#area-select option:selected').text();
+
+                        $('input[type="checkbox"]:checked', rows_selected).each(function() {
+                            var row = $(this).closest('tr');
+                            var rowData = compTable.row(row).data();
+                            
+                            console.log(rowData)
+                            var exist = false;
+                            selectedTable.rows().every(function(){
+                                var data = this.data();
+                                if(data.objId === rowData.objId){
+                                    exist = true;
+                                    return false;    
+                                }   
+                                return true;
+                            });
+
+                            if(exist){
+                                alert('Item already exists');
+                            } else {
+                                rowData.area = areaName;
+                                selectedData.push(rowData);
+                                rowsToRemove.push(row); 
+                            }
+                            
+                            $('input[type="checkbox"]').prop('checked', false);
+                        });
+                         // Add selected data to the selectedTable
+                         selectedTable.rows.add(selectedData).draw();
+
+                        // Remove selected rows from the compTable
+                        $(rowsToRemove).each(function() {
+                            compTable.row(this).remove();
+                        });
+                        compTable.draw(); 
+                    });
+       
+                         // Handle delete row functionality and add the row back to compTable
+                    $('#copy-obj-table tbody').on('click', '.delete-obj', function() {
+                        var row = $(this).closest('tr');
+                        var rowData = selectedTable.row(row).data();
+                        console.log(rowData)
+                        compTable.row.add(rowData).draw();
+                        selectedTable.row(row).remove().draw();
+                    });
             });
-        }
 
-        // Initialize the target table
-        var targetTable = $('#targetTable').DataTable({
-            columns: [
-                { title: "ID", data: 'ID' },
-                { title: "CODE", data: 'CODE' },
-                { title: "AREA", data: 'AREA' },
-                { title: "OBJECTS", data: 'OBJECTS' },
-                { title: "INDICATORS", data: 'INDICATORS' }
-            ]
-        });
 
-        // Attach the copy function to the button
-        $("#copyCheckedButton").click(function() {
-            copyCheckedRows();
-        });
-    });
 
-</script>
+   </script>
 	{% endblock %}

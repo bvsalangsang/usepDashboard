@@ -512,7 +512,6 @@ def refDeleteParams(request,id):
         return JsonResponse ({"Error":err}) 
 
 
-
 #template 
 def stratTemplateListView(request):
     return render(request, 'themes/strat-template-list.html')
@@ -540,6 +539,12 @@ def stratTemplateView(request):
     form = stratTempForm()
     areaList = stratArea.objects.raw(fetchArea())
     return render(request, 'themes/strat-template.html',{'form':form,'areaList':areaList})
+
+def stratTemplateView1(request):
+    form = stratTempForm()
+    areaList = stratArea.objects.raw(fetchArea())
+    return render(request, 'themes/strat-template-1.html',{'form':form,'areaList':areaList})
+
 
 def stratRawJsonList(request):
     with connection.cursor() as cursor:
@@ -676,13 +681,6 @@ def saveTemplateParams(request):
                 stratTempDetParams['isActive']  = 'Y'
                 
                 cursor.execute(insertStratTempDet(**stratTempDetParams))
-                # Replace with your actual query
-                # insert_query = """
-                # INSERT INTO your_table_name (indId, description, obj, area, tempId, tempName)
-                # VALUES (%s, %s, %s, %s, %s, %s)
-                # """
-                # cursor.execute(insert_query, [ind_id, description, obj, area, temp_id, temp_name])
-            
             connection.commit()
             return JsonResponse({"Status": "Saved"})
 

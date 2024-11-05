@@ -1,0 +1,251 @@
+{% extends 'dashSiteApp/base.html' %} {% load static %} {% block body %}
+
+<div class="content-wrapper">
+	<section class="content">
+		<!-- Carousel Start -->
+		<div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
+			<div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img
+							class="w-100 custom-height"
+							src="{% static 'dashSiteApp/img/carousel-2.jpg' %}"
+							alt="Image"
+						/>
+						<div class="carousel-caption">
+							<div class="container">
+								<div class="row justify-content-center">
+									<div class="col-lg-10">
+										<h1 class="display-2 text-light mb-5 animated slideInDown">
+											University Dashboard
+										</h1>
+										<a href="#" class="btn btn-primary py-sm-3 px-sm-5"
+											>Learn More</a
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button
+					class="carousel-control-prev"
+					type="button"
+					data-bs-target="#header-carousel"
+					data-bs-slide="prev"
+				>
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button
+					class="carousel-control-next"
+					type="button"
+					data-bs-target="#header-carousel"
+					data-bs-slide="next"
+				>
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+		<!-- Carousel End -->
+
+		<!-- About Start -->
+		<div class="container-xxl py-6">
+			<div class="container">
+				<div class="row g-5">
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="h-100">
+							<!-- <h6 class="text-primary text-uppercase mb-2">About Us</h6> -->
+							<h1 class="display-6 mb-4">COMMITMENTS</h1>
+							<p>
+								As education is critical in promoting and assisting the
+								achievement of the SDGs, USeP responds to the call of the United
+								Nations on the localization of the Sustainable Development Goals
+								through various initiatives aimed at alleviating poverty,
+								promoting sustainable agriculture, and providing equitable,
+								high-quality, and lifelong learning.
+							</p>
+							<p>
+								It may also build resilient infrastructure and gender-responsive
+								programs and projects, ensure sustainable consumption and
+								production patterns, combat climate change and its impact,
+								promote sustainable land resources, and promote peace and order.
+							</p>
+							<div class="row g-4">
+								<div class="col-lg-12">
+									<a class="btn btn-primary py-3 px-5" href="about.html"
+										>Read More</a
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+						<div class="commitment-img">
+							<img
+								src="{% static 'dashSiteApp/img/sir-boni-crop.png' %}"
+								alt=""
+								class="pres-img"
+							/>
+							<img
+								class="position-absolute top-0 start-0 pe-3 pb-3"
+								src="{% static 'dashSiteApp/img/usep-logo.png' %}"
+								alt=""
+								style="width: 200px; height: 200px"
+							/>
+						</div>
+						<div class="bg-white shadow text-center p-4">
+							<h5>Dr. Bonifacio G. Gabales, Jr.</h5>
+							<p class="m-0">SUC President IV</p>
+							<p class="m-0">University of Southeastern Philippines</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- About End -->
+
+		<!-- HOME -->
+		<div class="container-xxl py-6">
+			<div class="container">
+				<div class="row g-5">
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="graph-img">
+							<img src="{% static 'dashSiteApp/img/graph.png' %}" alt="graph" />
+						</div>
+					</div>
+
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="h-100">
+							<!-- <h6 class="text-primary text-uppercase mb-2">HOME</h6> -->
+							<h1 class="display-6 mb-4">University Dashboard</h1>
+							<p>
+								The University of Southeastern Philippines (USeP) Dashboard was
+								intended for monitoring and evaluation of the actual operations
+								of the university.
+							</p>
+							<p>
+								These include information about enrollment, students, faculty
+								and staff, and the University's physical and financial status.
+							</p>
+							<p>
+								The University dashboard is categorized into three areas:
+								Operational Dashboard, Strategic Dashboard, and Analytical
+								Dashboard.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Home End -->
+
+		<!-- Sustainability Start -->
+		<div class="container-xxl py-6">
+			<div class="container">
+				<div
+					class="text-center mx-auto mb-5 wow fadeInUp"
+					data-wow-delay="0.1s"
+					style="max-width: 500px"
+				>
+					<!-- <h6 class="text-primary text-uppercase mb-2">Meet The Team</h6> -->
+					<h1 class="display-6 mb-4">Dashboard Categories</h1>
+				</div>
+				<div class="row g-0 team-items">
+					<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-sustain"
+									src="{% static 'dashSiteApp/img/analytics.jpg' %}"
+									alt=""
+								/>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="{% url  'analytics' %}"
+									>
+										<span class="px-3">Read More</span>
+									</a>
+								</div>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5 class="mt-2">Analytics</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-sustain"
+									src="{% static 'dashSiteApp/img/gad.jpg' %}"
+									alt=""
+								/>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="{% url  'gad' %}"
+									>
+										<span class="px-3">Read More</span>
+									</a>
+								</div>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5 class="mt-2">Gender and Development</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-sustain"
+									src="{% static 'dashSiteApp/img/ludip.jpg' %}"
+									alt=""
+								/>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="{% url  'ludip' %}"
+									>
+										<span class="px-3">Read More</span>
+									</a>
+								</div>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5 class="mt-2">LUDIP</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+						<div class="team-item position-relative">
+							<div class="position-relative">
+								<img
+									class="img-fluid img-sustain"
+									src="{% static 'dashSiteApp/img/scorecard.jpg' %}"
+									alt=""
+								/>
+								<div class="team-social text-center">
+									<a
+										class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
+										href="{% url  'scorecard' %}"
+									>
+										<span class="px-3">Read More</span>
+									</a>
+								</div>
+							</div>
+							<div class="bg-light text-center p-4">
+								<h5 class="mt-2">Scorecard</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Sustainability End -->
+	</section>
+</div>
+
+{% include 'dashSiteApp/includes/footer.html' %} {% endblock %}
