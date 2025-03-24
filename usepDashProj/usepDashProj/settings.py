@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$yb=waacn1gj6+asgrr!@$dz15*)1+hbz^g#%8q%z8#7j!9cxu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -88,11 +88,23 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    #For Local
+    #  "default": {
+    #     "ENGINE": 'django.db.backends.mysql',
+    #     "NAME": 'usep_dashboard',
+    #     "USER": 'dash',
+    #     "PASSWORD": 'Usepdash@101',
+    #     "HOST": 'localhost',
+    #     "PORT": '3306',
+    # }
+
+    #For Ubuntu
+        # FOR ubuntu
      "default": {
         "ENGINE": 'django.db.backends.mysql',
         "NAME": 'usep_dashboard',
         "USER": 'dash',
-        "PASSWORD": 'Usepdash@101',
+        "PASSWORD": 'SDMD@ipd101',
         "HOST": 'localhost',
         "PORT": '3306',
     }
@@ -135,15 +147,14 @@ USE_TZ = True
 
 # old on my local server
 STATIC_URL = 'static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static'),
-   ]
+# STATICFILES_DIRS=[
+#     os.path.join(BASE_DIR,'static'),
+#    ]
 
 #on ubuntu server
 # STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/') 
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
